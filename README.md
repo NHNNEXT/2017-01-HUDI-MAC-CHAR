@@ -4,3 +4,4 @@ test
 bbq923 test
 
 android : 변지민
+iOS : 권용재
