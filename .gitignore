@@ -1,6 +1,16 @@
-.gradle
+# Build output
+target/
+build/
+out/
+
+# Gradle
+/.gradle/
 /build/
 !gradle/wrapper/gradle-wrapper.jar
+
+# Package Files
+*.jar
+*.war
 
 ### STS ###
 .apt_generated
@@ -15,11 +25,3 @@
 *.iws
 *.iml
 *.ipr
-
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
