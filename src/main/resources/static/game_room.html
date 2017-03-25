@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Mafia game room">
+    <meta name="viewport" content="width=device-width">
+    <title>GameRoom</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/game_room.css">
+  </head>
+  <body>
+    <header>
+      <div id="logo">
+        <img src="img/login_title.png" alt="mafia_logo">
+      </div>
+      <nav>나가기</nav>
+    </header>
+    <section id="container">
+      
+      <section id="top_container" class="flexible">
+        <section class="left_container">
+          <div class="slot_box">
+            <ul class="flexible">
+              <li class="slot_layout">
+                <div class="player_description">
+                  <img src="img/citizen.png" alt="player_profile">
+                  <div class="player_name">bbq923</div>
+                  <div class="player_status">READY</div>
+                </div>
+              </li>
+              <li class="slot_layout">
+                <div class="player_description">
+                  <img src="img/citizen.png" alt="player_profile">
+                  <div class="player_name">jbee</div>
+                  <div class="player_status player_not_ready">READY</div>
+                </div>
+              </li>
+              <li class="slot_layout">
+                <div class="player_description">
+                  <img src="img/citizen.png" alt="player_profile">
+                  <div class="player_name">jbee</div>
+                  <div class="player_status player_not_ready">READY</div>
+                </div>
+              </li>
+              <li class="slot_layout">
+                <div class="player_description">
+                  <img src="img/citizen.png" alt="player_profile">
+                  <div class="player_name">jbee</div>
+                  <div class="player_status player_not_ready">READY</div>
+                </div>
+              </li>
+            </ul>
+            <ul class="flexible">
+              <li class="slot_layout">
+                <div class="player_description">
+                  <img src="img/citizen.png" alt="player_profile">
+                  <div class="player_name">jbee</div>
+                  <div class="player_status player_not_ready">READY</div>
+                </div>
+              </li>
+              <li class="slot_layout">
+                <div class="player_description">
+                  <img src="img/citizen.png" alt="player_profile">
+                  <div class="player_name">jbee</div>
+                  <div class="player_status player_not_ready">READY</div>
+                </div>
+              </li>
+              <li class="slot_layout">
+                <div class="player_description">
+                  <img src="img/citizen.png" alt="player_profile">
+                  <div class="player_name">jbee</div>
+                  <div class="player_status player_not_ready">READY</div>
+                </div>
+              </li>
+              <li class="slot_layout">
+                <div class="player_description">
+                  <img src="img/citizen.png" alt="player_profile">
+                  <div class="player_name">jbee</div>
+                  <div class="player_status player_not_ready">READY</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section class="right_container">
+          <div id="game_status" class="right_container_top_elm_layout elm_background_style">
+            Ready
+          </div>
+          <div id="timer" class="right_container_bottom_elm_layout">
+            00:00
+          </div>
+        </section>
+      </section>
+      
+      <section id="bottom_container" class="flexible">
+        <section class="left_container">
+          <textarea name="" id="chatting_history" rows="24"></textarea>
+          <div id="chatting_input">
+            <input type="text" id="chat">
+          </div>
+        </section>
+        
+        <section class="right_container">
+          <div id="player_role" class="right_container_top_elm_layout elm_background_style">
+            <div id="player_role_description">당신은 <span>마피아</span> 입니다.</div>
+          </div>
+          <div id="player_mission" class="right_container_bottom_elm_layout elm_background_style">
+            <div id="player_mission_title">Mission</div>
+            <div id="player_mission_description">
+              동료와 함께 작당하여 밤에 시민들을 죽이세요. 자신의 신분을 들키지 않는 것이 무엇보다 중요합니다!
+            </div>
+          </div>
+        </section>
+      </section>
+    </section>
+    <footer>
+    </footer>
+    <script src="js/main.js"></script>
+  </body>
+</html>
