@@ -15,4 +15,9 @@ public class MainController {
     public String mainPage() {
         return "index.html";
     }
+
+    @GetMapping("/game")
+    public String gamePage() {
+        return "game_room.html";
+    }
 }
