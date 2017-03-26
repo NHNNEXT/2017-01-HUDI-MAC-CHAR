@@ -1,0 +1,108 @@
+body {
+  background-image: url(/img/background_login.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+ 
+.input_form {
+  width: 300px;
+  margin: 40px auto;
+  background-color: rgba(3,3,3,0.7);
+  padding: 40px 20px;
+  border: 8px solid #444;
+  border-radius: 10px;
+}
+ 
+.input_form .field {
+  padding: 5px;
+  border-radius: 3px;
+  margin-bottom: 9px;
+}
+ 
+.input_form .field input {
+  border: 4px solid #fa7f2d;
+  display: block;
+  width: 277px;
+  padding: 5px;
+  font-size: 19px;
+  font-family: Helvetica Neue;
+  font-weight: 200;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.25);
+  color: #ebf0f0;
+}
+ 
+::-webkit-input-placeholder { /* Chrome */
+  color: #AAA;
+}
+ 
+.input_form .field input:focus {
+  outlines: none;
+  color: #ebf0f0;
+}
+ 
+.input_form .field.with_btn {
+  width: 200px;
+  display: inline-block;
+}
+ 
+.input_form .field.with_btn input {
+  width: 188px;
+}
+ 
+.input_form button {
+  border: none;
+  width: 81px;
+  height: 46px;
+  margin-left: 9px;
+  float: right;
+  border-radius: 3px;
+  background: linear-gradient(#70787e, #4b545b);
+  text-transform: uppercase;
+  font-family: Helvetica, Neue;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #11161a;
+  text-shadow: 0 1px 0 #727980;
+  box-shadow: 0 3px 3px #222, inset 0 1px 0 #a8a8a8;
+}
+ 
+.input_form button:hover {
+  background: linear-gradient(#70787e, #545a5e);
+}
+ 
+.input_form button:active {
+  background: linear-gradient(#545e61, #545a5e);
+}
+ 
+.message {
+  clear: both;
+  font-family: Helvetica Neue;
+  color: #bbb;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 20px;
+}
+ 
+.message a {
+  color: #bbb;
+  text-decoration: none;
+  border-bottom: 1px dotted #bbb;
+}
+ 
+.message a:hover {
+  color: #ddd;
+  border-bottom-color: #ddd;
+}
+ 
+.logo {
+  margin: 0;
+}
+ 
+.logo img {
+  width: 600px;
+  margin: 0 auto; 
+  display: block; 
+}
