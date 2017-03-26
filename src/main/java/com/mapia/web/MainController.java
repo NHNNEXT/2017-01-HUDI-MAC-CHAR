@@ -20,4 +20,14 @@ public class MainController {
     public String gamePage() {
         return "game_room.html";
     }
+    
+    @GetMapping("/login")
+    public String loginPage() {
+    	return "login_page.html";
+    }
+    
+    @GetMapping("/signup")
+    public String signUpPage() {
+    	return "signup_page.html";
+    }
 }
