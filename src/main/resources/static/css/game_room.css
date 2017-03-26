@@ -4,13 +4,13 @@ header {
   background-color: #000;
 }
 
-#logo {
+.logo {
   float: left;
   margin-top: 24px;
   margin-left: 24px;
 }
 
-#logo img {
+.logo img {
   width: 128px;
 }
 
@@ -92,7 +92,7 @@ footer {
 }
 
 /* top_right_container */
-#game_status {
+.game_status {
   text-align: center;
   font-size: 32px;
   padding-top: 24px;
@@ -100,14 +100,14 @@ footer {
   transition: all 1s;
 }
 
-#game_status:hover {
+.game_status:hover {
   background-color: rgba(255, 255, 255, 0);
   color: #C80006;
   cursor: pointer;
   transition: all 1s;
 }
 
-#timer {
+.timer {
   margin: auto;
   padding-top: 72px;
   text-align: center;
@@ -117,17 +117,17 @@ footer {
 }
 
 /* bottom_left_container */
-#chatting_history {
+.chatting_history {
   margin: 8px;
   width: 98%;
   opacity: .5;
 }
 
-#chatting_input {
+.chatting_input {
   margin-bottom: 12px;
 }
 
-#chat {
+.chat {
   margin-left: 8px;
   width: 98%;
   height: 24px;
@@ -135,19 +135,19 @@ footer {
 }
 
 /* bottom_right_container */
-#player_role_description {
+.player_role_description {
   margin: auto;
   text-align: center;
   font-size:18px;
   padding: 30px;
 }
 
-#player_role_description span {
+.player_role {
   color: #C80006;
   font-weight: bolder;
 }
 
-#player_mission_title {
+.player_mission_title {
   padding: 12px;
   background-color: #FFF;
   color: #C80006;
@@ -156,7 +156,7 @@ footer {
   font-weight: bolder;
 }
 
-#player_mission_description {
+.player_mission_description {
   margin: auto;
   padding: 12px;
   width: 240px;
