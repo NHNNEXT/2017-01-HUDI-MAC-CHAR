@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MafiaOnline</string>
+
+    <string name="title_activity_room_list">roomListActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
