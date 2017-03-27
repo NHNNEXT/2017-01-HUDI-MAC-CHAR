@@ -26,3 +26,4 @@ out/
 *.iws
 *.iml
 *.ipr
+/bin/
