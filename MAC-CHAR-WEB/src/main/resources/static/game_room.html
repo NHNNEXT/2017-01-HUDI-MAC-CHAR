@@ -94,9 +94,9 @@
       
       <section id="bottom_container" class="flexible">
         <section class="left_container">
-          <textarea name="" class="chatting_history" rows="24"></textarea>
+          <textarea id="chatOutput" name="" class="chatting_history" rows="24"></textarea>
           <div class="chatting_input">
-            <input type="text" class="chat">
+            <input id="chatInput" type="text" class="chat">
           </div>
         </section>
         
@@ -115,6 +115,9 @@
     </section>
     <footer>
     </footer>
+    <script src="/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/socket.js"></script>
   </body>
 </html>
