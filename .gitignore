@@ -6,7 +6,7 @@ out/
 # Gradle
 /build/
 /.gradle/
-HUDI-MAC-CHAR-WEB/.gradle/
+MAC-CHAR-WEB/.gradle/
 !gradle/wrapper/gradle-wrapper.jar
 
 # Package Files
