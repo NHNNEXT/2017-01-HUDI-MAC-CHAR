@@ -4,8 +4,9 @@ build/
 out/
 
 # Gradle
-/.gradle/
 /build/
+/.gradle/
+HUDI-MAC-CHAR-WEB/.gradle/
 !gradle/wrapper/gradle-wrapper.jar
 
 # Package Files
@@ -26,4 +27,7 @@ out/
 *.iws
 *.iml
 *.ipr
+
 /bin/
+
+### MAC OS
