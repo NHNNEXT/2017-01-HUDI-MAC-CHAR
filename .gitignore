@@ -3,10 +3,15 @@ target/
 build/
 out/
 
+#Webpack
+WEB-MAC-CHAR/node_modules/*
+WEB-MAC-CHAR/src/main/resources/static/bundle.*
+WEB-MAC-CHAR/src/main/resources/static/common.*
+
 # Gradle
 /build/
 /.gradle/
-MAC-CHAR-WEB/.gradle/
+WEB-MAC-CHAR/.gradle/
 !gradle/wrapper/gradle-wrapper.jar
 
 # Package Files
@@ -31,3 +36,5 @@ MAC-CHAR-WEB/.gradle/
 /bin/
 
 ### MAC OS
+.DS_Store
+
