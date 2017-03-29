@@ -1,0 +1,34 @@
+{
+  "name": "web-mac-char",
+  "version": "1.0.0",
+  "description": "mafia project",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --progress --inline",
+    "watch": "webpack -d --watch",
+    "dev": "webpack -d",
+    "prod": "webpack -p",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
+    "eslint": "^3.11.1",
+    "eslint-loader": "^1.6.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.10.1",
+    "sockjs-client": "^1.1.2",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^2.3.1",
+    "webstomp-client": "^1.0.6"
+  },
+  "devDependencies": {
+    "css-loader": "^0.27.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "style-loader": "^0.16.1",
+    "webpack": "^1.14.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

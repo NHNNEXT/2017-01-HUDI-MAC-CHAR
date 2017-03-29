@@ -1,3 +1,6 @@
+import SockJS from 'sockjs-client';
+import Stomp from 'webstomp-client';
+
 document.addEventListener("DOMContentLoaded", function() {
     WebSocket.init();
 });
@@ -13,11 +16,9 @@ let WebSocket = (function() {
         stompClient = Stomp.over(socket);
         console.log("stompClient: ", stompClient);
         stompClient.connect({}, function (frame) {
-            console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/roomId', function (greeting) {
-                console.log(greeting);//ack, header, destination, messageId, body
-                console.log(JSON.parse(greeting.body).content);//{"content":"gi"}.content
-                printMessage(JSON.parse(greeting.body).content);
+            console.log("Connected: " + frame);
+            stompClient.subscribe("/topic/roomId", function (message) {
+                printMessage(JSON.parse(message.body).content);
             });
         });
     }
@@ -34,13 +35,19 @@ let WebSocket = (function() {
             clear(inputElm);
         }
     }
+    function sendMessage(text) {
+        stompClient.send("/app/hello", JSON.stringify({"content": text}));
+    }
+
+    function disconnect() {
+        if (stompClient != null) {
+            stompClient.disconnect();
+        }
+        console.log("Disconnected");
+    }
 
     function clear(input) {
         input.value = "";
-    }
-
-    function sendMessage(text) {
-        stompClient.send("/app/hello", {}, JSON.stringify({'content': text}));
     }
 
     function init() {
@@ -51,3 +58,5 @@ let WebSocket = (function() {
         init : init
     }
 })();
+
+export default 'socket';

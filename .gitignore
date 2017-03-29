@@ -7,7 +7,7 @@ out/
 WEB-MAC-CHAR/node_modules/*
 WEB-MAC-CHAR/src/main/resources/static/bundle.*
 WEB-MAC-CHAR/src/main/resources/static/common.*
-
+WEB-MAC-CHAR/src/main/resources/static/images/
 # Gradle
 /build/
 /.gradle/
