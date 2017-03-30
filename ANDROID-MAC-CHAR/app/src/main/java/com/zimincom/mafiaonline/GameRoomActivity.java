@@ -24,7 +24,11 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     MessageItem messageItem;
     Button sendButton;
     EditText messageInput;
+    TextView textView;
     LinearLayout messageContainer;
+
+    final public String socketLink = "ws://1.255.56.109:8080/websockethandler/websocket";
+   // final public String socketLink = "ws://192.168.1.222:8080/websockethandler/websocket";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +40,34 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         messageInput = (EditText) findViewById(R.id.message_input);
         messageContainer =(LinearLayout)findViewById(R.id.messages_container);
 
-        mStompClient = Stomp.over(WebSocket.class,"ws://192.168.1.222:8080/websockethandler/websocket");
+
+        mStompClient = Stomp.over(WebSocket.class,socketLink);
         mStompClient.connect();
 
 
         mStompClient.topic("/topic/roomId").subscribe(topicMessage -> {
-            TextView textView = new TextView(this);
-            textView.setText(topicMessage.getPayload());
 
-            Log.d("MainActivity", topicMessage.getPayload());
-            messageContainer.addView(textView);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textView = new TextView(getApplicationContext());
+                    MessageItem messageItem = gson.fromJson(topicMessage.getPayload(),MessageItem.class);
+
+                    textView.setText(messageItem.content);
+
+                    Log.d("MainActivity", topicMessage.getPayload());
+
+                    messageContainer.addView(textView);
+                }
+            });
+
+
         });
 
         gson = new Gson();
 
-
-
         sendButton.setOnClickListener(this);
+
 
 
 
@@ -60,14 +75,14 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
 
     public void send(String message){
-        MessageItem messageItem = new MessageItem(message);
-        mStompClient.send("/app/hello",gson.toJson(new MessageItem("hello"))).subscribe();
+        mStompClient.send("/app/hello", gson.toJson(new MessageItem(message))).subscribe();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mStompClient = Stomp.over(WebSocket.class,"ws://192.168.1.222:8080/websockethandelr/websocket");
+        mStompClient = Stomp.over(WebSocket.class,socketLink);
         mStompClient.connect();
     }
 

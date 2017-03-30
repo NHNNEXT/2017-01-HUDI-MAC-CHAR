@@ -7,14 +7,20 @@
     tools:context="com.zimincom.mafiaonline.GameRoomActivity">
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-   <LinearLayout
-       android:id="@+id/messages_container"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/messages_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:orientation="vertical">
 
-   </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 
     <Button
         android:id="@+id/send_button"
@@ -27,10 +33,13 @@
     <EditText
         android:id="@+id/message_input"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="40dp"
         android:layout_toLeftOf="@+id/send_button"
+        android:layout_alignBaseline="@+id/send_button"
         android:layout_alignParentBottom="true"
-        android:background="#444444"
+        android:hint="메시지를 입력하세요"
+        android:textColorHint="#000000"
+        android:textColorHighlight="@color/black_overlay"
         android:textColor="#000000"/>
 
 
