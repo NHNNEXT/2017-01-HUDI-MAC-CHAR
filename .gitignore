@@ -12,6 +12,7 @@ WEB-MAC-CHAR/src/main/resources/static/images/
 /build/
 /.gradle/
 WEB-MAC-CHAR/.gradle/
+ANDROID-MAC-CHAR/.gradle/
 !gradle/wrapper/gradle-wrapper.jar
 
 # Package Files
