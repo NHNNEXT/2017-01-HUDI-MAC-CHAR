@@ -30,9 +30,4 @@ public class LoginResult implements Result {
 	public static LoginResult invalidPassword(String errorMessage) {
 		return new LoginResult(Status.InvalidPassword, errorMessage);
 	}
-	
-	// 이건 언제 써야 할까? 쓸일이 생길 수 있을까?
-	public static LoginResult unexpectedError(String errorMessage) {
-		return new LoginResult(Status.Error, errorMessage);
-	}
 }

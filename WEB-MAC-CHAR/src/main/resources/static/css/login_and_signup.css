@@ -77,6 +77,11 @@ body {
   background: linear-gradient(#545e61, #545a5e);
 }
 
+.input_form button:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
 .message {
   clear: both;
   font-family: Helvetica Neue;
@@ -106,3 +111,10 @@ body {
   margin: 0 auto; 
   display: block; 
 }
+
+.display_error {
+  color: red;
+  padding-bottom: 0px;
+  display: block;
+}
+

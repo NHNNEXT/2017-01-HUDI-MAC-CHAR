@@ -1,36 +1,28 @@
 package com.mapia.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class User {
-	private String id;
+	private Long id;
 	private String email;
 	private String password;
 	private String nickname;
 	
-	public User (String id, String email, String password, String nickname) {
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.nickname = nickname;
+	public User(){} // default constructor
+
+	public User(ResultSet rs) throws SQLException {
+		this.id = rs.getLong("id");
+		this.email = rs.getString("email");
+		this.password = rs.getString("password");
+		this.nickname = rs.getString("nickname");
 	}
-	
-	public User (String email, String password, String nickname) {
-		this.email = email;
-		this.password = password;
-		this.nickname = nickname;
-	}
-	
-	public User (String email, String password) {
-		this.email = email;
-		this.password = password;
-	}
-	
-//	public User(){} // default constructor
-	
-	public String getUserId() {
+
+	public Long getId() {
 		return id;
 	}
 	
-	public void setUserId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

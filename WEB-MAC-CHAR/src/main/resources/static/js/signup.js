@@ -1,46 +1,44 @@
 let signup = (function(){
-	let passwordInputs = document.querySelectorAll('input[type="password"]');
-	let button = document.querySelector("#signup_form > button");
+	let button = document.querySelector("#signup_button");
+	const loginPage = "/login";
 	
 	function validation() {
-		let password = document.querySelector("#signup_form > div:nth-child(2) > input").value;
-		let passwordConfirm = document.querySelector("#signup_form > div:nth-child(3) > input").value;
-		if (password === passwordConfirm) {
-			button.disabled = false;
-			button.style.opacity = "1";
-			button.style.cursor = "pointer";
-		} else {
-			button.disabled = true;
-			button.style.opacity = ".3";
-			button.style.cursor = "default";
-		}
+		let password = document.querySelector("#password").value;
+		let passwordConfirm = document.querySelector("#password_confirm").value;
+		password === passwordConfirm ? button.disabled = false : button.disabled = true;
 	}
 	
 	function trySignup(e) {
 		e.preventDefault();
 		
-		let url = document.querySelector('#signup_form').getAttribute("action");
-		let userInputs = document.querySelectorAll('[name]');
+		let url = document.querySelector("#signup_form").getAttribute("action");
+		let userInputs = document.querySelectorAll("[name]");
 		let jsonString = JSON.stringify({"email" : userInputs[0].value,
 										 "password" : userInputs[1].value,
 										 "nickname" : userInputs[2].value});
 		
 		$.ajax({
-			type: 'post',
+			type: "post",
 			url: url,
 			data : jsonString,
-			contentType: 'application/json',
-			dataType: 'json',
+			contentType: "application/json",
+			dataType: "json",
 			error: onError,
 			success: onSuccess
 		});
+	}
+	
+	function userNotify(errorMessage) {
+		let inputForm = document.querySelector(".input_form");
+		let notify = document.querySelector("#error_report");
+		notify.textContent = errorMessage;
 	}
 
 	function onSuccess(data, status) {
 		console.log(data);
 		
 		if (data.statusCode === "Ok") {
-			location.href="/login";
+			location.href=loginPage;
 		}
 		
 		if (data.statusCode === "EmailExists") {
@@ -52,18 +50,8 @@ let signup = (function(){
 		alert("error");
 	}
 	
-	// 회원 가입 실패시 사용자에게 원인을 알려준다.
-	function userNotify(errorMessage) {
-		console.log("noty called?");
-		let inputForm = document.querySelector('.input_form');
-		let notify = document.createElement('p');
-		notify.innerHTML = errorMessage;
-		notify.style.color = "red";
-		inputForm.style.paddingBottom = "0";
-		inputForm.appendChild(notify);
-	}
-	
 	function init() {
+		let passwordInputs = document.querySelectorAll("input[type=password]");
 		for (let inputBox of passwordInputs) {
 			inputBox.addEventListener("keyup", validation);
 		}

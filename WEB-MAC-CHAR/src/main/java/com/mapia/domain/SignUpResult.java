@@ -30,9 +30,4 @@ public class SignUpResult implements Result {
 	public static SignUpResult nicknameExist(String errorMessage) {
 		return new SignUpResult(Status.NicknameExists, errorMessage);
 	}
-	
-	// 이건 언제 써야 할까? 쓸일이 생길 수 있을까?
-	public static SignUpResult unexpectedError(String errorMessage) {
-		return new SignUpResult(Status.Error, errorMessage);
-	}
 }

@@ -1,11 +1,12 @@
 let login = (function(){
-	let button = document.querySelector("#login_form > button");
+	let button = document.querySelector("#login_button");
+	const roomPage = "/room";
 	
 	function tryLogin(e) {
 		e.preventDefault();
 		
-		let url = document.querySelector('#login_form').getAttribute("action");
-		let userInputs = document.querySelectorAll('[name]');
+		let url = document.querySelector("#login_form").getAttribute("action");
+		let userInputs = document.querySelectorAll("[name]");
 		let jsonString = JSON.stringify({"email" : userInputs[0].value,
 										 "password" : userInputs[1].value});
 		
@@ -13,11 +14,11 @@ let login = (function(){
 		console.log("jsonString : " + jsonString);
 		
 		$.ajax({
-			type: 'post',
+			type: "post",
 			url: url,
 			data : jsonString,
-			contentType: 'application/json',
-			dataType: 'json',
+			contentType: "application/json",
+			dataType: "json",
 			error: onError,
 			success: onSuccess
 		});
@@ -27,7 +28,7 @@ let login = (function(){
 		console.log(data);
 		
 		if (data.statusCode === "Ok") {
-			location.href="/room";
+			location.href=roomPage;
 		}
 		
 		if (data.statusCode === "EmailNotFound") {
@@ -45,12 +46,9 @@ let login = (function(){
 	
 	// 로그인 실패시 사용자에게 원인을 알려준다. Signup.js에도 같은 함수가 있는데 어떻게 뺄 수 있을까...
 	function userNotify(errorMessage) {
-		let inputForm = document.querySelector('.input_form');
-		let notify = document.createElement('p');
-		notify.innerHTML = errorMessage;
-		notify.style.color = "red";
-		inputForm.style.paddingBottom = "0";
-		inputForm.appendChild(notify);
+		let inputForm = document.querySelector(".input_form");
+		let notify = document.querySelector("#error_report");
+		notify.textContent = errorMessage;
 	}
 	
 	function init() {
@@ -65,5 +63,3 @@ let login = (function(){
 (function(){
 	login.init();
 })();
-
-
