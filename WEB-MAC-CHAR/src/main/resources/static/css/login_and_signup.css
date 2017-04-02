@@ -38,10 +38,10 @@ body {
 }
  
 .input_form .field input:focus {
-  outlines: none;
+  outline: none;
   color: #ebf0f0;
 }
- 
+
 .input_form .field.with_btn {
   width: 200px;
   display: inline-block;
@@ -76,7 +76,12 @@ body {
 .input_form button:active {
   background: linear-gradient(#545e61, #545a5e);
 }
- 
+
+.input_form button:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
 .message {
   clear: both;
   font-family: Helvetica Neue;
@@ -106,3 +111,10 @@ body {
   margin: 0 auto; 
   display: block; 
 }
+
+.display_error {
+  color: red;
+  padding-bottom: 0px;
+  display: block;
+}
+
