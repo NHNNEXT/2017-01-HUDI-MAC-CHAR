@@ -22,14 +22,12 @@ let signup = (function(){
 			url: url,
 			data : jsonString,
 			contentType: "application/json",
-			dataType: "json",
 			error: onError,
 			success: onSuccess
 		});
 	}
 	
 	function userNotify(errorMessage) {
-		let inputForm = document.querySelector(".input_form");
 		let notify = document.querySelector("#error_report");
 		notify.textContent = errorMessage;
 	}
@@ -38,7 +36,7 @@ let signup = (function(){
 		console.log(data);
 		
 		if (data.statusCode === "Ok") {
-			location.href=loginPage;
+			location.href = loginPage;
 		}
 		
 		if (data.statusCode === "EmailExists") {

@@ -18,7 +18,6 @@ let login = (function(){
 			url: url,
 			data : jsonString,
 			contentType: "application/json",
-			dataType: "json",
 			error: onError,
 			success: onSuccess
 		});
@@ -28,7 +27,7 @@ let login = (function(){
 		console.log(data);
 		
 		if (data.statusCode === "Ok") {
-			location.href=roomPage;
+			location.href = roomPage;
 		}
 		
 		if (data.statusCode === "EmailNotFound") {
@@ -46,7 +45,6 @@ let login = (function(){
 	
 	// 로그인 실패시 사용자에게 원인을 알려준다. Signup.js에도 같은 함수가 있는데 어떻게 뺄 수 있을까...
 	function userNotify(errorMessage) {
-		let inputForm = document.querySelector(".input_form");
 		let notify = document.querySelector("#error_report");
 		notify.textContent = errorMessage;
 	}

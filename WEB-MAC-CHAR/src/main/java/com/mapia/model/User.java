@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class User {
-	private Long id;
+	private long id;
 	private String email;
 	private String password;
 	private String nickname;
@@ -18,11 +18,11 @@ public class User {
 		this.nickname = rs.getString("nickname");
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
