@@ -2,9 +2,10 @@ package com.mapia.utils;
 
 import javax.servlet.http.HttpSession;
 
-import com.mapia.model.User;
+import com.mapia.domain.User;
 
-public class HttpSessionUtils {
+public class
+HttpSessionUtils {
 	public static final String USER_SESSION_KEY = "logined";
 	
 	public static boolean isLoginUser(HttpSession session) {
