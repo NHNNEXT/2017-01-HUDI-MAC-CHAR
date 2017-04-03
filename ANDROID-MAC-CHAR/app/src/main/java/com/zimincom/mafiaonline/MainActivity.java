@@ -10,7 +10,11 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.zimincom.mafiaonline.item.User;
+import com.zimincom.mafiaonline.remote.MafiaRemoteService;
+
+import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
     Button loginButton;
     Button signInButton;
 
-    private String userEmail = "admin";
-    private String userPassword = "admin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("mainact",email);
                 Log.i("mainact",password);
 
-                if (email.equals(userEmail)&&password.equals(userPassword)){
-
-                    Intent intent = new Intent(getApplicationContext(),RoomListActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(getApplicationContext(),"환영합니다 admin!!",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getApplicationContext(),"정확하지 않은 입력입니다",Toast.LENGTH_SHORT).show();
-                }
             }
 
 
@@ -88,10 +82,27 @@ public class MainActivity extends AppCompatActivity {
 
     void sendUserData(String userEmail,String userPassword){
 
-        String data = userEmail + userPassword;
-        Log.i("MainActivity",data);
+
+        String result = "";
+
+
+        User user = new User(userEmail,userPassword);
+
+        MafiaRemoteService mafiaRemoteService = MafiaRemoteService.retrofit.create(MafiaRemoteService.class);
+        Call<String> call = mafiaRemoteService.sendLoginInput(user);
+        try{
+             result = call.execute().body();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        Log.d("MainAct",result);
+
 
     }
+
+
+
     void startMainAnimation(){
         TranslateAnimation moveUpAnimation = new TranslateAnimation(0,0,0,-1000);
 

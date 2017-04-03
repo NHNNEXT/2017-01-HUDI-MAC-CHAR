@@ -3,6 +3,7 @@ package com.zimincom.mafiaonline;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.zimincom.mafiaonline.item.MessageItem;
 
 import org.java_websocket.WebSocket;
 
@@ -53,7 +55,12 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                     textView = new TextView(getApplicationContext());
                     MessageItem messageItem = gson.fromJson(topicMessage.getPayload(),MessageItem.class);
 
+                    //ViewGroup.LayoutParams params = textView.getLayoutParams();
+                    //params.height = 30;
                     textView.setText(messageItem.content);
+                    //textView.setLayoutParams(params);
+                    textView.setGravity(Gravity.CENTER);
+                    textView.setBackgroundResource(R.drawable.rsz_speech_bubble);
 
                     Log.d("MainActivity", topicMessage.getPayload());
 

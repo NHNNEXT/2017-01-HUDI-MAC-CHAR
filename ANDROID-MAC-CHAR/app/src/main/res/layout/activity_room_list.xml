@@ -34,7 +34,7 @@
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/background_main"
+            android:src="@drawable/room_back"
             android:scaleType="centerCrop"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
