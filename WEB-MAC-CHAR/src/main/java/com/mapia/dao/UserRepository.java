@@ -32,12 +32,12 @@ public class UserRepository {
 	}
 	
 	public int userInsert(User user) {
-		String query = "INSERT INTO user(email, password, nickname) VALUES (?,?,?)";
+		String query = "INSERT INTO User(email, password, nickname) VALUES (?,?,?)";
 		return jdbcTemplate.update(query, user.getEmail(), user.getPassword(), user.getNickname());
 	}
 	
 	public User findUserByNickname(String nickname) {
-		String query = "SELECT * FROM user WHERE nickname = ?";
+		String query = "SELECT * FROM User WHERE nickname = ?";
 		User resultUser;
 		try {
 			resultUser = jdbcTemplate.queryForObject(query, new Object[]{nickname}, new UserRowMapper());
