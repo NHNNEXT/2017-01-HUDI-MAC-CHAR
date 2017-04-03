@@ -1,0 +1,32 @@
+PODS:
+  - jetfire (0.1.2)
+  - SocketRocket (0.5.1)
+  - WebsocketStompKit (0.1.1):
+    - jetfire (= 0.1.2)
+
+DEPENDENCIES:
+  - SocketRocket (from `https://github.com/facebook/SocketRocket.git`)
+  - WebsocketStompKit (from `https://github.com/rguldener/WebsocketStompKit.git`)
+
+EXTERNAL SOURCES:
+  SocketRocket:
+    :git: https://github.com/facebook/SocketRocket.git
+  WebsocketStompKit:
+    :git: https://github.com/rguldener/WebsocketStompKit.git
+
+CHECKOUT OPTIONS:
+  SocketRocket:
+    :commit: 877ac7438be3ad0b45ef5ca3969574e4b97112bf
+    :git: https://github.com/facebook/SocketRocket.git
+  WebsocketStompKit:
+    :commit: ea57d8722e8bc1dd318c1de9328e882983a69d2c
+    :git: https://github.com/rguldener/WebsocketStompKit.git
+
+SPEC CHECKSUMS:
+  jetfire: 5e823aa9248d3de1fac2b7b6d9c6e31ab7d90f0c
+  SocketRocket: dbb1554b8fc288ef8ef370d6285aeca7361be31e
+  WebsocketStompKit: 31de925ffc7094b569dedcd4a9a4838e649e0860
+
+PODFILE CHECKSUM: 0ffb2be29040b13622e1418a9c65a6da465382ed
+
+COCOAPODS: 1.2.0
