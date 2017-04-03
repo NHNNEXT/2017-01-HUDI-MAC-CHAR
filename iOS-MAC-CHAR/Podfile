@@ -1,0 +1,4 @@
+target 'Mafia’ do
+pod 'WebsocketStompKit', :git => 'https://github.com/rguldener/WebsocketStompKit.git'
+pod 'SocketRocket’, :git => ‘https://github.com/facebook/SocketRocket.git'
+end
