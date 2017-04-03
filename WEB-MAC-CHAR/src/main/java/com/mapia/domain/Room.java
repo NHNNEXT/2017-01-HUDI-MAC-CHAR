@@ -2,15 +2,19 @@ package com.mapia.domain;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.format.datetime.joda.LocalDateTimeParser;
+
+import com.mapia.model.User;
 
 public class Room {
 	private Long id;
 	
 	private String title;
 	
-	private HashSet<User> userList;
+	private Set<User> users = new HashSet<>();
 	
 	private LocalDateTime madeTime;
 	
@@ -18,18 +22,18 @@ public class Room {
 	
 	public Room() {}
 	
-	public Room(Long id, String title) {
-		this.id = id;
+	public Room(Long roomId, String title) {
+		this.id = roomId;
 		this.title = title;
 	}
 	
 	public User enterRoom(User user){
-		this.userList.add(user);
+		this.users.add(user);
 		return user;
 	}
 	
 	public User outRoom(User user){
-		this.userList.remove(user);
+		this.users.remove(user);
 		return user;
 	}
 
@@ -37,20 +41,16 @@ public class Room {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getTitle() {
 		return title;
 	}
 	
-	public HashSet<User> getUserList() {
-		return userList;
+	public Set<User> getUserList() {
+		return users;
 	}
 
 	public void setUserList(HashSet<User> userList) {
-		this.userList = userList;
+		this.users = userList;
 	}
 
 	public LocalDateTime getMadeTime() {
