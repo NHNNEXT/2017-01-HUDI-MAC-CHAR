@@ -25,16 +25,11 @@ public class MainController {
         return "game_room.html";
     }
         
-    @GetMapping("room") 
-    public String waitingRoomPage() {
-    	return "waiting_room.html";
-    }
-    
     @GetMapping("login")
 	public String loginPage() {
 		return "login_page.html";
 	}
-    
+
     @GetMapping("signup")
 	public String signupPage() {
 		return "signup_page.html";
