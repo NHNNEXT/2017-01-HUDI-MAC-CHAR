@@ -62,6 +62,7 @@ public class RoomController {
 	
 	@PostMapping("")
 	public String create(String title) {
+        //TODO Add secret mode logic
 		Room room = new Room(roomId.incrementAndGet(), title);
 		log.info("Created RoomId: {}, title: {}", room.getId(), room.getTitle());
 		long roomId = room.getId();

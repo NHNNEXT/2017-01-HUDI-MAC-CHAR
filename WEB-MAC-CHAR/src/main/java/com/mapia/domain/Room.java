@@ -15,7 +15,7 @@ public class Room {
 		this.id = roomId;
 		this.title = title;
 	}
-	
+
 	public void enterRoom(User user){
         user.enterRoom();
 		this.users.add(user);

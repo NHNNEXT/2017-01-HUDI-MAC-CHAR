@@ -17,14 +17,9 @@ public class MainController {
 
     @GetMapping("")
     public String mainPage() {
-        return "index.html";
+        return "redirect:/login";
     }
 
-    @GetMapping("game")
-    public String gamePage() {
-        return "game_room.html";
-    }
-        
     @GetMapping("login")
 	public String loginPage() {
 		return "login_page.html";
