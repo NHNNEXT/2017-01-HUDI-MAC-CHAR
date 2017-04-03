@@ -10,7 +10,7 @@ import org.springframework.format.datetime.joda.LocalDateTimeParser;
 import com.mapia.model.User;
 
 public class Room {
-	private Long id;
+	private long id;
 	
 	private String title;
 	
@@ -22,7 +22,7 @@ public class Room {
 	
 	public Room() {}
 	
-	public Room(Long roomId, String title) {
+	public Room(long roomId, String title) {
 		this.id = roomId;
 		this.title = title;
 	}
@@ -37,7 +37,7 @@ public class Room {
 		return user;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 

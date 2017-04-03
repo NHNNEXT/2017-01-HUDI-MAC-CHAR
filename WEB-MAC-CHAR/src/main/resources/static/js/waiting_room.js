@@ -3,13 +3,14 @@ window.onload = () => {
 }
 
 function init() {
+	var dimmer = document.querySelector("#dimmer");
 	document.querySelector("#make_room").addEventListener("click", () => {
-		document.querySelector("#dimmer").style.display = "block";
+		dimmer.style.display = "block";
 		document.querySelector("#make_room_form").style.display = "block";
 	});
 
-	document.querySelector("#dimmer").addEventListener("click", () => {
-		document.querySelector("#dimmer").style.display = "none";
+	dimmer.addEventListener("click", () => {
+		dimmer.style.display = "none";
 		offModal();
 	});
 
@@ -19,9 +20,6 @@ function init() {
 		for (modal of modals) {
 			modal.style.display = "none";
 		}
-//		[].forEach.call(modals, (modal) => {
-//			modal.style.display = "none";
-//		});
 	}
 }
 

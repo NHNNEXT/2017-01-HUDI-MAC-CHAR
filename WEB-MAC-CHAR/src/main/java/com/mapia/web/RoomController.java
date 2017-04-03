@@ -17,15 +17,15 @@ import com.mapia.domain.Room;
 public class RoomController {
 	private static final Logger log = LoggerFactory.getLogger(RoomController.class);
 	
-	private static Map<Long, Room> rooms = new ConcurrentHashMap<>();
+	private Map<Long, Room> rooms = new ConcurrentHashMap<>();
 	private final AtomicLong roomId = new AtomicLong();
 	
 	@PostMapping("")
 	public String create(String title){
 		Room room = new Room(roomId.incrementAndGet(), title);
-		log.debug("%s. %s is MADE", room.getId(), room.getTitle());
+		log.info("{}. {} is MADE", room.getId(), room.getTitle());
 		rooms.put(room.getId(), room);
-		log.debug(rooms.toString());
+		log.info("{}", rooms.toString());
 		return "redirect:game_room.html?"+room.getId();
 	}
 }
