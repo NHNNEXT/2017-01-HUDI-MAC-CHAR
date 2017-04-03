@@ -1,11 +1,26 @@
-$(document).ready(function() {
-	$('#make_room').on("click", function() {
-		$('#dimmer').prop("style").display = "block";
-		$('#make_room_form').prop("style").display = "block";
+window.onload = () => {
+	init();
+}
+
+function init() {
+	var dimmer = document.querySelector("#dimmer");
+	document.querySelector("#make_room").addEventListener("click", () => {
+		dimmer.style.display = "block";
+		document.querySelector("#make_room_form").style.display = "block";
 	});
 
-	$('#dimmer').on("click", function() {
-		$(this).prop("style").display = "none";
-		$('.my_modal').prop("style").display = "none";
+	dimmer.addEventListener("click", () => {
+		dimmer.style.display = "none";
+		offModal();
 	});
-});
+
+	function offModal() {
+		var modals = document.querySelectorAll(".my_modal");
+		console.log(modals);
+		for (modal of modals) {
+			modal.style.display = "none";
+		}
+	}
+}
+
+

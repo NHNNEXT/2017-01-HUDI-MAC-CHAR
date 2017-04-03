@@ -1,2 +1,3 @@
-/bin/
-/src/test/
+bin/
+src/test/
+*.properties
