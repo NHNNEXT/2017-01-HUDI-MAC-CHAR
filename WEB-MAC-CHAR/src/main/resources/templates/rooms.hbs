@@ -65,17 +65,23 @@
     </div>
     <div class="rooms_list">
       <table class="table table-hover" id="rooms">
-        {{#rooms}}
         <tr>
-          <th>{{id}}</th>
-          <th><a href="/rooms/{{id}}">{{title}}</a></th>
-          <th>{{userCount}}/8</th>
-          {{#secretMode}}
-          <th>비밀방</th>
-          {{else}}
-          <th></th>
-          {{/secretMode}}
+          <th>NO</th>
+          <th>TITLE</th>
+          <th>CAPACITY</th>
+          <th>SECRET</th>
         </tr>
+        {{#rooms}}
+          <tr>
+            <td>{{id}}</td>
+            <td><a href="/rooms/{{id}}">{{title}}</a></td>
+            <td>{{userCount}}/8</td>
+            {{#secretMode}}
+            <td>비밀방</td>
+            {{else}}
+            <td></td>
+            {{/secretMode}}
+          </tr>
         {{/rooms}}
       </table>
     </div>
@@ -85,7 +91,7 @@
   <form action="/rooms" id="roomInfo" method="post">
     <div class="form-group">
       <label>방제목</label>
-      <input type="text" class="form-control" id="room_title" name="title" placeholder="방제목">
+      <input type="text" class="form-control" id="room_title" name="title" placeholder="방제목" autofocus>
     </div>
     <div class="form-group">
       <label>Password</label>
