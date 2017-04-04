@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 
 @interface LoginViewController ()
+
 @property (weak, nonatomic) IBOutlet UITextField *userEmailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UILabel *loginError;
@@ -18,7 +19,7 @@
 @implementation LoginViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+   [super viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,6 +46,7 @@
                                 @"password" : userPassword
                                 };
     
+
     [loginRequest setHTTPBody:[NSJSONSerialization dataWithJSONObject:loginData options:kNilOptions error:NULL]];
     
     NSHTTPURLResponse * loginResponse;
