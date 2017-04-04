@@ -23,10 +23,10 @@ import retrofit2.Response;
 
 import static com.zimincom.mafiaonline.remote.MafiaRemoteService.retrofit;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
 
-    Context context = MainActivity.this;
+    Context context = LoginActivity.this;
     ImageView logoImage;
     ImageView logoText;
     EditText emailInput;
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         signInButton.setOnClickListener(view ->  {
 
-                Intent intent = new Intent(getApplicationContext(),SignInActivity.class);
+                Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
                 startActivity(intent);
 
         });

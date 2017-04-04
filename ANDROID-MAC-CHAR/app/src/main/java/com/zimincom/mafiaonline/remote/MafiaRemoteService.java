@@ -24,8 +24,8 @@ public interface MafiaRemoteService {
     @POST("/api/login")
     Call<ResponseItem> sendLoginInput(@Body User user);
 
-    @POST("/api/signin")
-    Call<String> sendSigninInfo(@Body String nickName, String email, String password);
+    @POST("/api/signup")
+    Call<ResponseItem> sendSignUpInfo(@Body User user);
 
     @GET("/logout")
     Call<String> getLogout(@Body  String email, String password);
