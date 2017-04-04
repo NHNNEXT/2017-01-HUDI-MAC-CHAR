@@ -46,6 +46,18 @@ footer {
   background-color: #000;
 }
 
+.room_description {
+  margin: 0px 16px;
+  font-size: 24px;
+  color: #fff;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, .3);
+}
+
+.room_description span {
+  padding: 8px 8px;
+}
+
 /* common layout */
 .right_container_top_elm_layout {
   margin: 8px;
@@ -121,6 +133,7 @@ footer {
   margin: 8px;
   width: 98%;
   opacity: .5;
+  font-size: 18px;
 }
 
 .chatting_input {
@@ -128,7 +141,7 @@ footer {
 }
 
 .chat {
-  margin-left: 8px;
+  margin: 0px 8px;
   width: 98%;
   height: 24px;
   font-size: 24px;

@@ -4,12 +4,22 @@ package com.mapia.websocket;
  * Created by Jbee on 2017. 3. 28..
  */
 public class ClientMessage {
+    private String userName;
     private String content;
 
     public ClientMessage() {}
 
-    public ClientMessage(String content) {
+    public ClientMessage(String userName, String content) {
+        this.userName = userName;
         this.content = content;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getContent() {
