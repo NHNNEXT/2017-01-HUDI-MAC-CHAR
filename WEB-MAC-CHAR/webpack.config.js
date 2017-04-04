@@ -26,15 +26,15 @@ const common = {
                 query: {
                     presets: ['es2015']
                 }
-            },
-            {
-                test: /\.css$/,
-                loader: "style-loader!css-loader"
-            },
-            {
-                test: /\.(gif|png|jpg)$/,
-                loader: 'file-loader?name=images/[name].[ext]&mimeType=image/[ext]&limit=100000'
             }
+            // {
+            //     test: /\.css$/,
+            //     loader: "style-loader!css-loader"
+            // },
+            // {
+            //     test: /\.(gif|png|jpg)$/,
+            //     loader: 'file-loader?name=images/[name].[ext]&mimeType=image/[ext]&limit=100000'
+            // }
         ]
     },
     plugin: [
