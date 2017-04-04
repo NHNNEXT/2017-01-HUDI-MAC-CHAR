@@ -1,5 +1,6 @@
 package com.zimincom.mafiaonline;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -25,6 +27,7 @@ import static com.zimincom.mafiaonline.remote.MafiaRemoteService.retrofit;
 public class MainActivity extends AppCompatActivity {
 
 
+    Context context = MainActivity.this;
     ImageView logoImage;
     ImageView logoText;
     EditText emailInput;
@@ -109,11 +112,21 @@ public class MainActivity extends AppCompatActivity {
 
 
         call.enqueue(new Callback<ResponseItem>() {
+
             @Override
             public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
-                Logger.d(call);
-                Logger.d(response);
+                Logger.d(response.body());
+                ResponseItem responseItem = response.body();
 
+                if (responseItem.statusCode.equals("Ok")){
+                    Toast.makeText(context,responseItem.statusCode,Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(context,RoomListActivity.class);
+                    startActivity(intent);
+                }else if(responseItem.statusCode.equals("EmailNotFound")){
+                    Toast.makeText(context,responseItem.statusCode,Toast.LENGTH_LONG).show();
+                }else if(responseItem.statusCode.equals("InvalidPassword")) {
+                    Toast.makeText(context,responseItem.statusCode,Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
