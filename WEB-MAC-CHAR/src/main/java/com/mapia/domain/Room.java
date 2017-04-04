@@ -1,40 +1,33 @@
 package com.mapia.domain;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
-
-import org.springframework.format.datetime.joda.LocalDateTimeParser;
-
-import com.mapia.model.User;
 
 public class Room {
+	private Set<User> users = new LinkedHashSet<>();
 	private long id;
-	
 	private String title;
-	
-	private Set<User> users = new HashSet<>();
-	
-	private LocalDateTime madeTime;
-	
-	private int status;
-	
-	public Room() {}
-	
+	private final int CAPACITY = 8;
+	private volatile int userCount;
+	private boolean secretMode;
+
 	public Room(long roomId, String title) {
 		this.id = roomId;
 		this.title = title;
 	}
 	
-	public User enterRoom(User user){
+	public void enterRoom(User user){
+        user.enterRoom();
 		this.users.add(user);
-		return user;
 	}
 	
-	public User outRoom(User user){
+	public void outRoom(User user){
+	    user.outRoom();
 		this.users.remove(user);
-		return user;
+	}
+
+	public Set<User> getUsers() {
+		return users;
 	}
 
 	public long getId() {
@@ -44,29 +37,25 @@ public class Room {
 	public String getTitle() {
 		return title;
 	}
-	
-	public Set<User> getUserList() {
-		return users;
+
+	public int getUserCount() {
+		return getCountOfUserInRoom();
 	}
 
-	public void setUserList(HashSet<User> userList) {
-		this.users = userList;
+	public boolean isSecretMode() {
+		return secretMode;
 	}
 
-	public LocalDateTime getMadeTime() {
-		return madeTime;
+	public void setSecretMode() {
+		this.secretMode = true;
 	}
 
-	public void setMadeTime(LocalDateTime madeTime) {
-		this.madeTime = madeTime;
+	public int getCountOfUserInRoom() {
+		return users.size();
 	}
 
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
+	public boolean isFull() {
+		return getCountOfUserInRoom() < CAPACITY;
 	}
 	
 }
