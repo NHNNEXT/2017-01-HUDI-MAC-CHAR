@@ -14,7 +14,7 @@ public class User {
 	private String nickname;
 	private String status;
 	
-	public User(){} // default constructor
+	public User(){}
 
 	public User(ResultSet rs) throws SQLException {
 		this.id = rs.getLong("id");
@@ -79,9 +79,12 @@ public class User {
 	    this.status = LOBBY;
     }
 
+    public void enterLobby() {
+	    this.status = LOBBY;
+    }
+
 	@Override
 	public String toString() {
-		return "User [userId=" + id + ", email=" + email + ", password=" + password + ", nickname=" + nickname
-				+ "]";
+		return "User[nickname=" + nickname + "]";
 	}
 }

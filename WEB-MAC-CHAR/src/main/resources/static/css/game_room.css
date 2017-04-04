@@ -1,23 +1,27 @@
 /* layout */
+#container {
+  height: 639px;
+}
+
 header {
-  height: 72px;
+  height: 64px;
   background-color: #000;
 }
 
 .logo {
   float: left;
-  margin-top: 24px;
-  margin-left: 24px;
+  margin-top: 16px;
+  margin-left: 16px;
 }
 
 .logo img {
-  width: 128px;
+  width: 96px;
 }
 
 nav {
   float: right;
-  margin-top: 36px;
-  margin-right: 32px;
+  margin-top: 24px;
+  margin-right: 34px;
   color: #ffffff;
 }
 
@@ -46,6 +50,17 @@ footer {
   background-color: #000;
 }
 
+.room_description {
+  display: inline-block;
+  margin: 20px 36px;
+  font-size: 20px;
+  color: #fff;
+}
+
+.room_description span {
+  padding: 0px 6px;
+}
+
 /* common layout */
 .right_container_top_elm_layout {
   margin: 8px;
@@ -54,21 +69,21 @@ footer {
 
 .right_container_bottom_elm_layout {
   margin: 8px;
-  height: 240px;
+  height: 170px;
 }
 
 /* style */
 /* top_left_container */
 .slot_layout {
   position: relative;
-  margin: 8px;
+  margin: 0px 8px;
   flex-grow: 1;
-  height: 160px;
+  height: 120px;
   background-color: rgba(255, 255, 255, .7);
 }
 
 .player_description img {
-  width: 129px;
+  width: 96px;
 }
 
 .player_name {
@@ -81,8 +96,8 @@ footer {
 
 .player_status {
   position: absolute;
-  left: 60%;
-  top: 128px;
+  left: 55%;
+  top: 85px;
   font-size: 20px;
   color: #C80006;
 }
@@ -109,7 +124,7 @@ footer {
 
 .timer {
   margin: auto;
-  padding-top: 72px;
+  padding-top: 40px;
   text-align: center;
   font-size: 64px;
   font-weight: bolder;
@@ -121,6 +136,7 @@ footer {
   margin: 8px;
   width: 98%;
   opacity: .5;
+  font-size: 18px;
 }
 
 .chatting_input {
@@ -128,7 +144,7 @@ footer {
 }
 
 .chat {
-  margin-left: 8px;
+  margin: 0px 8px;
   width: 98%;
   height: 24px;
   font-size: 24px;

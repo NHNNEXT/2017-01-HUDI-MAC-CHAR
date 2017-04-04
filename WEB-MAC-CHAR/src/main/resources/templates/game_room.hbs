@@ -13,6 +13,7 @@
       <div class="logo">
         <img src="/img/login_title.png" alt="mafia_logo">
       </div>
+      <span class="room_description"><span id="roomId">No.{{room.id}}</span>{{room.title}}</span>
       <nav>나가기</nav>
     </header>
     <section id="container">
@@ -93,7 +94,7 @@
       
       <section id="bottom_container" class="flexible">
         <section class="left_container">
-          <textarea id="chatOutput" name="" class="chatting_history" rows="24"></textarea>
+          <textarea id="chatOutput" name="" class="chatting_history" rows="12" readonly></textarea>
           <div class="chatting_input">
             <input id="chatInput" type="text" class="chat">
           </div>
@@ -101,7 +102,7 @@
         
         <section class="right_container">
           <div class="right_container_top_elm_layout elm_background_style">
-            <div class="player_role_description">당신은 <span class="player_role">마피아</span> 입니다.</div>
+            <div class="player_role_description"><span id="userName">{{nickname}}</span>님은 <span class="player_role">마피아</span> 입니다.</div>
           </div>
           <div id="player_mission" class="right_container_bottom_elm_layout elm_background_style">
             <div class="player_mission_title">Mission</div>
@@ -112,8 +113,7 @@
         </section>
       </section>
     </section>
-    <footer>
-    </footer>
     <script src="/bundle.js"></script>
+    <script src="/js/game_room.js"></script>
   </body>
 </html>

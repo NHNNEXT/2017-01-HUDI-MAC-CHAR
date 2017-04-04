@@ -11,32 +11,42 @@ let WebSocket = (function() {
     let stompClient;
 
     function connect() {
+        let roomId = getRoomId();
+        console.log("roomId: ", roomId);
         let socket = new SockJS(SERVER_SOCKET_API);
-        console.log("socket: ", socket);
+        console.log("socket_server: ", socket._server);
         stompClient = Stomp.over(socket);
-        console.log("stompClient: ", stompClient);
-        stompClient.connect({}, function (frame) {
-            console.log("Connected: " + frame);
+        stompClient.connect({}, function () {
             stompClient.subscribe("/topic/roomId", function (message) {
-                printMessage(JSON.parse(message.body).content);
+                printMessage(JSON.parse(message.body));
             });
         });
     }
 
-    let textArea = document.getElementById("chatOutput");
-    function printMessage(message) {
-        textArea.value += message + "\n";
+    function getRoomId() {
+        let roomId = document.getElementById("roomId").textContent;
+        let parsed = roomId.split(".");
+        return parsed[1];
     }
 
     let inputElm = document.getElementById("chatInput");
+    let userName = document.getElementById("userName").textContent;
     function chatKeyDownHandler(e) {
         if (e.which === ENTER_KEY && inputElm.value.trim() !== "") {
-            sendMessage(inputElm.value);
+            sendMessage(userName, inputElm.value);
             clear(inputElm);
         }
     }
-    function sendMessage(text) {
-        stompClient.send("/app/hello", JSON.stringify({"content": text}));
+
+    function sendMessage(userName, text) {
+        stompClient.send("/app/hello", JSON.stringify({"content": text, "userName": userName}));
+    }
+
+    let textArea = document.getElementById("chatOutput");
+    function printMessage(message) {
+        syncScroll();
+        let formattedMsg = message.userName + " : " + message.content;
+        textArea.value += formattedMsg + "\n";
     }
 
     function disconnect() {
@@ -50,10 +60,15 @@ let WebSocket = (function() {
         input.value = "";
     }
 
+    function syncScroll() {
+        textArea.scrollTop = textArea.scrollHeight;
+    }
+
     function init() {
         connect();
         inputElm.addEventListener("keydown", chatKeyDownHandler);
     }
+
     return {
         init : init
     }
