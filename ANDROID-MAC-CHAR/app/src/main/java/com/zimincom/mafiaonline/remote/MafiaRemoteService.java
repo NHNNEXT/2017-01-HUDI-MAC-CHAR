@@ -1,4 +1,5 @@
 package com.zimincom.mafiaonline.remote;
+
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 
