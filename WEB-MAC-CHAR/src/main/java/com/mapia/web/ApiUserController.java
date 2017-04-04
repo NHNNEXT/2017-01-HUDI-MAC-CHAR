@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mapia.dao.UserRepository;
-import com.mapia.domain.LoginResult;
-import com.mapia.domain.SignUpResult;
-import com.mapia.model.User;
+import com.mapia.result.LoginResult;
+import com.mapia.result.SignUpResult;
+import com.mapia.domain.User;
 import com.mapia.utils.HttpSessionUtils;
 
 @RestController

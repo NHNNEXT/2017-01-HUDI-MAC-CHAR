@@ -7,7 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.mapia.model.User;
+import com.mapia.domain.User;
 
 @Repository
 public class UserRepository {

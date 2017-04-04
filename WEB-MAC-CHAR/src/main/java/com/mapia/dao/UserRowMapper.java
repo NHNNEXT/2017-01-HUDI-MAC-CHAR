@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.mapia.model.User;
+import com.mapia.domain.User;
 
 public final class UserRowMapper implements RowMapper<User> {
 	@Override
