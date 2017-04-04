@@ -12,17 +12,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.ResponseItem;
+import com.google.gson.Gson;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.R.attr.src;
 import static com.zimincom.mafiaonline.remote.MafiaRemoteService.retrofit;
+import static java.security.CryptoPrimitive.MAC;
+import static java.sql.Types.CHAR;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -88,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
         MafiaRemoteService mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
         Call<ResponseItem> call = mafiaRemoteService.sendLoginInput(user);
+
 
         call.enqueue(new Callback<ResponseItem>() {
 
