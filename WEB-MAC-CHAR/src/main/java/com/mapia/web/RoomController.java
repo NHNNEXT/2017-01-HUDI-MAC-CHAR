@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,7 @@ public class RoomController {
 		User user = HttpSessionUtils.getUserFromSession(session);
 		user.enterLobby();
 		model.addAttribute("rooms", new ArrayList<>(rooms.values()));
+		model.addAttribute("user", user);
 		return "rooms";
 	}
 
@@ -72,5 +74,13 @@ public class RoomController {
 		long roomId = room.getId();
 		rooms.put(roomId, room);
 		return "redirect:/rooms/" + roomId;
+	}
+	
+	@DeleteMapping("/{id}")
+	public String out(@PathVariable long id, HttpSession session) {
+		User user = HttpSessionUtils.getUserFromSession(session);
+		Room room = rooms.get(id);
+		room.outRoom(user);
+		return "redirect:/rooms";
 	}
 }
