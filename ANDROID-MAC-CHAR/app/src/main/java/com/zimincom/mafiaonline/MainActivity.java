@@ -11,10 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.zimincom.mafiaonline.remote.MafiaRemoteService.retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -88,13 +94,35 @@ public class MainActivity extends AppCompatActivity {
 
         User user = new User(userEmail,userPassword);
 
-        MafiaRemoteService mafiaRemoteService = MafiaRemoteService.retrofit.create(MafiaRemoteService.class);
-        Call<String> call = mafiaRemoteService.sendLoginInput(user);
-        try{
-             result = call.execute().body();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        MafiaRemoteService mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
+        Call<ResponseItem> call = mafiaRemoteService.sendLoginInput(user);
+//
+//        try{
+//            ResponseItem responseItem = call.execute().body();
+//            Log.d("main",responseItem.toString());
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
+
+
+        Gson gson = new Gson();
+
+
+        call.enqueue(new Callback<ResponseItem>() {
+            @Override
+            public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
+                Logger.d(call);
+                Logger.d(response);
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseItem> call, Throwable t) {
+                Log.d("response","error");
+                t.printStackTrace();
+            }
+        });
+
 
         Log.d("MainAct",result);
 
