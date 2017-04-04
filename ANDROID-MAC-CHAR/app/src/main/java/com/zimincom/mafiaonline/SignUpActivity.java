@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
+import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
 
@@ -59,11 +60,11 @@ public class SignUpActivity extends AppCompatActivity {
                     Logger.d(response.body());
                     ResponseItem responseItem = response.body();
 
-                    if (responseItem.statusCode.equals("Ok")){
-                        Toast.makeText(context,responseItem.statusCode,Toast.LENGTH_LONG).show();
+                    if (responseItem.status.equals("Ok")){
+                        Toast.makeText(context,responseItem.status,Toast.LENGTH_LONG).show();
                         finish();
-                    }else if(responseItem.statusCode.equals("EmailExits")){
-                        Toast.makeText(context,responseItem.statusCode,Toast.LENGTH_LONG).show();
+                    }else if(responseItem.status.equals("EmailExits")){
+                        Toast.makeText(context,responseItem.status,Toast.LENGTH_LONG).show();
                     }
 
                 }

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
+import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
 
@@ -95,14 +96,14 @@ public class LoginActivity extends AppCompatActivity {
                 Logger.d(response.body());
                 ResponseItem responseItem = response.body();
 
-                if (responseItem.statusCode.equals("Ok")){
-                    Toast.makeText(context,responseItem.statusCode,Toast.LENGTH_LONG).show();
+                if (responseItem.status.equals("Ok")){
+                    Toast.makeText(context,responseItem.status,Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(context,RoomListActivity.class);
                     startActivity(intent);
-                }else if(responseItem.statusCode.equals("EmailNotFound")){
-                    Toast.makeText(context,responseItem.statusCode,Toast.LENGTH_LONG).show();
-                }else if(responseItem.statusCode.equals("InvalidPassword")) {
-                    Toast.makeText(context,responseItem.statusCode,Toast.LENGTH_LONG).show();
+                }else if(responseItem.status.equals("EmailNotFound")){
+                    Toast.makeText(context,responseItem.status,Toast.LENGTH_LONG).show();
+                }else if(responseItem.status.equals("InvalidPassword")) {
+                    Toast.makeText(context,responseItem.status,Toast.LENGTH_LONG).show();
                 }
             }
 

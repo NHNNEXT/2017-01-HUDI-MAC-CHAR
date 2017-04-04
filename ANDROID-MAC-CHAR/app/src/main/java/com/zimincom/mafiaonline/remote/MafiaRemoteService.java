@@ -1,6 +1,6 @@
 package com.zimincom.mafiaonline.remote;
 
-import com.zimincom.mafiaonline.ResponseItem;
+import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 
 import retrofit2.Call;
