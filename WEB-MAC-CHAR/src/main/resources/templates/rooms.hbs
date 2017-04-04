@@ -41,28 +41,30 @@
     <button id="btn_refresh" type="button" class="btn btn-default">새로고침</button>
   </div>
   <article>
-    <div class="profile">
-      <table class="table table-hover" id="profile_table">
-        <tr>
-          <td><div class="profile_image"></div></td>
-        </tr>
-        <tr>
-          <td>닉네임</td>
-        </tr>
-        <tr>
-          <td>레벨</td>
-        </tr>
-        <tr>
-          <td>자산</td>
-        </tr>
-        <tr>
-          <td>전적</td>
-        </tr>
-        <tr>
-          <td>경험치</td>
-        </tr>
-      </table>
-    </div>
+      {{#user}}
+		    <div class="profile">
+		      <table class="table table-hover" id="profile_table">
+		        <tr>
+		          <td><div class="profile_image"></div></td>
+		        </tr>
+		        <tr>
+		          <td>{{nickname}}</td>
+		        </tr>
+		        <tr>
+		          <td>레벨</td>
+		        </tr>
+		        <tr>
+		          <td>자산</td>
+		        </tr>
+		        <tr>
+		          <td>전적</td>
+		        </tr>
+		        <tr>
+		          <td>경험치</td>
+		        </tr>
+		      </table>
+		    </div>
+		   {{/user}}
     <div class="rooms_list">
       <table class="table table-hover" id="rooms">
         <tr>
@@ -105,5 +107,6 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/js/waiting_room.js"></script>
+<script src="/js/block.js"></script>
 </body>
 </html>

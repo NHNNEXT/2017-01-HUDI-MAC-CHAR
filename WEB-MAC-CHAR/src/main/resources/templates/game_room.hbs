@@ -14,7 +14,12 @@
         <img src="/img/login_title.png" alt="mafia_logo">
       </div>
       <span class="room_description"><span id="roomId">No.{{room.id}}</span>{{room.title}}</span>
-      <nav>나가기</nav>
+      <nav>
+      	<form class="out_room_form" action="/rooms/{{id}}" method="POST">
+					<input type="hidden" name="_method" value="DELETE">
+					<button class="out_room_button" type="submit">나가기</button>
+				</form>
+      </nav>
     </header>
     <section id="container">
       <section id="top_container" class="flexible">
@@ -115,5 +120,6 @@
     </section>
     <script src="/bundle.js"></script>
     <script src="/js/game_room.js"></script>
+    <script src="/js/block.js"></script>
   </body>
 </html>
