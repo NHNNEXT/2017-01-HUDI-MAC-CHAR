@@ -69,8 +69,12 @@
         <tr>
           <th>{{id}}</th>
           <th><a href="/rooms/{{id}}">{{title}}</a></th>
-          <th>정원{{userCount}}/8</th>
-          <th>잠금</th>
+          <th>{{userCount}}/8</th>
+          {{#secretMode}}
+          <th>비밀방</th>
+          {{else}}
+          <th></th>
+          {{/secretMode}}
         </tr>
         {{/rooms}}
       </table>

@@ -1,7 +1,6 @@
 package com.mapia.web;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -30,9 +29,9 @@ public class RoomController {
 	private final AtomicLong roomId = new AtomicLong();
 
 	@GetMapping("")
-	public String roomList(HttpSession session, Model model) {
+	public String waitingRoomPage(HttpSession session, Model model) {
 		if (!HttpSessionUtils.isLoginUser(session)) {
-			return "/login";
+			return "redirect:/login";
 		}
 		model.addAttribute("rooms", new ArrayList<>(rooms.values()));
 		return "rooms";
@@ -40,21 +39,33 @@ public class RoomController {
 
 	@GetMapping("/{id}")
 	public String enter(@PathVariable long id, HttpSession session) {
-		User user = HttpSessionUtils.getUserFromSession(session);
-		Room room = rooms.get(id);
-		//비말방 로직 추가
-		if (!room.isAvailableEnter()) {
-			return "redirect:/rooms";
+		if (!HttpSessionUtils.isLoginUser(session)) {
+			return "redirect:/login";
 		}
-		room.enterRoom(user);
-		return "game_room";
+		User user = HttpSessionUtils.getUserFromSession(session);
+        Room room = rooms.get(id);
+        if (!user.isEntered()) {
+            room.outRoom(user);
+            return "redirect:/rooms";
+        }
+        if (!room.isFull()) {
+            //Insert to message
+            return "redirect:/rooms";
+        }
+
+        if (room.isSecretMode()) {
+            //TODO Add secret mode logic
+        }
+        room.enterRoom(user);
+        return "game_room";
 	}
 	
 	@PostMapping("")
-	public String create(String title){
+	public String create(String title) {
 		Room room = new Room(roomId.incrementAndGet(), title);
 		log.info("Created RoomId: {}, title: {}", room.getId(), room.getTitle());
-		rooms.put(room.getId(), room);
-		return "redirect:/rooms";
+		long roomId = room.getId();
+		rooms.put(roomId, room);
+		return "redirect:/rooms/" + roomId;
 	}
 }

@@ -1,6 +1,6 @@
 let login = (function(){
 	let button = document.querySelector("#login_button");
-	const roomPage = "/room";
+	const roomPage = "/rooms";
 	
 	function tryLogin(e) {
 		e.preventDefault();
