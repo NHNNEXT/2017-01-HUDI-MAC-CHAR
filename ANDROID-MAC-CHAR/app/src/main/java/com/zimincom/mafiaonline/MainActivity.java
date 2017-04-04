@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
@@ -53,63 +52,41 @@ public class MainActivity extends AppCompatActivity {
         startMainAnimation();
 
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        loginButton.setOnClickListener(view -> {
+
                 String email = emailInput.getText().toString();
                 String password = passwordInput.getText().toString();
-
 
                 sendUserData(email,password);
 
                 Log.i("mainact",email);
                 Log.i("mainact",password);
 
-            }
-
 
         });
 
-        loginButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
+        loginButton.setOnLongClickListener(view -> {
+
                 Intent intent = new Intent(getApplicationContext(),RoomListActivity.class);
                 startActivity(intent);
                 return false;
-            }
         });
 
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        signInButton.setOnClickListener(view ->  {
+
                 Intent intent = new Intent(getApplicationContext(),SignInActivity.class);
                 startActivity(intent);
-            }
+
         });
     }
 
 
     void sendUserData(String userEmail,String userPassword){
 
-
-        String result = "";
-
-
         User user = new User(userEmail,userPassword);
 
         MafiaRemoteService mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
         Call<ResponseItem> call = mafiaRemoteService.sendLoginInput(user);
-//
-//        try{
-//            ResponseItem responseItem = call.execute().body();
-//            Log.d("main",responseItem.toString());
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
-
-
-        Gson gson = new Gson();
-
 
         call.enqueue(new Callback<ResponseItem>() {
 
@@ -135,10 +112,6 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
-
-
-        Log.d("MainAct",result);
-
 
     }
 
