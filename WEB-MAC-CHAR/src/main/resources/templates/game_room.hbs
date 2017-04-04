@@ -13,12 +13,10 @@
       <div class="logo">
         <img src="/img/login_title.png" alt="mafia_logo">
       </div>
+      <span class="room_description"><span id="roomId">No.{{room.id}}</span>{{room.title}}</span>
       <nav>나가기</nav>
     </header>
     <section id="container">
-      <section id="top_container" class="flexible">
-        <div class="room_description"><span id="roomId">No.{{room.id}}</span>{{room.title}}</div>
-      </section>
       <section id="top_container" class="flexible">
         <section class="left_container">
           <div class="slot_box">
@@ -96,7 +94,7 @@
       
       <section id="bottom_container" class="flexible">
         <section class="left_container">
-          <textarea id="chatOutput" name="" class="chatting_history" rows="14" readonly></textarea>
+          <textarea id="chatOutput" name="" class="chatting_history" rows="12" readonly></textarea>
           <div class="chatting_input">
             <input id="chatInput" type="text" class="chat">
           </div>
@@ -115,8 +113,7 @@
         </section>
       </section>
     </section>
-    <footer>
-    </footer>
     <script src="/bundle.js"></script>
+    <script src="/js/game_room.js"></script>
   </body>
 </html>
