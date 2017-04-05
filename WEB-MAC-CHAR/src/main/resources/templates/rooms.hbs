@@ -1,112 +1,112 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>대기방</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel=stylesheet href="/css/reset.css" />
-  <link rel=stylesheet href="/css/waiting_room.css" />
-</head>
-<body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Mafia</a>
+  <head>
+    <meta charset="UTF-8">
+    <title>대기방</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel=stylesheet href="/css/reset.css" />
+    <link rel=stylesheet href="/css/waiting_room.css" />
+  </head>
+  <body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Mafia</a>
+      </div>
+  
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Logout</a></li>
-      </ul>
+    <!-- /.container-fluid -->
+  </nav>
+  <div id="dimmer"></div>
+  
+  <div class="container">
+    <div class="option">
+      <button type="button" class="btn btn-default" id="make_room">방만들기</button>
+      <button id="btn_refresh" type="button" class="btn btn-default">새로고침</button>
     </div>
-    <!-- /.navbar-collapse -->
-  </div>
-  <!-- /.container-fluid -->
-</nav>
-<div id="dimmer"></div>
-
-<div class="container">
-  <div class="option">
-    <button type="button" class="btn btn-default" id="make_room">방만들기</button>
-    <button id="btn_refresh" type="button" class="btn btn-default">새로고침</button>
-  </div>
-  <article>
-      {{#user}}
-		    <div class="profile">
-		      <table class="table table-hover" id="profile_table">
-		        <tr>
-		          <td><div class="profile_image"></div></td>
-		        </tr>
-		        <tr>
-		          <td>{{nickname}}</td>
-		        </tr>
-		        <tr>
-		          <td>레벨</td>
-		        </tr>
-		        <tr>
-		          <td>자산</td>
-		        </tr>
-		        <tr>
-		          <td>전적</td>
-		        </tr>
-		        <tr>
-		          <td>경험치</td>
-		        </tr>
-		      </table>
-		    </div>
-		   {{/user}}
-    <div class="rooms_list">
-      <table class="table table-hover" id="rooms">
-        <tr>
-          <th>NO</th>
-          <th>TITLE</th>
-          <th>CAPACITY</th>
-          <th>SECRET</th>
-        </tr>
-        {{#rooms}}
+    <article>
+        {{#user}}
+  		    <div class="profile">
+  		      <table class="table table-hover" id="profile_table">
+  		        <tr>
+  		          <td><div class="profile_image"></div></td>
+  		        </tr>
+  		        <tr>
+  		          <td>{{nickname}}</td>
+  		        </tr>
+  		        <tr>
+  		          <td>레벨</td>
+  		        </tr>
+  		        <tr>
+  		          <td>자산</td>
+  		        </tr>
+  		        <tr>
+  		          <td>전적</td>
+  		        </tr>
+  		        <tr>
+  		          <td>경험치</td>
+  		        </tr>
+  		      </table>
+  		    </div>
+  			{{/user}}
+      <div class="rooms_list">
+        <table class="table table-hover" id="rooms">
           <tr>
-            <td>{{id}}</td>
-            <td><a href="/rooms/{{id}}">{{title}}</a></td>
-            <td>{{userCount}}/8</td>
-            {{#secretMode}}
-            <td>비밀방</td>
-            {{else}}
-            <td></td>
-            {{/secretMode}}
+            <th>NO</th>
+            <th>TITLE</th>
+            <th>CAPACITY</th>
+            <th>SECRET</th>
           </tr>
-        {{/rooms}}
-      </table>
-    </div>
-  </article>
-</div>
-<div class="my_modal" id="make_room_form">
-  <form action="/rooms" id="roomInfo" method="post">
-    <div class="form-group">
-      <label>방제목</label>
-      <input type="text" class="form-control" id="room_title" name="title" placeholder="방제목" autofocus>
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <div class="secrete-room-check">
-      <label> <input type="checkbox">비밀방</label>
-    </div>
-    <button type="submit" class="btn btn-default" id="make_done">방만들기</button>
-  </form>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="/js/waiting_room.js"></script>
-<script src="/js/block.js"></script>
-</body>
+          {{#rooms}}
+            <tr>
+              <td>{{id}}</td>
+              <td><a href="/rooms/{{id}}">{{title}}</a></td>
+              <td>{{userCount}}/8</td>
+              {{#secretMode}}
+              <td>비밀방</td>
+              {{else}}
+              <td></td>
+              {{/secretMode}}
+            </tr>
+          {{/rooms}}
+        </table>
+      </div>
+    </article>
+  </div>
+  <div class="my_modal" id="make_room_form">
+    <form action="/rooms" id="roomInfo" method="post">
+      <div class="form-group">
+        <label>방제목</label>
+        <input type="text" class="form-control" id="room_title" name="title" placeholder="방제목" autofocus>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <div class="secrete-room-check">
+        <label> <input type="checkbox">비밀방</label>
+      </div>
+      <button type="submit" class="btn btn-default" id="make_done">방만들기</button>
+    </form>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="/js/waiting_room.js"></script>
+  <script src="/js/back_block.js"></script>
+  </body>
 </html>

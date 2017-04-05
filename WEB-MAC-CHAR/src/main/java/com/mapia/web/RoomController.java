@@ -77,10 +77,14 @@ public class RoomController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public String out(@PathVariable long id, HttpSession session) {
+	public String exit(@PathVariable long id, HttpSession session) {
 		User user = HttpSessionUtils.getUserFromSession(session);
 		Room room = rooms.get(id);
 		room.outRoom(user);
+		if(room.isEmpty()) {
+			rooms.remove(room.getId());
+		}
+		log.info("UserCOUNT: {}", room.getUserCount());
 		return "redirect:/rooms";
 	}
 }
