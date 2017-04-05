@@ -1,4 +1,4 @@
-package com.mapia.web;
+package com.mapia.api;
 
 import javax.servlet.http.HttpSession;
 
