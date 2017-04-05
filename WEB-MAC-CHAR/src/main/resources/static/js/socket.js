@@ -49,6 +49,9 @@ let WebSocket = (function() {
         textArea.value += formattedMsg + "\n";
     }
 
+    let exitBtn = document.getElementById("exit_button");
+    exitBtn.addEventListener("click", disconnect);
+
     function disconnect() {
         if (stompClient != null) {
             stompClient.disconnect();
