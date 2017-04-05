@@ -35,6 +35,8 @@ public class RoomController {
 
 		User user = HttpSessionUtils.getUserFromSession(session);
 		user.enterLobby();
+		
+		// TODO @우현 rooms.values() 반환 값이 이미 Collection인데 ArrayList에 다시 넣는 이유는?
 		model.addAttribute("rooms", new ArrayList<>(rooms.values()));
 		model.addAttribute("user", user);
 		return "rooms";
@@ -46,7 +48,11 @@ public class RoomController {
 			return "redirect:/login";
 		}
 		User user = HttpSessionUtils.getUserFromSession(session);
+		
         Room room = rooms.get(id);
+        
+        // TODO @우현 이후 로직 구현을 room의 enterRoom(user)에서 모두 구현할 수 없을까?
+        // 만약 가능하다면 어떻게 구현하는 것이 좋을까? 이와 같이 구현했을 때의 장점은?
         if (!user.isEntered()) {
             log.info("entered user: {}", user);
             room.outRoom(user);
@@ -61,6 +67,8 @@ public class RoomController {
             //TODO Add secret mode logic
         }
         log.info("Success to enter room, user: {}, room: {}", user, room);
+        
+        // TODO @우현 room 데이터를 session에 넣었을 때 발생할 수 있는 이슈는 없을까?
         session.setAttribute("enteredRoom", room);
         room.enterRoom(user);
         return "redirect:/game/" + id;

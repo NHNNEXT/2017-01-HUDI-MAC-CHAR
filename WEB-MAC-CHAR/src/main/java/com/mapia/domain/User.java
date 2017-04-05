@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class User {
+	// TODO @대훈 아래 4개의 상태 값을 enum으로 리팩토링한다.
     private final String LOBBY = "lobby";
     private final String ENTERED = "entered";
     private final String READY = "ready";
@@ -16,6 +17,8 @@ public class User {
 	
 	public User(){}
 
+	// TODO @대훈 User와 같은 클래스에 DB와 관련있는 ResultSet를 받는 것은 좋은 방법은 아님. 
+	// 다음 구현 코드는 RowMapper가 담당하는 것이 맞음.
 	public User(ResultSet rs) throws SQLException {
 		this.id = rs.getLong("id");
 		this.email = rs.getString("email");

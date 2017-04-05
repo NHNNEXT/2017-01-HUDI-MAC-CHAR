@@ -1,5 +1,6 @@
 package com.mapia.result;
 
+// TODO @대훈 LoginResult와 SignUpResult에 상당히 많은 중복 코드 있음. AbstractResult와 같은 클래스 생성해 중복 제거한다.
 public class LoginResult implements Result {
 	private Status status;
 	private String msg;

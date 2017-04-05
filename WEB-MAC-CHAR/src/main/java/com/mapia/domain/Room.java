@@ -4,9 +4,11 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Room {
+	// TODO @우현 multi thread에서 문제가 발생할 수 있음.
 	private Set<User> users = new LinkedHashSet<>();
 	private long id;
 	private String title;
+	// TODO @우현 상수 값은 static final로 구현
 	private final int CAPACITY = 8;
 	private volatile int userCount;
 	private boolean secretMode;

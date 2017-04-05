@@ -24,6 +24,7 @@ public class UserRepository {
 		User resultUser;
 		try {
 			resultUser = jdbcTemplate.queryForObject(query, new Object[]{email}, new UserRowMapper());
+			// TODO @대훈 return jdbcTemplate.queryForObject(query, new UserRowMapper(), email); 와 같이 구현할 수 있음.
 		} catch (EmptyResultDataAccessException e) {
 			log.error(e.getMessage());
 			return null;

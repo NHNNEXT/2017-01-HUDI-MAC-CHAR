@@ -26,6 +26,7 @@ public class GameRoomController {
         if (!HttpSessionUtils.isLoginUser(session)) {
             return "redirect:/login";
         }
+        
         Room room = (Room) session.getAttribute("enteredRoom");
         log.info("GameRoom entered, room: {}", room);
         model.addAttribute("room", room);
