@@ -1,5 +1,6 @@
 package com.zimincom.mafiaonline.remote;
 
+import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 
 import retrofit2.Call;
@@ -16,15 +17,15 @@ import retrofit2.http.POST;
 public interface MafiaRemoteService {
 
 
-    String BASE_URL = "http://mafia:8080";
+    String BASE_URL = "http://1.255.56.109:8080";
     //String BASE_URL = "http://172.30.1.50:3000";
     //String BASE_URL = "http://192.168.1.222:8080";
 
     @POST("/api/login")
-    Call<String> sendLoginInput(@Body User user);
+    Call<ResponseItem> sendLoginInput(@Body User user);
 
-    @POST("/api/signin")
-    Call<String> sendSigninInfo(@Body String nickName, String email, String password);
+    @POST("/api/signup")
+    Call<ResponseItem> sendSignUpInfo(@Body User user);
 
     @GET("/logout")
     Call<String> getLogout(@Body  String email, String password);

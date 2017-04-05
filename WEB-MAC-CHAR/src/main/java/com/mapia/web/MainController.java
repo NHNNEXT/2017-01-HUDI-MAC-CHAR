@@ -28,7 +28,7 @@ public class MainController {
 			return "login_page.html";
 		}
     	
-		return "rooms";
+		return "redirect:/rooms";
 	}
 
     @GetMapping("signup")

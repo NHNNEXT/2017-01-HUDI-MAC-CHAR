@@ -57,6 +57,10 @@ public class Room {
 	public boolean isFull() {
 		return getCountOfUserInRoom() >= CAPACITY;
 	}
+	
+	public boolean isEmpty() {
+		return getCountOfUserInRoom() == 0;
+	}
 
     @Override
     public String toString() {

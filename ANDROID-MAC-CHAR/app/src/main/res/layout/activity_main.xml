@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context="com.zimincom.mafiaonline.MainActivity">
+    tools:context="com.zimincom.mafiaonline.LoginActivity">
 
 
     <ImageView
