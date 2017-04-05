@@ -49,23 +49,19 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
         mStompClient.topic("/topic/roomId").subscribe(topicMessage -> {
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+
+            runOnUiThread(() -> {
+
                     textView = new TextView(getApplicationContext());
                     MessageItem messageItem = gson.fromJson(topicMessage.getPayload(),MessageItem.class);
 
-                    //ViewGroup.LayoutParams params = textView.getLayoutParams();
-                    //params.height = 30;
                     textView.setText(messageItem.content);
-                    //textView.setLayoutParams(params);
                     textView.setGravity(Gravity.CENTER);
                     textView.setBackgroundResource(R.drawable.rsz_speech_bubble);
 
                     Log.d("MainActivity", topicMessage.getPayload());
 
                     messageContainer.addView(textView);
-                }
             });
 
 
@@ -74,8 +70,6 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         gson = new Gson();
 
         sendButton.setOnClickListener(this);
-
-
 
 
     }
