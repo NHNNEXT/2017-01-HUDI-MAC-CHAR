@@ -2,19 +2,21 @@ package com.mapia.domain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Set;
 
 public class User {
-    private final String LOBBY = "lobby";
-    private final String ENTERED = "entered";
-    private final String READY = "ready";
-    private final String NOT_READY = "notReady";
+    private enum Status {
+        LOBBY, ENTERED, READY, NOT_READY, IN_GAME
+    }
+
 	private long id;
 	private String email;
 	private String password;
 	private String nickname;
-	private String status;
-	
-	public User(){}
+	private Status status;
+    public long belongToRoomId;
+
+    public User(){}
 
 	public User(ResultSet rs) throws SQLException {
 		this.id = rs.getLong("id");
@@ -55,36 +57,57 @@ public class User {
 		this.nickname = nickname;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	public long getBelongToRoomId() {
+        return this.belongToRoomId;
+    }
+
+    public void setBelongToRoomId(long belongToRoomId) {
+        this.belongToRoomId = belongToRoomId;
+    }
 	
 	public boolean matchPassword(User user) {
 		return this.password.equals(user.getPassword());
 	}
 
-	public boolean isEntered() {
-	    return this.status == LOBBY;
+	public boolean isLobby() {
+        return this.status.equals(Status.LOBBY);
     }
 
-	public void enterRoom() {
-	    this.status = ENTERED;
+	public boolean isAbleToEnter(long id) {
+	    return (this.status.equals(Status.LOBBY) || belongToRoomId == id);
     }
 
-    public void outRoom() {
-	    this.status = LOBBY;
+	public void enterRoom(Room room) {
+		Set<User> users = room.getUsers();
+		users.add(this);
+		this.belongToRoomId = room.getId();
+	    this.status = Status.ENTERED;
     }
+
+    public void exitRoom(Room room) {
+		Set<User> users = room.getUsers();
+		users.remove(this);
+		this.belongToRoomId = 0;
+		this.status = Status.LOBBY;
+	}
 
     public void enterLobby() {
-	    this.status = LOBBY;
+        this.belongToRoomId = 0;
+        this.status = Status.LOBBY;
     }
 
 	@Override
 	public String toString() {
-		return "User[nickname=" + nickname + "]";
+		return "User[nickname=" + nickname +
+                ", Status=" + status +
+                ", belongToRoomId=" + belongToRoomId;
 	}
 }

@@ -15,9 +15,9 @@
       </div>
       <span class="room_description"><span id="roomId">No.{{room.id}}</span>{{room.title}}</span>
       <nav>
-      	<form class="out_room_form" action="/rooms/{{id}}" method="POST">
+      	<form class="out_room_form" action="/game" method="POST">
 					<input type="hidden" name="_method" value="DELETE">
-					<button class="out_room_button" type="submit">나가기</button>
+					<button id="exit_button" class="exit_button" type="submit">나가기</button>
 				</form>
       </nav>
     </header>
@@ -119,7 +119,6 @@
       </section>
     </section>
     <script src="/bundle.js"></script>
-    <script src="/js/game_room.js"></script>
     <script src="/js/back_block.js"></script>
   </body>
 </html>

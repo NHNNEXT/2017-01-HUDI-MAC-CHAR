@@ -1,29 +1,20 @@
 package com.mapia.domain;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Room {
-	private Set<User> users = new LinkedHashSet<>();
+	private static final int CAPACITY = 8;
+	private Set<User> users = Collections.synchronizedSet(new LinkedHashSet<>());
 	private long id;
 	private String title;
-	private final int CAPACITY = 8;
 	private volatile int userCount;
 	private boolean secretMode;
 
 	public Room(long roomId, String title) {
 		this.id = roomId;
 		this.title = title;
-	}
-
-	public void enterRoom(User user){
-        user.enterRoom();
-		this.users.add(user);
-	}
-	
-	public void outRoom(User user){
-	    user.outRoom();
-		this.users.remove(user);
 	}
 
 	public Set<User> getUsers() {
@@ -50,7 +41,7 @@ public class Room {
 		this.secretMode = true;
 	}
 
-	public int getCountOfUserInRoom() {
+	private int getCountOfUserInRoom() {
 		return users.size();
 	}
 
