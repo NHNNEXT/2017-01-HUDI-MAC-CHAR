@@ -27,7 +27,6 @@ let login = (function(){
 		console.log(data);
 		
 		if (data.status === "Ok") {
-			console.log("emfdjdha?");
 			location.href = roomPage;
 		}
 		
