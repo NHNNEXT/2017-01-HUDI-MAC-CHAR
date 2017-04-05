@@ -6,7 +6,7 @@ body {
 }
  
 .input_form {
-  width: 300px;
+  width: 360px;
   margin: 40px auto;
   background-color: rgba(3,3,3,0.7);
   padding: 40px 20px;
@@ -34,6 +34,7 @@ body {
 }
  
 ::-webkit-input-placeholder { /* Chrome */
+  font-size: 16px;
   color: #AAA;
 }
  
@@ -88,7 +89,7 @@ body {
   color: #bbb;
   font-size: 13px;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
  
 .message a {
@@ -115,6 +116,7 @@ body {
 .display_error {
   color: red;
   padding-bottom: 0px;
+  margin-top: 20px;
   display: block;
 }
 

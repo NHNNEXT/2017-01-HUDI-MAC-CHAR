@@ -32,7 +32,7 @@ public class ApiUserController {
 		User user = userRepository.findUserByEmail(loginUser.getEmail());
 		
 		if (user == null) {
-			return LoginResult.emailNotFound("가입되지 않은 이메일 입니다.");
+			return LoginResult.emailNotFound("가입되지 않은 이메일입니다.");
 		}
 		
 		if (!user.matchPassword(loginUser)) {
@@ -47,13 +47,15 @@ public class ApiUserController {
 	public SignUpResult signup(@RequestBody User newUser) {
 		logger.info("newUser : {}", newUser);
 		
-		User user = userRepository.findUserByEmail(newUser.getEmail());
-		
-		if (user == null) {
-			userRepository.userInsert(newUser);
-			return SignUpResult.ok();
+		if (userRepository.findUserByEmail(newUser.getEmail()) != null) {
+			return SignUpResult.emailExist("이미 가입된 이메일입니다.");
 		}
 		
-		return SignUpResult.emailExist("이미 가입된 이메일 입니다.");
+		if (userRepository.findUserByNickname(newUser.getNickname()) != null) {
+			return SignUpResult.nicknameExist("이미 사용중인 닉네임입니다.");
+		}
+		
+		userRepository.userInsert(newUser);
+		return SignUpResult.ok();
 	}
 }

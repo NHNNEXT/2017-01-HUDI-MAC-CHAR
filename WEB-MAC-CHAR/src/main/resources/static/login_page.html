@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>마피아에 오신 것을 환영합니다!</title>
+  <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/login_and_signup.css">
 </head>
 <body>
@@ -14,11 +15,11 @@
   <div class="input_form">
     <form id="login_form" action="/api/login" method="POST">
       <div class="field">
-        <input type="email" name="email" placeholder=" yourEmail@example.com">
+        <input type="email" name="email" placeholder=" 이메일을 입력해주세요" required autofocus>
       </div>
   		
       <div class="field with_btn">
-        <input type="password" name="password" placeholder=" password">
+        <input type="password" name="password" placeholder=" 비밀번호를 입력해주세요" required>
       </div>
   
       <button id="login_button" type="submit" form="login_form">Login</button>

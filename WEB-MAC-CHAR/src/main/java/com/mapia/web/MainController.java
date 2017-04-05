@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mapia.domain.User;
 import com.mapia.utils.HttpSessionUtils;
 
 /**
@@ -21,8 +22,13 @@ public class MainController {
     }
 
     @GetMapping("login")
-	public String loginPage() {
-		return "login_page.html";
+	public String loginPage(HttpSession session) {
+    	User sessionedUser = (User)session.getAttribute(HttpSessionUtils.USER_SESSION_KEY);
+		if (sessionedUser == null) {
+			return "login_page.html";
+		}
+    	
+		return "redirect:/rooms";
 	}
 
     @GetMapping("signup")

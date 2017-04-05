@@ -1,31 +1,31 @@
 package com.mapia.result;
 
 public class LoginResult implements Result {
-	private Status statusCode;
-	private String errorMessage;
+	private Status status;
+	private String msg;
 	
-	private LoginResult(Status statusCode, String errorMessage) {
-		this.statusCode = statusCode;
-		this.errorMessage = errorMessage;
+	private LoginResult(Status status, String msg) {
+		this.status = status;
+		this.msg = msg;
 	}
 	
-	public Status getStatusCode() {
-		return statusCode;
+	public Status getStatus() {
+		return status;
 	}
 	
-	public String getErrorMessage() {
-		return errorMessage;
+	public String getMsg() {
+		return msg;
 	}
 	
 	public static LoginResult ok() {
 		return new LoginResult(Status.Ok, null);
 	}
 	
-	public static LoginResult emailNotFound(String errorMessage) {
-		return new LoginResult(Status.EmailNotFound, errorMessage);
+	public static LoginResult emailNotFound(String msg) {
+		return new LoginResult(Status.EmailNotFound, msg);
 	}
 	
-	public static LoginResult invalidPassword(String errorMessage) {
-		return new LoginResult(Status.InvalidPassword, errorMessage);
+	public static LoginResult invalidPassword(String msg) {
+		return new LoginResult(Status.InvalidPassword, msg);
 	}
 }

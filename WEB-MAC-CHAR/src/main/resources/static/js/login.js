@@ -26,16 +26,16 @@ let login = (function(){
 	function onSuccess(data, status) {
 		console.log(data);
 		
-		if (data.statusCode === "Ok") {
+		if (data.status === "Ok") {
 			location.href = roomPage;
 		}
 		
-		if (data.statusCode === "EmailNotFound") {
-			userNotify(data.errorMessage);
+		if (data.status === "EmailNotFound") {
+			userNotify(data.msg);
 		}
 		
-		if (data.statusCode === "InvalidPassword") {
-			userNotify(data.errorMessage);
+		if (data.status === "InvalidPassword") {
+			userNotify(data.msg);
 		}
 	}
 	
