@@ -1,6 +1,13 @@
 /* layout */
+body {
+  background: url("../img/background_main.jpg") fixed center;
+  position: fixed;
+  overflow-y: scroll;
+  width: 100%;
+}
+
 #container {
-  height: 639px;
+  height: 100%;
 }
 
 header {
@@ -25,10 +32,18 @@ nav {
   color: #ffffff;
 }
 
+.exit_button {
+  margin-top: -5px;
+  background: transparent;
+  color: #ffffff;
+  border: transparent;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 #container {
   display: flex;
   flex-direction: column;
-  background: url("../img/background_main.jpg") fixed center;
 }
 
 .flexible {
@@ -88,7 +103,7 @@ footer {
 
 .player_name {
   position: absolute;
-  left: 140px;
+  left: 112px;
   top: 16px;
   color: #000;
   font-size: 20px;
