@@ -5,13 +5,21 @@
     <meta name="description" content="Mafia game room">
     <meta name="viewport" content="width=device-width">
     <title>GameRoom</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/room.css">
   </head>
   <body>
     <header>
       <div class="logo">
-        <img src="img/login_title.png" alt="mafia_logo">
+        <img src="/img/login_title.png" alt="mafia_logo">
       </div>
-      <nav>나가기</nav>
+      <span class="room_description"><span id="roomId">No.{{room.id}}</span>{{room.title}}</span>
+      <nav>
+      	<form class="out_room_form" action="/room" method="POST">
+					<input type="hidden" name="_method" value="DELETE">
+					<button id="exit_button" class="exit_button" type="submit">나가기</button>
+				</form>
+      </nav>
     </header>
     <section id="container">
       <section id="top_container" class="flexible">
@@ -20,28 +28,28 @@
             <ul class="flexible">
               <li class="slot_layout">
                 <div class="player_description">
-                  <img src="img/citizen.png" alt="player_profile">
+                  <img src="/img/citizen.png" alt="player_profile">
                   <div class="player_name">bbq923</div>
                   <div class="player_status">READY</div>
                 </div>
               </li>
               <li class="slot_layout">
                 <div class="player_description">
-                  <img src="img/citizen.png" alt="player_profile">
+                  <img src="/img/citizen.png" alt="player_profile">
                   <div class="player_name">jbee</div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
               <li class="slot_layout">
                 <div class="player_description">
-                  <img src="img/citizen.png" alt="player_profile">
+                  <img src="/img/citizen.png" alt="player_profile">
                   <div class="player_name">jbee</div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
               <li class="slot_layout">
                 <div class="player_description">
-                  <img src="img/citizen.png" alt="player_profile">
+                  <img src="/img/citizen.png" alt="player_profile">
                   <div class="player_name">jbee</div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
@@ -50,28 +58,28 @@
             <ul class="flexible">
               <li class="slot_layout">
                 <div class="player_description">
-                  <img src="img/citizen.png" alt="player_profile">
+                  <img src="/img/citizen.png" alt="player_profile">
                   <div class="player_name">jbee</div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
               <li class="slot_layout">
                 <div class="player_description">
-                  <img src="img/citizen.png" alt="player_profile">
+                  <img src="/img/citizen.png" alt="player_profile">
                   <div class="player_name">jbee</div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
               <li class="slot_layout">
                 <div class="player_description">
-                  <img src="img/citizen.png" alt="player_profile">
+                  <img src="/img/citizen.png" alt="player_profile">
                   <div class="player_name">jbee</div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
               <li class="slot_layout">
                 <div class="player_description">
-                  <img src="img/citizen.png" alt="player_profile">
+                  <img src="/img/citizen.png" alt="player_profile">
                   <div class="player_name">jbee</div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
@@ -91,7 +99,7 @@
       
       <section id="bottom_container" class="flexible">
         <section class="left_container">
-          <textarea id="chatOutput" name="" class="chatting_history" rows="24"></textarea>
+          <textarea id="chatOutput" name="" class="chatting_history" rows="12" readonly></textarea>
           <div class="chatting_input">
             <input id="chatInput" type="text" class="chat">
           </div>
@@ -99,7 +107,7 @@
         
         <section class="right_container">
           <div class="right_container_top_elm_layout elm_background_style">
-            <div class="player_role_description">당신은 <span class="player_role">마피아</span> 입니다.</div>
+            <div class="player_role_description"><span id="userName">{{nickname}}</span>님은 <span class="player_role">마피아</span> 입니다.</div>
           </div>
           <div id="player_mission" class="right_container_bottom_elm_layout elm_background_style">
             <div class="player_mission_title">Mission</div>
@@ -110,8 +118,7 @@
         </section>
       </section>
     </section>
-    <footer>
-    </footer>
     <script src="/bundle.js"></script>
+    <script src="/js/back_block.js"></script>
   </body>
 </html>
