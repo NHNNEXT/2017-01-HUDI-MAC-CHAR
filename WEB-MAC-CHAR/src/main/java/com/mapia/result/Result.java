@@ -1,7 +1,7 @@
 package com.mapia.result;
 
 public interface Result {
-	enum Status {
+	public enum Status {
 		Ok, EmailNotFound, InvalidPassword, EmailExists, NicknameExists;
 	}
 }
