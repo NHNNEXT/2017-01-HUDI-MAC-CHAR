@@ -5,12 +5,8 @@ import java.sql.SQLException;
 import java.util.Set;
 
 public class User {
-    public enum Status {
-        LOBBY, READY, NOT_READY, IN_GAME;
-
-		public boolean isLobby() {
-        	return this == Status.LOBBY;
-		}
+    private enum Status {
+        LOBBY, READY, NOT_READY, IN_GAME
     }
 
 	private long id;
@@ -18,7 +14,7 @@ public class User {
 	private String password;
 	private String nickname;
 	private Status status;
-    private long enteredRoomId;
+    public long enteredRoomId;
 
     public User(){}
 
@@ -78,16 +74,16 @@ public class User {
     }
 	
 	public boolean matchPassword(User user) {
-		return this.password.equals(user.password);
+		return this.password.equals(user.getPassword());
 	}
 
-	public boolean isAbleToEnter(long id) {
-	    return this.status == Status.LOBBY || enteredRoomId == id;
+	public boolean isLobby() {
+        return this.status.equals(Status.LOBBY);
     }
 
-    public boolean isLobby() {
-    	return this.status.isLobby();
-	}
+	public boolean isAbleToEnter(long id) {
+	    return (this.status.equals(Status.LOBBY) || enteredRoomId == id);
+    }
 
 	public void enterRoom(Room room) {
 		Set<User> users = room.getUsers();
