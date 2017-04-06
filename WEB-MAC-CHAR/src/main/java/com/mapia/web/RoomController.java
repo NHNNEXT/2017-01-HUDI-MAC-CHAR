@@ -56,7 +56,7 @@ public class RoomController {
 
         room.enter(user);
         model.addAttribute("room", room);
-        model.addAttribute("nickname", user.getNickname());
+        model.addAttribute("user", user);
 
         return "room";
     }
