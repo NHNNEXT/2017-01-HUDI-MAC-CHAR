@@ -33,14 +33,11 @@ public class GameRoomController {
             return "redirect:/login";
         }
         User user = HttpSessionUtils.getUserFromSession(session);
-        log.info("들어갑니다~ user: {}", user);
         if (!rooms.isExistRoom(id)) {
             session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
             if (!user.isLobby()) {
                 exitUserFromRoom(user);
-                log.info("게임방에서 존재하지 않은 방으로의 잘못된 접근에 대한 처리, user: {}", user);
             }
-            log.info("로비에서 존재하지 않은 방으로의 잘못된 접근에 대한 처리, user: {}", user);
             return "redirect:/";
         }
 
@@ -76,7 +73,7 @@ public class GameRoomController {
     }
 
     private void exitUserFromRoom(User user) {
-        long currentRoomId = user.getBelongToRoomId();
+        long currentRoomId = user.getEnteredRoomId();
         Room room = rooms.getRoom(currentRoomId);
         user.exitRoom(room);
         if (room.isEmpty()) {

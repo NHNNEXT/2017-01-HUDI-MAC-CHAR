@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class User {
     private enum Status {
-        LOBBY, ENTERED, READY, NOT_READY, IN_GAME
+        LOBBY, READY, NOT_READY, IN_GAME
     }
 
 	private long id;
@@ -14,7 +14,7 @@ public class User {
 	private String password;
 	private String nickname;
 	private Status status;
-    public long belongToRoomId;
+    public long enteredRoomId;
 
     public User(){}
 
@@ -65,12 +65,12 @@ public class User {
 		this.status = status;
 	}
 
-	public long getBelongToRoomId() {
-        return this.belongToRoomId;
+	public long getEnteredRoomId() {
+        return this.enteredRoomId;
     }
 
-    public void setBelongToRoomId(long belongToRoomId) {
-        this.belongToRoomId = belongToRoomId;
+    public void setEnteredRoomId(long enteredRoomId) {
+        this.enteredRoomId = enteredRoomId;
     }
 	
 	public boolean matchPassword(User user) {
@@ -82,25 +82,25 @@ public class User {
     }
 
 	public boolean isAbleToEnter(long id) {
-	    return (this.status.equals(Status.LOBBY) || belongToRoomId == id);
+	    return (this.status.equals(Status.LOBBY) || enteredRoomId == id);
     }
 
 	public void enterRoom(Room room) {
 		Set<User> users = room.getUsers();
 		users.add(this);
-		this.belongToRoomId = room.getId();
-	    this.status = Status.ENTERED;
+		this.enteredRoomId = room.getId();
+	    this.status = Status.READY;
     }
 
     public void exitRoom(Room room) {
 		Set<User> users = room.getUsers();
 		users.remove(this);
-		this.belongToRoomId = 0;
+		this.enteredRoomId = 0;
 		this.status = Status.LOBBY;
 	}
 
     public void enterLobby() {
-        this.belongToRoomId = 0;
+        this.enteredRoomId = 0;
         this.status = Status.LOBBY;
     }
 
@@ -108,6 +108,6 @@ public class User {
 	public String toString() {
 		return "User[nickname=" + nickname +
                 ", Status=" + status +
-                ", belongToRoomId=" + belongToRoomId;
+                ", enteredRoomId=" + enteredRoomId;
 	}
 }
