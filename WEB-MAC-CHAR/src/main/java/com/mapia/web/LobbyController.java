@@ -29,7 +29,7 @@ public class LobbyController {
 
 		User user = HttpSessionUtils.getUserFromSession(session);
 		user.enterLobby();
-		model.addAttribute("rooms", rooms.getRooms());
+		model.addAttribute("rooms", rooms);
 		model.addAttribute("user", user);
 		return "lobby";
 	}

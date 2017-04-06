@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class Room {
 	private static final int CAPACITY = 8;
-	private Set<User> users = Collections.synchronizedSet(new LinkedHashSet<>());
+	private Set<User> users = Collections.synchronizedSet(new LinkedHashSet<>(CAPACITY));
 	private long id;
 	private String title;
 	private volatile int userCount;

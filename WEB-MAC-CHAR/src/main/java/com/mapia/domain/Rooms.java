@@ -35,7 +35,6 @@ public class Rooms {
     }
 
     public boolean isExistRoom(long id) {
-        Set<Long> keySet = rooms.keySet();
-        return keySet.contains(id);
+        return rooms.keySet().contains(id);
     }
 }
