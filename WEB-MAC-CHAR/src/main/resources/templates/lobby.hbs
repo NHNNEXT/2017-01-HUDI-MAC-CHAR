@@ -74,16 +74,18 @@
             <th>SECRET</th>
           </tr>
           {{#lobby}}
-            <tr>
-              <td>{{id}}</td>
-              <td><a href="/room/{{id}}">{{title}}</a></td>
-              <td>{{userCount}}/8</td>
-              {{#secretMode}}
-              <td>비밀방</td>
-              {{else}}
-              <td></td>
-              {{/secretMode}}
-            </tr>
+            {{#rooms}}
+              <tr>
+                <td>{{id}}</td>
+                <td><a href="/room/{{id}}">{{title}}</a></td>
+                <td>{{userCount}}/8</td>
+                {{#secretMode}}
+                <td>비밀방</td>
+                {{else}}
+                <td></td>
+                {{/secretMode}}
+              </tr>
+            {{/rooms}}
           {{/lobby}}
         </table>
       </div>

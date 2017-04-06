@@ -3,7 +3,6 @@ package com.mapia.domain;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,9 +12,17 @@ import java.util.concurrent.atomic.AtomicLong;
  * Created by Jbee on 2017. 4. 5..
  */
 @Component
-public class Lobby implements Iterable {
+public class Lobby {
     private volatile Map<Long, Room> rooms = new ConcurrentHashMap<>();
     private final AtomicLong roomIdentifier = new AtomicLong();
+
+    public Collection<Room> getRooms() {
+        return rooms.values();
+    }
+
+    public void setRooms(Map<Long, Room> rooms) {
+        this.rooms = rooms;
+    }
 
     public Room getRoom(long id) {
         return rooms.get(id);
@@ -33,10 +40,5 @@ public class Lobby implements Iterable {
 
     public boolean isExistRoom(long id) {
         return rooms.keySet().contains(id);
-    }
-
-    @Override
-    public Iterator iterator() {
-        return rooms.values().iterator();
     }
 }
