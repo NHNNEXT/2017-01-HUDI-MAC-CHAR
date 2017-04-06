@@ -29,7 +29,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     TextView textView;
     LinearLayout messageContainer;
 
-    final public String socketLink = "ws://1.255.56.109:8080/websockethandler/websocket";
+    final public String socketLink = "ws://211.249.60.54:8000//websockethandler/websocket";
    // final public String socketLink = "ws://192.168.1.222:8080/websockethandler/websocket";
 
     @Override

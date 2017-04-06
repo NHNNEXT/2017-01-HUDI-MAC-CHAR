@@ -17,7 +17,7 @@ import retrofit2.http.POST;
 public interface MafiaRemoteService {
 
 
-    String BASE_URL = "http://1.255.56.109:8080";
+    String BASE_URL = "http://211.249.60.54:8000/";
     //String BASE_URL = "http://172.30.1.50:3000";
     //String BASE_URL = "http://192.168.1.222:8080";
 
