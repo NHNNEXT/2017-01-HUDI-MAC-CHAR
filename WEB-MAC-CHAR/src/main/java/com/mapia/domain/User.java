@@ -2,7 +2,6 @@ package com.mapia.domain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
 
 public class User {
     public enum Status {
@@ -19,6 +18,7 @@ public class User {
 	private String nickname;
 	private Status status;
     private long enteredRoomId;
+    private long LOBBY_ID = 0;
 
     public User(){}
 
@@ -89,23 +89,14 @@ public class User {
     	return this.status.isLobby();
 	}
 
-	public void enterRoom(Room room) {
-		Set<User> users = room.getUsers();
-		users.add(this);
-		this.enteredRoomId = room.getId();
-	    this.status = Status.READY;
-    }
-
-    public void exitRoom(Room room) {
-		Set<User> users = room.getUsers();
-		users.remove(this);
-		this.enteredRoomId = 0;
+	public void enterLobby() {
+		this.enteredRoomId = LOBBY_ID;
 		this.status = Status.LOBBY;
 	}
 
-    public void enterLobby() {
-        this.enteredRoomId = 0;
-        this.status = Status.LOBBY;
+	public void enterRoom(long id) {
+		this.enteredRoomId = id;
+	    this.status = Status.READY;
     }
 
 	@Override
