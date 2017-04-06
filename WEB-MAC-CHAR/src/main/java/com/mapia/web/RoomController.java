@@ -32,6 +32,7 @@ public class RoomController {
         User user = HttpSessionUtils.getUserFromSession(session);
         if (!rooms.isExistRoom(id)) {
             session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
+
             if (!user.isLobby()) {
                 exitUserFromRoom(user);
             }
@@ -44,6 +45,7 @@ public class RoomController {
             exitUserFromRoom(user);
             return "redirect:/";
         }
+
         if (room.isFull()) {
             return "redirect:/lobby";
         }
