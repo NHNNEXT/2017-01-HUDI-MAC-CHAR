@@ -4,17 +4,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class User {
-    private final String LOBBY = "lobby";
-    private final String ENTERED = "entered";
-    private final String READY = "ready";
-    private final String NOT_READY = "notReady";
+    public enum Status {
+        LOBBY, READY, NOT_READY, IN_GAME;
+
+		public boolean isLobby() {
+        	return this == Status.LOBBY;
+		}
+    }
+
 	private long id;
 	private String email;
 	private String password;
 	private String nickname;
-	private String status;
-	
-	public User(){}
+	private Status status;
+    private long enteredRoomId;
+    private long LOBBY_ID = 0;
+
+    public User(){}
 
 	public User(ResultSet rs) throws SQLException {
 		this.id = rs.getLong("id");
@@ -55,36 +61,48 @@ public class User {
 		this.nickname = nickname;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	public long getEnteredRoomId() {
+        return this.enteredRoomId;
+    }
+
+    public void setEnteredRoomId(long enteredRoomId) {
+        this.enteredRoomId = enteredRoomId;
+    }
 	
 	public boolean matchPassword(User user) {
-		return this.password.equals(user.getPassword());
+		return this.password.equals(user.password);
 	}
 
-	public boolean isEntered() {
-	    return this.status == LOBBY;
+	public boolean isAbleToEnter(long id) {
+	    return this.status == Status.LOBBY || enteredRoomId == id;
     }
 
-	public void enterRoom() {
-	    this.status = ENTERED;
-    }
+    public boolean isLobby() {
+    	return this.status.isLobby();
+	}
 
-    public void outRoom() {
-	    this.status = LOBBY;
-    }
+	public void enterLobby() {
+		this.enteredRoomId = LOBBY_ID;
+		this.status = Status.LOBBY;
+	}
 
-    public void enterLobby() {
-	    this.status = LOBBY;
+	public void enterRoom(long id) {
+		this.enteredRoomId = id;
+	    this.status = Status.READY;
     }
 
 	@Override
 	public String toString() {
-		return "User[nickname=" + nickname + "]";
+		return "User[nickname=" + nickname +
+                ", Status=" + status +
+                ", enteredRoomId=" + enteredRoomId;
 	}
 }
