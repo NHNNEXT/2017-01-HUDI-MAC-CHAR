@@ -12,12 +12,16 @@ import java.util.concurrent.atomic.AtomicLong;
  * Created by Jbee on 2017. 4. 5..
  */
 @Component
-public class Rooms {
+public class Lobby {
     private volatile Map<Long, Room> rooms = new ConcurrentHashMap<>();
     private final AtomicLong roomIdentifier = new AtomicLong();
 
     public Collection<Room> getRooms() {
         return rooms.values();
+    }
+
+    public void setRooms(Map<Long, Room> rooms) {
+        this.rooms = rooms;
     }
 
     public Room getRoom(long id) {

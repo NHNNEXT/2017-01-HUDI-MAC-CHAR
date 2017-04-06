@@ -1,6 +1,6 @@
 package com.mapia.web;
 
-import com.mapia.domain.Rooms;
+import com.mapia.domain.Lobby;
 import com.mapia.domain.User;
 import com.mapia.utils.HttpSessionUtils;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ public class LobbyController {
 	private static final Logger log = LoggerFactory.getLogger(LobbyController.class);
 
 	@Autowired
-	private Rooms rooms;
+	private Lobby lobby;
 
 	@GetMapping("")
 	public String waitingRoomPage(HttpSession session, Model model) {
@@ -29,7 +29,7 @@ public class LobbyController {
 
 		User user = HttpSessionUtils.getUserFromSession(session);
 		user.enterLobby();
-		model.addAttribute("rooms", rooms);
+		model.addAttribute("lobby", lobby);
 		model.addAttribute("user", user);
 		return "lobby";
 	}

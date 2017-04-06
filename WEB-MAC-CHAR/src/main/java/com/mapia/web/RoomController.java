@@ -1,7 +1,7 @@
 package com.mapia.web;
 
 import com.mapia.domain.Room;
-import com.mapia.domain.Rooms;
+import com.mapia.domain.Lobby;
 import com.mapia.domain.User;
 import com.mapia.utils.HttpSessionUtils;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class RoomController {
     private static final Logger log = LoggerFactory.getLogger(RoomController.class);
 
     @Autowired
-    private Rooms rooms;
+    private Lobby lobby;
 
     @GetMapping("/{id}")
     public String enter(@PathVariable long id, HttpSession session, Model model) {
@@ -30,7 +30,7 @@ public class RoomController {
             return "redirect:/login";
         }
         User user = HttpSessionUtils.getUserFromSession(session);
-        if (!rooms.isExistRoom(id)) {
+        if (!lobby.isExistRoom(id)) {
             session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
 
             if (!user.isLobby()) {
@@ -39,7 +39,7 @@ public class RoomController {
             return "redirect:/";
         }
 
-        Room room = rooms.getRoom(id);
+        Room room = lobby.getRoom(id);
         if (!user.isAbleToEnter(id)) {
             session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
             exitUserFromRoom(user);
@@ -54,7 +54,7 @@ public class RoomController {
             //TODO Add secret mode logic
         }
 
-        user.enterRoom(room);
+        room.enter(user);
         model.addAttribute("room", room);
         model.addAttribute("nickname", user.getNickname());
 
@@ -64,7 +64,7 @@ public class RoomController {
     @PostMapping("")
     public String create(String title) {
         //TODO Add secret mode logic
-        long roomId  = rooms.createRoom(title);
+        long roomId  = lobby.createRoom(title);
         log.info("Created RoomId: {}", roomId);
         return "redirect:/room/" + roomId;
     }
@@ -78,10 +78,10 @@ public class RoomController {
 
     private void exitUserFromRoom(User user) {
         long currentRoomId = user.getEnteredRoomId();
-        Room room = rooms.getRoom(currentRoomId);
-        user.exitRoom(room);
+        Room room = lobby.getRoom(currentRoomId);
+        room.exit(user);
         if (room.isEmpty()) {
-            rooms.delRoom(currentRoomId);
+            lobby.delRoom(currentRoomId);
         }
     }
 }

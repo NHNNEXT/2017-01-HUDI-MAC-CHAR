@@ -62,4 +62,14 @@ public class Room {
                 ", userCount=" + userCount +
                 '}';
     }
+
+	public void enter(User user) {
+		user.enterRoom(this.id);
+		users.add(user);
+	}
+
+	public void exit(User user) {
+		user.enterLobby();
+		users.remove(user);
+	}
 }
