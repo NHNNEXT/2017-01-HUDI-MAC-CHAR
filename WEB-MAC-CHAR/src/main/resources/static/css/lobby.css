@@ -31,6 +31,10 @@ body {
   text-align: center;
 }
 
+.eachRoom:hover {
+  cursor: pointer;
+}
+
 .rooms_list {
   width: 70%;
   overflow: auto;

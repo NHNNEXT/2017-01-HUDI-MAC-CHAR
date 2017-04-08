@@ -74,9 +74,9 @@
             <th>SECRET</th>
           </tr>
           {{#lobby}}
-            <tr>
+            <tr class="eachRoom" id={{id}}>
               <td>{{id}}</td>
-              <td><a href="/room/{{id}}">{{title}}</a></td>
+              <td>{{title}}</td>
               <td>{{userCount}}/8</td>
               {{#secretMode}}
               <td>비밀방</td>
