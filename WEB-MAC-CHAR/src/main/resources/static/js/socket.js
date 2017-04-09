@@ -42,7 +42,8 @@ let WebSocket = (function() {
     }
 
     function sendMessage(userName, text) {
-        stompClient.send("/app/hello", JSON.stringify({"content": text, "userName": userName}));
+    	let destinationUrl = "/room/"+getRoomId();
+        stompClient.send(destinationUrl, JSON.stringify({"content": text, "userName": userName}));
     }
 
     let textArea = document.getElementById("chatOutput");

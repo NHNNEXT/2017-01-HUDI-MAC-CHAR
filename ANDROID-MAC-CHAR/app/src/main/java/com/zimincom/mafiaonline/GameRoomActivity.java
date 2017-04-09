@@ -78,7 +78,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
 
     public void send(String message,int roomId){
-        String destinationUrl = "/room/"+String.valueOf(roomId);
+        String destinationUrl = "/topic/"+String.valueOf(roomId);
         mStompClient.send(destinationUrl, gson.toJson(new MessageItem(message))).subscribe();
 
     }

@@ -12,15 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MessageHandler {
 
-    @MessageMapping("/hello")
-    @SendTo("/topic/1")
-    public ClientMessage broadcasting(ClientMessage message) throws Exception {
-        return message;
-    }
     
-    @MessageMapping("/room/{roomId}")
+    @MessageMapping("/{roomId}")
     @SendTo("/topic/{roomId}")
-    public ClientMessage messageToRoom(ClientMessage message, @DestinationVariable String roomId) throws Exception {
+    public ClientMessage messageToRoom(ClientMessage message) throws Exception {
     	return message;
     }
     
