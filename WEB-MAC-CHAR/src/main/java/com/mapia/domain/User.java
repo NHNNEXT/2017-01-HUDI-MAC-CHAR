@@ -1,8 +1,5 @@
 package com.mapia.domain;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.mapia.utils.PasswordEncryptUtils;
 
 public class User {
@@ -23,13 +20,6 @@ public class User {
     private long LOBBY_ID = 0;
 
     public User(){}
-
-	public User(ResultSet rs) throws SQLException {
-		this.id = rs.getLong("id");
-		this.email = rs.getString("email");
-		this.password = rs.getString("password");
-		this.nickname = rs.getString("nickname");
-	}
 
 	public long getId() {
 		return id;
