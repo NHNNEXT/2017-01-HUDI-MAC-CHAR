@@ -28,8 +28,10 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     EditText messageInput;
     TextView textView;
     LinearLayout messageContainer;
+    int roomId = 1;
 
-    final public String socketLink = "ws://1.255.56.109:8080/websockethandler/websocket";
+    //final public String socketLink = "ws://211.249.60.54:8000//websockethandler/websocket";
+    final public String socketLink = "ws://172.30.1.50:8000//websockethandler/websocket";
    // final public String socketLink = "ws://192.168.1.222:8080/websockethandler/websocket";
 
     @Override
@@ -47,7 +49,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         mStompClient.connect();
 
 
-        mStompClient.topic("/topic/roomId").subscribe(topicMessage -> {
+        mStompClient.topic("/topic/1").subscribe(topicMessage -> {
 
 
             runOnUiThread(() -> {
@@ -75,8 +77,9 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    public void send(String message){
-        mStompClient.send("/app/hello", gson.toJson(new MessageItem(message))).subscribe();
+    public void send(String message,int roomId){
+        String destinationUrl = "/topic/"+String.valueOf(roomId);
+        mStompClient.send(destinationUrl, gson.toJson(new MessageItem(message))).subscribe();
 
     }
 
@@ -94,7 +97,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
             String message = messageInput.getText().toString();
             Log.d("MainActivity",message);
             messageInput.setText("");
-            send(message);
+            send(message,roomId);
         }
     }
 

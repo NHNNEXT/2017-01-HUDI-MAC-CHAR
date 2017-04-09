@@ -21,15 +21,34 @@
         android:text="환경설정"/>
 
     <Button
-        android:id="@+id/create_room"
+    android:id="@+id/create_room"
+    android:background="@drawable/make_btn"
+    android:layout_margin="10dp"
+    android:layout_toLeftOf="@+id/setting"
+    android:layout_width="100dp"
+    android:layout_height="30dp"
+    android:textColor="@color/colorMainText"
+    android:text="방만들기"/>
+
+
+    <Button
+        android:id="@+id/create_room1"
         android:background="@drawable/make_btn"
         android:layout_margin="10dp"
-        android:layout_toLeftOf="@+id/setting"
         android:layout_width="100dp"
+        android:layout_below="@+id/create_room"
         android:layout_height="30dp"
         android:textColor="@color/colorMainText"
-        android:text="방만들기"/>
-
+        android:text="방만들기1"/>
+    <Button
+        android:id="@+id/create_room2"
+        android:background="@drawable/make_btn"
+        android:layout_margin="10dp"
+        android:layout_width="100dp"
+        android:layout_below="@+id/create_room1"
+        android:layout_height="30dp"
+        android:textColor="@color/colorMainText"
+        android:text="방만들기2"/>
         <ImageView
             android:id="@+id/background"
             android:layout_width="match_parent"

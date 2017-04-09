@@ -65,6 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
                         finish();
                     }else if(responseItem.status.equals("EmailExits")){
                         Toast.makeText(context,responseItem.status,Toast.LENGTH_LONG).show();
+
                     }
 
                 }

@@ -29,4 +29,8 @@ public class ClientMessage {
     public void setContent(String content) {
         this.content = content;
     }
+    
+    public void convertAndSend( ){
+    	
+    }
 }
