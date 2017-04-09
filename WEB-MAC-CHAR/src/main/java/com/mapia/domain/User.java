@@ -3,6 +3,8 @@ package com.mapia.domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.mapia.utils.PasswordEncryptUtils;
+
 public class User {
     public enum Status {
         LOBBY, READY, NOT_READY, IN_GAME;
@@ -50,7 +52,11 @@ public class User {
 	}
 	
 	public void setPassword(String password) {
-		this.password = password;
+		try {
+			this.password = PasswordEncryptUtils.getEncSHA256(password);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public String getNickname() {
