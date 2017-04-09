@@ -15,9 +15,12 @@ let WebSocket = (function() {
         console.log("roomId: ", roomId);
         let socket = new SockJS(SERVER_SOCKET_API);
         console.log("socket_server: ", socket._server);
+        let url = "/topic/"+roomId.toString();
+        console.log(url);
+        
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function () {
-            stompClient.subscribe("/topic/roomId", function (message) {
+            stompClient.subscribe(url, function (message) {
                 printMessage(JSON.parse(message.body));
             });
         });
