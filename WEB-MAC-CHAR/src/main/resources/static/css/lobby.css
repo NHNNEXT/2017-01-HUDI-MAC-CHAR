@@ -8,6 +8,19 @@ body {
   background: rgba(255, 255, 255, 0.6);
 }
 
+.navbar-default {
+  background-color: #000;
+  border-color: #000;
+}
+
+.container-fluid img {
+  max-width: 40%;
+}
+
+#logout {
+  color: #fff;
+}
+
 .option {
   margin: 20px;
 }

@@ -5,6 +5,11 @@ window.onload = () => {
 function init() {
 	let dimmer = document.querySelector("#dimmer");
 	let eachRoom = document.querySelector(".eachRoom");
+	let refreshRoom = document.querySelector("#btn_refresh");
+	
+	refreshRoom.addEventListener("click", function() {
+		window.location.href= "/lobby";
+	});
 	
 	document.querySelector("#make_room").addEventListener("click", () => {
 		dimmer.style.display = "block";
