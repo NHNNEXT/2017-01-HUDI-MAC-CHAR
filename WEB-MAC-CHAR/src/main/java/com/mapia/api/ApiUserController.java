@@ -40,7 +40,7 @@ public class ApiUserController {
 		}
 		
 		session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
-		return LoginResult.ok();
+		return LoginResult.ok(user.getNickname());
 	}
 	
 	@PostMapping("/signup")
