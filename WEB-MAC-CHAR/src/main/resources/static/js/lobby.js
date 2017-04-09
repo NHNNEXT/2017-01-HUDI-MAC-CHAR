@@ -4,7 +4,7 @@ window.onload = () => {
 
 function init() {
 	let dimmer = document.querySelector("#dimmer");
-	let eachRoom = document.querySelector(".eachRoom");
+	let rooms = document.getElementsByClassName("room");
 	
 	document.querySelector("#make_room").addEventListener("click", () => {
 		dimmer.style.display = "block";
@@ -16,9 +16,12 @@ function init() {
 		offModal();
 	});
 	
-	eachRoom.addEventListener("click", function() {
-		window.location.href = "/room/" + this.id;
-	});
+	
+	for (eachRoom of rooms) {
+		eachRoom.addEventListener("click", function(e) { 
+			window.location.href = "/room/" + e.target.parentElement.id;
+			});
+	}
 	
 	function offModal() {
 		let modals = document.querySelectorAll(".my_modal");
