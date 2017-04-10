@@ -27,6 +27,7 @@ public class ResponseItem {
                 ", nickname='" + nickname + '\'' +
                 ", rooms=" + rooms +
                 ", user=" + user.nickname +
+                ", rooms=" + rooms +
                 '}';
     }
 }

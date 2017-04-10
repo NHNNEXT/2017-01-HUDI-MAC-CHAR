@@ -32,7 +32,6 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
     ArrayList<Room> rooms = new ArrayList<>();
     RecyclerView roomListView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +67,7 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
 
                     Logger.d(rooms.get(0).toString());
 
-
                     roomListView.setAdapter(new RoomAdapter(context,rooms,R.layout.item_room));
-
-
                 }
 
             }
