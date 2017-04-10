@@ -1,5 +1,7 @@
 package com.zimincom.mafiaonline.item;
 
+import java.util.ArrayList;
+
 /**
  * Created by Zimincom on 2017. 4. 3..
  */
@@ -7,20 +9,20 @@ package com.zimincom.mafiaonline.item;
 public class ResponseItem {
 
     public String status;
-    public String msg;
+    String msg;
+    ArrayList<Room> rooms;
 
-    public ResponseItem(String status, String msg) {
-        this.status = status;
-        this.msg = msg;
+
+    public ArrayList<Room> getRooms() {
+        return rooms;
     }
-
-
 
     @Override
     public String toString() {
         return "ResponseItem{" +
-                "status=" + status +
+                "status='" + status + '\'' +
                 ", msg='" + msg + '\'' +
+                ", rooms=" + rooms +
                 '}';
     }
 }
