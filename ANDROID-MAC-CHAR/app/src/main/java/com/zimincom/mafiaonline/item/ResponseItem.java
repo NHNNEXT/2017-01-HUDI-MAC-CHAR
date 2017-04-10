@@ -10,7 +10,9 @@ public class ResponseItem {
 
     public String status;
     String msg;
+    String nickname;
     ArrayList<Room> rooms;
+    User user;
 
 
     public ArrayList<Room> getRooms() {
@@ -22,7 +24,9 @@ public class ResponseItem {
         return "ResponseItem{" +
                 "status='" + status + '\'' +
                 ", msg='" + msg + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", rooms=" + rooms +
+                ", user=" + user.nickname +
                 '}';
     }
 }
