@@ -14,11 +14,9 @@
 
 @end
 
-@implementation ChatViewController {
+@implementation ChatViewController {}
 
-}
-
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
     [self subscribeMsg];
 }
@@ -31,9 +29,7 @@
     NSURL *webSocketURL = [NSURL URLWithString:@"ws://1.255.56.109:8080/websockethandler/websocket"];
     STOMPClient *client = [[STOMPClient alloc] initWithURL:webSocketURL webSocketHeaders:nil useHeartbeat:NO];
     NSString *textMessage = [NSString stringWithFormat:@"%@", _chatTextField.text];
-//    NSArray *msgArray = [NSArray arrayWithObject:textMessage];
     NSDictionary *msgDict = @{@"content": textMessage};
-    
     
     [client connectWithLogin:@"yongjai@gmail.com"
                     passcode:@"1234"
