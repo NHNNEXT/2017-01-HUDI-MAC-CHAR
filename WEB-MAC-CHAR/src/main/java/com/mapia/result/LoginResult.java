@@ -1,12 +1,20 @@
 package com.mapia.result;
 
+import com.mapia.domain.User;
+
 public class LoginResult implements Result {
 	private Status status;
 	private String msg;
+	private User user;
 	
 	private LoginResult(Status status, String msg) {
 		this.status = status;
 		this.msg = msg;
+	}
+	
+	private LoginResult(Status status, User user) {
+		this.status = status;
+		this.user = user;
 	}
 	
 	public Status getStatus() {
@@ -17,9 +25,12 @@ public class LoginResult implements Result {
 		return msg;
 	}
 	
-	// 모바일에서 필요한 nickname을 일단 msg에 담아 전달. User 객체를 전달하는 게 더 좋을지도 모름.
-	public static LoginResult ok(String msg) {
-		return new LoginResult(Status.Ok, msg);
+	public User getUser() {
+		return user;
+	}
+	
+	public static LoginResult ok(User user) {
+		return new LoginResult(Status.Ok, user);
 	}
 	
 	public static LoginResult emailNotFound(String msg) {

@@ -16,7 +16,7 @@ let login = (function(){
 		$.ajax({
 			type: "post",
 			url: url,
-			data : jsonString,
+			data: jsonString,
 			contentType: "application/json",
 			error: onError,
 			success: onSuccess

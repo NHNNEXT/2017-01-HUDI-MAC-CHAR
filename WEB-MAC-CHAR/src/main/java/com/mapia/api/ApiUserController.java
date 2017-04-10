@@ -41,7 +41,7 @@ public class ApiUserController {
 		}
 		
 		session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
-		return LoginResult.ok(user.getNickname());
+		return LoginResult.ok(user);
 	}
 	
 	@PostMapping("/signup")
@@ -63,6 +63,6 @@ public class ApiUserController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
-		return "redirect:/";
+		return "logged out";
 	}
 }

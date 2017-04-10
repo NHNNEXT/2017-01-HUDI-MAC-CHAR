@@ -1,5 +1,6 @@
 package com.mapia.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mapia.utils.PasswordEncryptUtils;
 
 public class User {
@@ -81,6 +82,7 @@ public class User {
 	    return this.status == Status.LOBBY || enteredRoomId == id;
     }
 
+	@JsonIgnore
     public boolean isLobby() {
     	return this.status.isLobby();
 	}

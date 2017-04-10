@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 
 public class PasswordEncryptUtils {
 	public static String getEncSHA256(String password) throws Exception { 
-		StringBuffer sb = new StringBuffer();
+		String result = "";
 		
 		MessageDigest mDigest = MessageDigest.getInstance("SHA-256");
 		mDigest.update(password.getBytes());
@@ -15,9 +15,9 @@ public class PasswordEncryptUtils {
 			byte tmpStrByte = msgStr[i];
 			String tmpEncPasswd = Integer.toString((tmpStrByte & 0xff) + 0x100, 16).substring(1);
 			
-			sb.append(tmpEncPasswd);
+			result += tmpEncPasswd;
 		}
 		
-		return sb.toString();
+		return result;
 	}
 }
