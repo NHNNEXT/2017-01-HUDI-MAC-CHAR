@@ -37,6 +37,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.roomId.setText(rooms.get(position).getId());
         holder.roomTitle.setText(rooms.get(position).getTitle());
+        String playerCount = rooms.get(position).getUserCount()+"/8";
+        holder.playerCount.setText(playerCount);
     }
 
     @Override
@@ -47,11 +49,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView roomId;
         public TextView roomTitle;
+        public TextView playerCount;
 
         public ViewHolder(View itemView){
             super(itemView);
             roomId = (TextView) itemView.findViewById(R.id.room_id);
             roomTitle = (TextView) itemView.findViewById(R.id.room_title);
+            playerCount = (TextView) itemView.findViewById(R.id.current_player);
         }
     }
 }
