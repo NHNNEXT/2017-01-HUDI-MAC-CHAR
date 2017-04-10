@@ -7,6 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface RoomListViewController : UIViewController
+@interface RoomListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

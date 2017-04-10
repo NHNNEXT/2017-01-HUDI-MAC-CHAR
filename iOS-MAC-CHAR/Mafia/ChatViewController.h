@@ -11,7 +11,5 @@
 
 @interface ChatViewController : UIViewController
 
-
-
 @end
 
