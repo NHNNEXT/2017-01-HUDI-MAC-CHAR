@@ -2,10 +2,7 @@ package com.mapia.domain;
 
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -16,6 +13,10 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Lobby implements Iterable {
     private volatile Map<Long, Room> rooms = new ConcurrentHashMap<>();
     private final AtomicLong roomIdentifier = new AtomicLong();
+
+    public Collection<Room> rooms() {
+        return rooms.values();
+    }
 
     public Room getRoom(long id) {
         return rooms.get(id);
