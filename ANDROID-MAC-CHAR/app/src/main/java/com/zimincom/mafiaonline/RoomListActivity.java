@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.Room;
+import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
 
 import java.util.ArrayList;
@@ -31,11 +32,15 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
     Button roomCreate;
     ArrayList<Room> rooms = new ArrayList<>();
     RecyclerView roomListView;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_list);
+
+        user = (User)getIntent().getSerializableExtra("user");
+        Logger.d(user.getNickName());
 
         roomCreate = (Button)findViewById(R.id.create_room);
         roomCreate.setOnClickListener(this);
@@ -46,7 +51,7 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         roomListView.setLayoutManager(layoutManager);
         roomListView.setItemAnimator(new DefaultItemAnimator());
-        RoomAdapter roomAdapter = new RoomAdapter(context,rooms,R.layout.item_room);
+        RoomAdapter roomAdapter = new RoomAdapter(context,rooms,user,R.layout.item_room);
         roomListView.setAdapter(roomAdapter);
 
         getRoomList();
@@ -62,12 +67,15 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
             @Override
             public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
                 if (response.isSuccessful()) {
-                    Logger.d(response.body());
                     rooms = response.body().getRooms();
-
+                    Logger.d(rooms.get(0).toString());
+                    roomListView.setAdapter(new RoomAdapter(context,rooms,R.layout.item_room));
                     Logger.d(rooms.get(0).toString());
 
-                    roomListView.setAdapter(new RoomAdapter(context,rooms,R.layout.item_room));
+
+                    roomListView.setAdapter(new RoomAdapter(context,rooms,user,R.layout.item_room));
+
+
                 }
 
             }
