@@ -1,8 +1,12 @@
 package com.zimincom.mafiaonline;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,8 +27,11 @@ import static com.zimincom.mafiaonline.remote.MafiaRemoteService.retrofit;
 public class RoomListActivity extends Activity implements View.OnClickListener{
 
 
+    Context context = this;
     Button roomCreate;
     ArrayList<Room> rooms = new ArrayList<>();
+    RecyclerView roomListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +41,16 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
         roomCreate = (Button)findViewById(R.id.create_room);
         roomCreate.setOnClickListener(this);
 
-        getRoomList();
 
+        roomListView = (RecyclerView) findViewById(R.id.room_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        roomListView.setLayoutManager(layoutManager);
+        roomListView.setItemAnimator(new DefaultItemAnimator());
+        RoomAdapter roomAdapter = new RoomAdapter(context,rooms,R.layout.item_room);
+        roomListView.setAdapter(roomAdapter);
+
+        getRoomList();
 
     }
 
@@ -50,6 +65,12 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
                 if (response.isSuccessful()) {
                     Logger.d(response.body());
                     rooms = response.body().getRooms();
+
+                    Logger.d(rooms.get(0).toString());
+
+
+                    roomListView.setAdapter(new RoomAdapter(context,rooms,R.layout.item_room));
+
 
                 }
 

@@ -1,12 +1,14 @@
 package com.zimincom.mafiaonline.item;
 
+import java.util.Arrays;
+
 /**
  * Created by Zimincom on 2017. 4. 10..
  */
 
 public class Room {
     User[] users;
-    int id;
+    String id;
     String title;
     int userCount;
     boolean secretMode;
@@ -22,7 +24,7 @@ public class Room {
         return users;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -34,7 +36,7 @@ public class Room {
         return secretMode;
     }
 
-    public Room(User[] users, int id, String title, int userCount, boolean secretMode, boolean empty, boolean full) {
+    public Room(User[] users, String id, String title, int userCount, boolean secretMode, boolean empty, boolean full) {
         this.users = users;
         this.id = id;
         this.title = title;
@@ -44,4 +46,16 @@ public class Room {
         this.full = full;
     }
 
+    @Override
+    public String toString() {
+        return "Room{" +
+                "users=" + Arrays.toString(users) +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", userCount=" + userCount +
+                ", secretMode=" + secretMode +
+                ", empty=" + empty +
+                ", full=" + full +
+                '}';
+    }
 }
