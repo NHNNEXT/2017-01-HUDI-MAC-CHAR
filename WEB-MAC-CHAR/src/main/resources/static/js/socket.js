@@ -15,9 +15,12 @@ let WebSocket = (function() {
         console.log("roomId: ", roomId);
         let socket = new SockJS(SERVER_SOCKET_API);
         console.log("socket_server: ", socket._server);
+        let url = "/topic/"+roomId.toString();
+        console.log(url);
+        
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function () {
-            stompClient.subscribe("/topic/roomId", function (message) {
+            stompClient.subscribe(url, function (message) {
                 printMessage(JSON.parse(message.body));
             });
         });
@@ -39,7 +42,8 @@ let WebSocket = (function() {
     }
 
     function sendMessage(userName, text) {
-        stompClient.send("/app/hello", JSON.stringify({"content": text, "userName": userName}));
+    	let destinationUrl = "/room/"+getRoomId();
+        stompClient.send(destinationUrl, JSON.stringify({"content": text, "userName": userName}));
     }
 
     let textArea = document.getElementById("chatOutput");

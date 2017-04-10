@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MessageHandler {
 
-    @MessageMapping("/hello")
-    @SendTo("/topic/roomId")
+    @MessageMapping("/{roomId}")
+    @SendTo("/topic/{roomId}")
     public ClientMessage broadcasting(ClientMessage message) throws Exception {
         return message;
     }
