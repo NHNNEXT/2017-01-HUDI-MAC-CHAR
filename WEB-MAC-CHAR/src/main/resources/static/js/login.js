@@ -1,14 +1,14 @@
 let login = (function(){
 	let button = document.querySelector("#login_button");
+	let [emailInput, passwordInput] = document.querySelectorAll("[name]"); //Destructuring assignment
 	const roomPage = "/lobby";
 	
 	function tryLogin(e) {
 		e.preventDefault();
 		
 		let url = document.querySelector("#login_form").getAttribute("action");
-		let userInputs = document.querySelectorAll("[name]");
-		let jsonString = JSON.stringify({"email" : userInputs[0].value,
-										 "password" : userInputs[1].value});
+		let jsonString = JSON.stringify({"email" : emailInput.value,
+										 "password" : passwordInput.value});
 		
 		console.log("url : " + url);
 		console.log("jsonString : " + jsonString);
@@ -16,7 +16,7 @@ let login = (function(){
 		$.ajax({
 			type: "post",
 			url: url,
-			data : jsonString,
+			data: jsonString,
 			contentType: "application/json",
 			error: onError,
 			success: onSuccess
@@ -36,6 +36,7 @@ let login = (function(){
 		
 		if (data.status === "InvalidPassword") {
 			userNotify(data.msg);
+			passwordInput.value = "";
 		}
 	}
 	

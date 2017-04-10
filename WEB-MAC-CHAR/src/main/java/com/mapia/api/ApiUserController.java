@@ -5,15 +5,16 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mapia.dao.UserRepository;
+import com.mapia.domain.User;
 import com.mapia.result.LoginResult;
 import com.mapia.result.SignUpResult;
-import com.mapia.domain.User;
 import com.mapia.utils.HttpSessionUtils;
 
 @RestController
@@ -40,7 +41,7 @@ public class ApiUserController {
 		}
 		
 		session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
-		return LoginResult.ok();
+		return LoginResult.ok(user);
 	}
 	
 	@PostMapping("/signup")
@@ -57,5 +58,11 @@ public class ApiUserController {
 		
 		userRepository.userInsert(newUser);
 		return SignUpResult.ok();
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
+		return "logged out";
 	}
 }

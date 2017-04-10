@@ -28,17 +28,11 @@ public class MainController {
 			return "login_page.html";
 		}
     	
-		return "redirect:/rooms";
+		return "redirect:/lobby";
 	}
 
     @GetMapping("signup")
 	public String signupPage() {
 		return "signup_page.html";
 	}
-    
-    @GetMapping("logout")	// 일단 여기에 놓지만 위치를 다시 생각해 봐야 될 듯.
-    public String logout(HttpSession session) {
-    	session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
-    	return "redirect:/";
-    }
 }

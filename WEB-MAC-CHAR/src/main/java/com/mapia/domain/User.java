@@ -1,7 +1,7 @@
 package com.mapia.domain;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mapia.utils.PasswordEncryptUtils;
 
 public class User {
     public enum Status {
@@ -21,13 +21,6 @@ public class User {
     private long LOBBY_ID = 0;
 
     public User(){}
-
-	public User(ResultSet rs) throws SQLException {
-		this.id = rs.getLong("id");
-		this.email = rs.getString("email");
-		this.password = rs.getString("password");
-		this.nickname = rs.getString("nickname");
-	}
 
 	public long getId() {
 		return id;
@@ -50,7 +43,11 @@ public class User {
 	}
 	
 	public void setPassword(String password) {
-		this.password = password;
+		try {
+			this.password = PasswordEncryptUtils.getEncSHA256(password);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public String getNickname() {
@@ -85,6 +82,7 @@ public class User {
 	    return this.status == Status.LOBBY || enteredRoomId == id;
     }
 
+	@JsonIgnore
     public boolean isLobby() {
     	return this.status.isLobby();
 	}

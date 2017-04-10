@@ -1,5 +1,7 @@
 package com.mapia.dao;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +23,22 @@ public class UserRepository {
 	
 	public User findUserByEmail(String email) {
 		String query = "SELECT * FROM User WHERE email = ?";
-		User resultUser;
+		List<User> resultUser;
 		try {
-			resultUser = jdbcTemplate.queryForObject(query, new Object[]{email}, new UserRowMapper());
+			resultUser = jdbcTemplate.query(query, (rs, rowNum) -> {
+				User user = new User();
+				user.setId(rs.getLong("id"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setNickname(rs.getString("nickname"));
+				return user;
+			}, email);
 		} catch (EmptyResultDataAccessException e) {
 			log.error(e.getMessage());
 			return null;
 		}
-		return resultUser;
+		
+		return resultUser.size() > 0 ? resultUser.get(0) : null;
 	}
 	
 	public int userInsert(User user) {
@@ -38,13 +48,21 @@ public class UserRepository {
 	
 	public User findUserByNickname(String nickname) {
 		String query = "SELECT * FROM User WHERE nickname = ?";
-		User resultUser;
+		List<User> resultUser;
 		try {
-			resultUser = jdbcTemplate.queryForObject(query, new Object[]{nickname}, new UserRowMapper());
+			resultUser = jdbcTemplate.query(query, (rs, rowNum) -> {
+				User user = new User();
+				user.setId(rs.getLong("id"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setNickname(rs.getString("nickname"));
+				return user;
+			}, nickname);
 		} catch (EmptyResultDataAccessException e) {
 			log.error(e.getMessage());
 			return null;
 		}
-		return resultUser;
+		
+		return resultUser.size() > 0 ? resultUser.get(0) : null;
 	}
 }
