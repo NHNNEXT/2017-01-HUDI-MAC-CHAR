@@ -8,28 +8,19 @@ document.addEventListener("DOMContentLoaded", function() {
 let WebSocket = (function() {
     const SERVER_SOCKET_API = "/websockethandler";
     const ENTER_KEY = 13;
+    const TO_CHAT_API = "/to/chat/";
+    const FROM_CHAT_API = "/from/chat/";
     let stompClient;
 
     function connect() {
-        let roomId = getRoomId();
-        console.log("roomId: ", roomId);
         let socket = new SockJS(SERVER_SOCKET_API);
-        console.log("socket_server: ", socket._server);
-        let url = "/topic/"+roomId.toString();
-        console.log(url);
-        
+        let url = FROM_CHAT_API + getRoomId();
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function () {
             stompClient.subscribe(url, function (message) {
                 printMessage(JSON.parse(message.body));
             });
         });
-    }
-
-    function getRoomId() {
-        let roomId = document.getElementById("roomId").textContent;
-        let parsed = roomId.split(".");
-        return parsed[1];
     }
 
     let inputElm = document.getElementById("chatInput");
@@ -41,26 +32,35 @@ let WebSocket = (function() {
         }
     }
 
-    function sendMessage(userName, text) {
-    	let destinationUrl = "/room/"+getRoomId();
-        stompClient.send(destinationUrl, JSON.stringify({"content": text, "userName": userName}));
-    }
-
     let textArea = document.getElementById("chatOutput");
     function printMessage(message) {
         syncScroll();
-        let formattedMsg = message.userName + " : " + message.content;
-        textArea.value += formattedMsg + "\n";
+        let msg = `${message.userName}:\t${message.content}\n`;
+        textArea.value += msg;
+    }
+
+    function sendMessage(userName, text) {
+        let destinationUrl = TO_CHAT_API + getRoomId();
+        let msg = {
+                    "content": text,
+                    "userName": userName
+                  };
+        stompClient.send(destinationUrl, JSON.stringify(msg));
     }
 
     let exitBtn = document.getElementById("exit_button");
     exitBtn.addEventListener("click", disconnect);
-
     function disconnect() {
         if (stompClient != null) {
             stompClient.disconnect();
         }
         console.log("Disconnected");
+    }
+
+    function getRoomId() {
+        let roomId = document.getElementById("roomId").textContent;
+        let parsed = roomId.split(".");
+        return parsed[1];
     }
 
     function clear(input) {
