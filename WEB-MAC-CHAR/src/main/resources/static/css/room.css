@@ -151,7 +151,8 @@ footer {
   margin: 8px;
   width: 98%;
   opacity: .5;
-  font-size: 18px;
+  font-size: 16px;
+  line-height: 160%;
 }
 
 .chatting_input {
