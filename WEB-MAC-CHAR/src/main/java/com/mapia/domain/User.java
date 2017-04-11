@@ -75,7 +75,12 @@ public class User {
     }
 	
 	public boolean matchPassword(User user) {
-		return this.password.equals(user.password);
+		try {
+			return this.password.equals(PasswordEncryptUtils.getEncSHA256(user.password));			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public boolean isAbleToEnter(long id) {

@@ -14,11 +14,12 @@ body {
 }
 
 .container-fluid img {
-  max-width: 40%;
+  width: 140px;
 }
 
 #logout {
   color: #fff;
+  float: right;
 }
 
 .option {
