@@ -1,21 +1,38 @@
 package mapia.domain;
 
 public class Player {
-	long id;
+	private long id;
 	private String nickname;
 	private Status status;
+	private String password;
 
 	public Player(long id, String nickname) {
-		this.id = id;
-		this.nickname = nickname;
-		this.status = Status.LOBBY;
+		this(id, nickname, Status.LOBBY);
 	}
 	
+	public Player(long id, String nickname, String password) {
+		this(id, nickname, Status.LOBBY);
+		this.password = password;
+	}
+	
+	Player(long id, String nickname, Status status) {
+		this.id = id;
+		this.nickname = nickname;
+		this.status = status;
+	}
+
 	public boolean matchId(long id) {
 		return this.id == id;
 	}
 	
-	public long getId() {
+	public boolean matchPassword(String password) {
+		if (this.password == null) {
+			return false;
+		}
+		return this.password.equals(password);
+	}
+	
+	long getId() {
 		return id;
 	}
 	
@@ -31,7 +48,7 @@ public class Player {
 		this.status = status.startGame();
 	}
 	
-	private enum Status {
+	enum Status {
         LOBBY, READY, NOT_READY, IN_GAME;
 
 		boolean isLobby() {
@@ -74,6 +91,7 @@ public class Player {
 		int result = 1;
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((nickname == null) ? 0 : nickname.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
 
@@ -92,6 +110,8 @@ public class Player {
 			if (other.nickname != null)
 				return false;
 		} else if (!nickname.equals(other.nickname))
+			return false;
+		if (status != other.status)
 			return false;
 		return true;
 	}

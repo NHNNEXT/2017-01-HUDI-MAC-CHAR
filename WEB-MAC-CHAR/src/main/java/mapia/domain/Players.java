@@ -31,7 +31,7 @@ public class Players {
 	}
 	
 	public Player findBy(Player player) {
-		return findById(player.id);
+		return findById(player.getId());
 	}
 	
 	public Player ready(Player p) {
