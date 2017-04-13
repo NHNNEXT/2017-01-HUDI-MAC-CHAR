@@ -125,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
         moveUpAnimation.setFillAfter(true);
         moveUpAnimation.setAnimationListener(new Animation.AnimationListener() {
 
-
             @Override
             public void onAnimationStart(Animation animation) {
 
