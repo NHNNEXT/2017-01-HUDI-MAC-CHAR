@@ -18,7 +18,7 @@ import com.mapia.web.LobbyController;
 public class MessageHandler {
 	@MessageMapping("/chat/{roomId}")
 	@SendTo("/from/chat/{roomId}")
-	public ClientMessage broadcasting(ClientMessage message) throws Exception {
+	private ClientMessage broadcasting(ClientMessage message) throws Exception {
 		System.out.println(message.getContent());
 		return message;
 	}
