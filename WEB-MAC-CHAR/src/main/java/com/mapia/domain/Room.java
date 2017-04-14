@@ -6,10 +6,11 @@ import java.util.Set;
 
 public class Room {
 	private static final int CAPACITY = 8;
-	private Set<User> users = Collections.synchronizedSet(new LinkedHashSet<>(CAPACITY));
+	private Set<User> users = Collections.synchronizedSet(new LinkedHashSet(CAPACITY));
 	private long id;
 	private String title;
 	private volatile int userCount;
+	private volatile int readyUserCount = 0;
 	private boolean secretMode;
 
 	public Room(long roomId, String title) {
@@ -43,6 +44,10 @@ public class Room {
 
 	private int getCountOfUserInRoom() {
 		return users.size();
+	}
+	
+	public int getReadyUserCount() {
+		return readyUserCount; 
 	}
 
 	public boolean isFull() {
