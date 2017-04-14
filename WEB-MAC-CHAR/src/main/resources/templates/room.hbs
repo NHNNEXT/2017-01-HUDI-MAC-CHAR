@@ -26,61 +26,61 @@
         <section class="left_container">
           <div class="slot_box">
             <ul class="flexible">
-              <li class="slot_layout">
+              <li class="slot_layout empty_slot">
                 <div class="player_description">
                   <img src="/img/citizen.png" alt="player_profile">
-                  <div class="player_name">bbq923</div>
-                  <div class="player_status">READY</div>
-                </div>
-              </li>
-              <li class="slot_layout">
-                <div class="player_description">
-                  <img src="/img/citizen.png" alt="player_profile">
-                  <div class="player_name">jbee</div>
+                  <div class="player_name"></div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
-              <li class="slot_layout">
+              <li class="slot_layout empty_slot">
                 <div class="player_description">
                   <img src="/img/citizen.png" alt="player_profile">
-                  <div class="player_name">jbee</div>
+                  <div class="player_name"></div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
-              <li class="slot_layout">
+              <li class="slot_layout empty_slot">
                 <div class="player_description">
                   <img src="/img/citizen.png" alt="player_profile">
-                  <div class="player_name">jbee</div>
+                  <div class="player_name"></div>
+                  <div class="player_status player_not_ready">READY</div>
+                </div>
+              </li>
+              <li class="slot_layout empty_slot">
+                <div class="player_description">
+                  <img src="/img/citizen.png" alt="player_profile">
+                  <div class="player_name"></div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
             </ul>
             <ul class="flexible">
-              <li class="slot_layout">
+              <li class="slot_layout empty_slot">
                 <div class="player_description">
                   <img src="/img/citizen.png" alt="player_profile">
-                  <div class="player_name">jbee</div>
+                  <div class="player_name"></div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
-              <li class="slot_layout">
+              <li class="slot_layout empty_slot">
                 <div class="player_description">
                   <img src="/img/citizen.png" alt="player_profile">
-                  <div class="player_name">jbee</div>
+                  <div class="player_name"></div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
-              <li class="slot_layout">
+              <li class="slot_layout empty_slot">
                 <div class="player_description">
                   <img src="/img/citizen.png" alt="player_profile">
-                  <div class="player_name">jbee</div>
+                  <div class="player_name"></div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
-              <li class="slot_layout">
+              <li class="slot_layout empty_slot">
                 <div class="player_description">
                   <img src="/img/citizen.png" alt="player_profile">
-                  <div class="player_name">jbee</div>
+                  <div class="player_name"></div>
                   <div class="player_status player_not_ready">READY</div>
                 </div>
               </li>
@@ -88,7 +88,7 @@
           </div>
         </section>
         <section class="right_container">
-          <div class="game_status right_container_top_elm_layout elm_background_style">
+          <div id="readyBtn" class="game_status right_container_top_elm_layout elm_background_style">
             Ready
           </div>
           <div class="timer right_container_bottom_elm_layout">
@@ -120,5 +120,14 @@
     </section>
     <script src="/bundle.js"></script>
     <script src="/js/back_block.js"></script>
+    <script id="slot_template" type="text/html">
+			<li class="slot_layout empty_slot">
+				<div class="player_description">
+					<img src="/img/citizen.png" alt="player_profile">
+					<div class="player_name">{{nickname}}</div>
+					<div class="player_status {{player_not_ready}}">READY</div>
+				</div>
+			</li>
+		</script>
   </body>
 </html>

@@ -10,20 +10,35 @@ let WebSocket = (function() {
     const ENTER_KEY = 13;
     const TO_CHAT_API = "/to/chat/";
     const FROM_CHAT_API = "/from/chat/";
+    const TO_READY_API = "/to/ready/";
+    const FROM_READY_API = "/from/ready/";
+    const TO_ACCESS_API = "/to/access/";
+    const FROM_ACCESS_API = "/from/access/";
+    
     let stompClient;
 
     function connect() {
         let socket = new SockJS(SERVER_SOCKET_API);
-        let url = FROM_CHAT_API + getRoomId();
+        let chat_url = FROM_CHAT_API + getRoomId();
+        let ready_url = FROM_READY_API + getRoomId();
+        let access_url = FROM_ACCESS_API + getRoomId();
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function () {
-            stompClient.subscribe(url, function (message) {
+            stompClient.subscribe(chat_url, function (message) {
                 printMessage(JSON.parse(message.body));
             });
+            stompClient.subscribe(ready_url, function (ready) {
+            	printReady(JSON.parse(ready.body));
+            });
+            stompClient.subscribe(access_url, function (access) {
+            	showUserList(JSON.parse(access.body));
+            });
+            sendAccess(userName, "enter");
         });
     }
 
     let inputElm = document.getElementById("chatInput");
+    let readyBtn = document.getElementById("readyBtn");
     let userName = document.getElementById("userName").textContent;
     function chatKeyDownHandler(e) {
         if (e.which === ENTER_KEY && inputElm.value.trim() !== "") {
@@ -31,12 +46,64 @@ let WebSocket = (function() {
             clear(inputElm);
         }
     }
+    
+    function readyBtnClickHandler(e) {
+    	sendReady(userName);
+    }
 
     let textArea = document.getElementById("chatOutput");
     function printMessage(message) {
         syncScroll();
         let msg = `${message.userName}:\t${message.content}\n`;
         textArea.value += msg;
+    }
+    
+    function printReady(ready) {
+    	let playerNames = document.getElementsByClassName("player_name");
+    	for (let playerName of playerNames) {
+    		if (playerName.textContent === ready.userName) {
+    			playerName.nextElementSibling.classList.toggle("player_not_ready");
+    		}
+    	}
+    }
+    
+    function showUserList(access) {
+    	const PLAYER_NOT_READY = "player_not_ready";
+    	// sendAccess를 날린 클라이언트와 원래 방에 있던 사용자들을 구분해서 다르게 동작하게 하기
+    	if (userName === access.userName) {
+    		for (let user of access.users) {
+    			let emptySlot = document.querySelector(".empty_slot");
+    			emptySlot.querySelector(".player_name").textContent = user.nickname;
+    			if (user.status === "READY") {
+    				emptySlot.querySelector(".player_status").classList.remove(PLAYER_NOT_READY);
+    			}
+    			emptySlot.setAttribute("data-id", user.nickname);
+    			emptySlot.classList.remove("empty_slot");
+    		}
+    		syncScroll();
+    		let msg = `${access.userName} 님이 입장하셨습니다.\n`;
+    		textArea.value += msg;
+    	} else {
+    		if (access.access === "enter") {
+    			let emptySlot = document.querySelector(".empty_slot");
+    			emptySlot.querySelector(".player_name").textContent = access.userName;
+    			emptySlot.querySelector(".player_status").classList.remove(PLAYER_NOT_READY);
+    			emptySlot.setAttribute("data-id", access.userName);
+    			emptySlot.classList.remove("empty_slot");
+    			syncScroll();
+        		let msg = `${access.userName} 님이 입장하셨습니다.\n`;
+        		textArea.value += msg;
+    		} else { // access.access === "exit"
+    			let userSlot = document.querySelector(`[data-id=${access.userName}]`);
+    			userSlot.querySelector(".player_name").textContent = "";
+    			userSlot.querySelector(".player_status").classList.add(PLAYER_NOT_READY);
+    			userSlot.removeAttribute("data-id");
+    			userSlot.classList.add("empty_slot");
+    			syncScroll();
+        		let msg = `${access.userName} 님이 퇴장하셨습니다.`;
+        		textArea.value += msg;
+    		}
+    	}
     }
 
     function sendMessage(userName, text) {
@@ -47,10 +114,30 @@ let WebSocket = (function() {
                   };
         stompClient.send(destinationUrl, JSON.stringify(msg));
     }
+    
+    function sendReady(userName) {
+    	let destinationUrl = TO_READY_API + getRoomId();
+    	let msg = {
+    			"userName": userName
+    	};
+    	console.log(msg);
+    	stompClient.send(destinationUrl, JSON.stringify(msg));
+    }
+    
+    function sendAccess(userName, access) {
+    	let destinationUrl = TO_ACCESS_API + getRoomId();
+    	let msg = {
+    			"userName": userName,
+    			"access": access
+    	};
+    	console.log(msg);
+    	stompClient.send(destinationUrl, JSON.stringify(msg));
+    }
 
     let exitBtn = document.getElementById("exit_button");
     exitBtn.addEventListener("click", disconnect);
     function disconnect() {
+    	sendAccess(userName, "exit");
         if (stompClient != null) {
             stompClient.disconnect();
         }
@@ -73,6 +160,7 @@ let WebSocket = (function() {
 
     function init() {
         connect();
+        readyBtn.addEventListener("click", readyBtnClickHandler);
         inputElm.addEventListener("keydown", chatKeyDownHandler);
     }
 

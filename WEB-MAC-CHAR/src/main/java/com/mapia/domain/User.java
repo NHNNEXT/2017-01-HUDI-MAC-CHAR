@@ -73,7 +73,7 @@ public class User {
     public void setEnteredRoomId(long enteredRoomId) {
         this.enteredRoomId = enteredRoomId;
     }
-	
+    
 	public boolean matchPassword(User user) {
 		try {
 			return this.password.equals(PasswordEncryptUtils.getEncSHA256(user.password));			
