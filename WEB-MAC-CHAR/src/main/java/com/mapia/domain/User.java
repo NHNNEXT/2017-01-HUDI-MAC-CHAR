@@ -101,11 +101,20 @@ public class User {
 		this.enteredRoomId = id;
 	    this.status = Status.READY;
     }
-
+	
 	@Override
 	public String toString() {
 		return "User[nickname=" + nickname +
                 ", Status=" + status +
                 ", enteredRoomId=" + enteredRoomId;
 	}
+
+	public boolean isReady() {
+		return getStatus() == Status.READY;
+	}
+	
+	public void toggleReady() {
+		status = status == Status.READY ? Status.NOT_READY : Status.READY;
+	}
+	
 }

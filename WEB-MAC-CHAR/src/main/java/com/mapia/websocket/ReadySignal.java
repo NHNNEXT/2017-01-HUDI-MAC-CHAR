@@ -4,15 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mapia.domain.Lobby;
 
-public class ClientReady {
+public class ReadySignal {
 	private String userName;
+	private boolean startTimer;
 	
 	@Autowired
 	Lobby lobby;
 	
-	public ClientReady() {}
+	public ReadySignal() {}
 	
-	public ClientReady(String userName) {
+	public ReadySignal(String userName) {
 		this.userName = userName;
 	}
 	
@@ -23,4 +24,13 @@ public class ClientReady {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	public void setStartTimer(boolean startTimer) {
+		this.startTimer = startTimer;
+	}
+
+	public boolean isStartTimer() {
+		return startTimer;
+	}
+	
+	
 }
