@@ -2,6 +2,8 @@ package com.mapia.websocket;
 
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -9,6 +11,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mapia.domain.Lobby;
+import com.mapia.domain.Room;
 import com.mapia.domain.User;
 
 /**
@@ -16,6 +19,8 @@ import com.mapia.domain.User;
  */
 @RestController
 public class MessageHandler {
+	private static final Logger log = LoggerFactory.getLogger(MessageHandler.class);
+	
 	@Autowired
 	Lobby lobby;
 
@@ -27,7 +32,11 @@ public class MessageHandler {
     
     @MessageMapping("/ready/{roomId}")
     @SendTo("/from/ready/{roomId}")
-    public ClientReady broadcasting(ClientReady ready) throws Exception {
+    public ReadySignal broadcasting(ReadySignal ready, @DestinationVariable long roomId) throws Exception {
+    	lobby.getRoom(roomId).findByNickname(ready.getUserName()).toggleReady();
+    	if(lobby.getRoom(roomId).isAllReady()) {
+    		ready.setStartTimer(true);
+    	}
     	return ready;
     }
     

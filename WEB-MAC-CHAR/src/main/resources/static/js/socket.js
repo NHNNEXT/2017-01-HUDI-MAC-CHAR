@@ -28,7 +28,9 @@ let WebSocket = (function() {
                 printMessage(JSON.parse(message.body));
             });
             stompClient.subscribe(ready_url, function (ready) {
-            	printReady(JSON.parse(ready.body));
+            	let readySignal = JSON.parse(ready.body);
+            	printReady(readySignal);
+            	checkTimerStart(readySignal.startTimer);
             });
             stompClient.subscribe(access_url, function (access) {
             	showUserList(JSON.parse(access.body));
@@ -66,6 +68,43 @@ let WebSocket = (function() {
     		}
     	}
     }
+    
+    function checkTimerStart(canStart) {
+    	if(canStart) {
+    		startTimer(5);
+    		return;
+    	}
+    }
+    
+    function startTimer(time){
+    	leftTime = time;
+     	calcLeftTime = setInterval(timer, 1000); 
+     	readyBtn.removeEventListener("click", readyBtnClickHandler);
+     	readyBtn.classList.add("timer_started");
+     }
+    let leftTime;
+    let calcLeftTime;
+    
+    function timer() {
+    	 document.querySelector(".timer").innerText = timeFormat(leftTime--);
+    	 if(leftTime < 0) {
+    		 clearInterval(calcLeftTime);
+    	 }
+    }
+    
+    function timeFormat(leftTime) {
+    	let leftMinutes = parseInt(leftTime / 60);
+    	let leftSeconds = leftTime % 60;
+    	return prependZero(leftMinutes, 2) + ":" + prependZero(leftSeconds, 2);
+    }
+    
+    function prependZero(num, len) {
+    	while(num.toString().length < len) {
+    		num = "0" + num;
+    	}
+    	return num;
+    }
+    
     
     function showUserList(access) {
     	const PLAYER_NOT_READY = "player_not_ready";
