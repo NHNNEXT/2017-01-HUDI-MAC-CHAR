@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,44 +7,52 @@
     tools:context="com.zimincom.mafiaonline.RoomListActivity">
 
 
-
     <Button
         android:id="@+id/setting"
-        android:background="@drawable/make_btn"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_margin="10dp"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:textColor="@color/colorMainText"
-        android:text="환경설정"/>
+        android:background="@drawable/make_btn"
+        android:text="환경설정"
+        android:textColor="@color/colorMainText" />
 
     <Button
         android:id="@+id/create_room"
-        android:background="@drawable/make_btn"
-        android:layout_margin="10dp"
-        android:layout_toLeftOf="@+id/setting"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:textColor="@color/colorMainText"
-        android:text="방만들기"/>
+        android:layout_margin="10dp"
+        android:layout_toLeftOf="@+id/setting"
+        android:background="@drawable/make_btn"
+        android:text="방만들기"
+        android:textColor="@color/colorMainText" />
 
-        <ImageView
-            android:id="@+id/background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/room_back"
-            android:scaleType="centerCrop"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/room_back" />
 
     <ImageView
         android:id="@+id/profile"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:scaleType="fitXY"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/profile_back"/>
+        android:scaleType="fitXY"
+        android:src="@drawable/profile_back" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/room_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/create_room">
+
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
 

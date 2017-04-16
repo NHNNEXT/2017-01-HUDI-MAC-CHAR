@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@drawable/list_plate"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/room_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_vertical"
+        android:textSize="30dp"
+        android:textColor="@color/colorMainText"
+        android:text="1"/>
+
+    <TextView
+        android:id="@+id/room_title"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textSize="30dp"
+        android:textColor="@color/colorMainText"
+        android:text="hello world"/>
+
+    <TextView
+        android:id="@+id/current_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical" />
+
+
+
+</LinearLayout>
