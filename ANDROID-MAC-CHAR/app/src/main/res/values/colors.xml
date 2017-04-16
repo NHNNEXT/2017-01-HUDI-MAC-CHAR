@@ -6,4 +6,5 @@
     <color name="colorMainText">#ffffff</color>
     <color name="signInHint">#ffffff</color>
     <color name="black_overlay">#66000000</color>
+    <color name="textBackground">#55000000</color>
 </resources>

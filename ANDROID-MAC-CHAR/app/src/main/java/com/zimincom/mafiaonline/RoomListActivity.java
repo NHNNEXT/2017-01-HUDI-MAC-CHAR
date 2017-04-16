@@ -30,6 +30,7 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
 
     Context context = this;
     Button roomCreate;
+    Button logout;
     ArrayList<Room> rooms = new ArrayList<>();
     RecyclerView roomListView;
     User user;
@@ -43,8 +44,10 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
         Logger.d(user.getNickName());
 
         roomCreate = (Button)findViewById(R.id.create_room);
-        roomCreate.setOnClickListener(this);
+        logout = (Button) findViewById(R.id.logout);
 
+        roomCreate.setOnClickListener(this);
+        logout.setOnClickListener(this);
 
         roomListView = (RecyclerView) findViewById(R.id.room_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
@@ -69,12 +72,8 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
                 if (response.isSuccessful()) {
                     rooms = response.body().getRooms();
                     Logger.d(rooms.get(0).toString());
-                    roomListView.setAdapter(new RoomAdapter(context,rooms,R.layout.item_room));
-                    Logger.d(rooms.get(0).toString());
-
-
                     roomListView.setAdapter(new RoomAdapter(context,rooms,user,R.layout.item_room));
-
+                    Logger.d(rooms.get(0).toString());
 
                 }
 
@@ -88,10 +87,36 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
         });
     }
 
+    void logoutUser(){
+        MafiaRemoteService mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
+        Call<String> call = mafiaRemoteService.getLogout();
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getBaseContext(),"로그아웃 성공", Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    Toast.makeText(getBaseContext(),"로그아웃 실패", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(getBaseContext(),"서버오류", Toast.LENGTH_LONG).show();
+                t.printStackTrace();
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(getApplicationContext(),GameRoomActivity.class);
+        if (view.getId() == R.id.create_room) {
+        } else if (view.getId() == R.id.logout) {
+            logoutUser();
+        }
 
-        startActivity(intent);
+
     }
 }
