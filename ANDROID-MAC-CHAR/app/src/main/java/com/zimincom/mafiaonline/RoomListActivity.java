@@ -2,7 +2,6 @@ package com.zimincom.mafiaonline;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -71,10 +70,7 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
             public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
                 if (response.isSuccessful()) {
                     rooms = response.body().getRooms();
-                    Logger.d(rooms.get(0).toString());
                     roomListView.setAdapter(new RoomAdapter(context,rooms,user,R.layout.item_room));
-                    Logger.d(rooms.get(0).toString());
-
                 }
 
             }
@@ -94,12 +90,8 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if (response.isSuccessful()) {
                     Toast.makeText(getBaseContext(),"로그아웃 성공", Toast.LENGTH_LONG).show();
                     finish();
-                } else {
-                    Toast.makeText(getBaseContext(),"로그아웃 실패", Toast.LENGTH_LONG).show();
-                }
             }
 
             @Override
