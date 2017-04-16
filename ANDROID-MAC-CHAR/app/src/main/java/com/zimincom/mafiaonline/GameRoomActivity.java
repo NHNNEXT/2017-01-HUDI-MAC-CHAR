@@ -1,5 +1,6 @@
 package com.zimincom.mafiaonline;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,8 +29,11 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     EditText messageInput;
     TextView textView;
     LinearLayout messageContainer;
+    Intent intent;
+    String roomId;
+    String userName;
 
-    final public String socketLink = "ws://1.255.56.109:8080/websockethandler/websocket";
+    final public String socketLink = "ws://211.249.60.54:8000/websockethandler/websocket";
    // final public String socketLink = "ws://192.168.1.222:8080/websockethandler/websocket";
 
     @Override
@@ -41,13 +45,16 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         sendButton = (Button)findViewById(R.id.send_button);
         messageInput = (EditText) findViewById(R.id.message_input);
         messageContainer =(LinearLayout)findViewById(R.id.messages_container);
+        intent = getIntent();
+        roomId = intent.getStringExtra("roomId");
+        userName = intent.getStringExtra("userName");
 
 
         mStompClient = Stomp.over(WebSocket.class,socketLink);
         mStompClient.connect();
 
 
-        mStompClient.topic("/topic/roomId").subscribe(topicMessage -> {
+        mStompClient.topic("/from/chat/"+roomId).subscribe(topicMessage -> {
 
 
             runOnUiThread(() -> {
@@ -74,9 +81,14 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
 
     public void send(String message){
-        mStompClient.send("/app/hello", gson.toJson(new MessageItem(message))).subscribe();
+        mStompClient.send("/to/chat/"+roomId, gson.toJson(new MessageItem(userName,message))).subscribe();
 
     }
 

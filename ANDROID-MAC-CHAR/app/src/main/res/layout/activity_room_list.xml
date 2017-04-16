@@ -44,6 +44,13 @@
         android:layout_alignParentBottom="true"
         android:scaleType="fitXY"
         android:src="@drawable/profile_back" />
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="default"
+        android:layout_alignBaseline="@+id/profile"/>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/room_list"
