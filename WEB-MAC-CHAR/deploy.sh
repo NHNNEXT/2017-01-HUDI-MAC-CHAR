@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker-compose -p mafia up -d
+sudo docker-compose -p mafia up -d
 
 ./gradlew -PspringProfiles=dev clean sonarqube build
 

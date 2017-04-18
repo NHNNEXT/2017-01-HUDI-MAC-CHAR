@@ -15,10 +15,6 @@ WEB-MAC-CHAR/.gradle/
 ANDROID-MAC-CHAR/.gradle/
 !gradle/wrapper/gradle-wrapper.jar
 
-# Package Files
-*.jar
-*.war
-
 ### STS ###
 .apt_generated
 .classpath
