@@ -1,0 +1,55 @@
+version: '3'
+services:
+  sonarqube:
+    image: sonarqube:latest
+    ports:
+      - "8002:9000"
+    networks:
+      - mafianet
+    links:
+      - sonar-db
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:mysql://sonar-db:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+      - SONARQUBE_JDBC_USERNAME=macchar
+      - SONARQUBE_JDBC_PASSWORD=macchar123
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+  sonar-db:
+    image: mysql:latest
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --init-connect='SET NAMES UTF8;' --init_connect='SET collation_connection = utf8_general_ci' --innodb-flush-log-at-trx-commit=0
+    networks:
+      - mafianet
+    environment:
+      - MYSQL_ROOT_PASSWORD=macchar123
+      - MYSQL_DATABASE=sonar
+      - MYSQL_USER=macchar
+      - MYSQL_PASSWORD=macchar123
+    volumes:
+      - sonar-mysql-data:/var/lib/mysql
+  mafia-db:
+    image: mysql:latest
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --init-connect='SET NAMES UTF8;' --init_connect='SET collation_connection = utf8_general_ci' --innodb-flush-log-at-trx-commit=0
+    ports:
+      - "9999:3306"
+    networks:
+      - mafianet
+    environment:
+      - MYSQL_ROOT_PASSWORD=macchar123
+      - MYSQL_DATABASE=mafia
+      - MYSQL_USER=macchar
+      - MYSQL_PASSWORD=macchar123
+    volumes:
+      - mafia-mysql-data:/var/lib/mysql
+networks:
+  mafianet:
+    driver: bridge
+volumes:
+  mafia-mysql-data:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  sonar-mysql-data:
