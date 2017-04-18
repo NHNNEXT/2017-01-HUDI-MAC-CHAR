@@ -7,6 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.2.1")
 	}
 }
 
@@ -14,10 +15,11 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: "org.sonarqube"
 
 jar {
-	baseName = 'mapia'
-	version = '0.0.1-SNAPSHOT'
+	baseName = 'mafia'
+	version = '0.0.1'
 }
 
 sourceCompatibility = 1.8
@@ -25,7 +27,6 @@ sourceCompatibility = 1.8
 repositories {
 	mavenCentral()
 }
-
 
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web")
@@ -36,4 +37,14 @@ dependencies {
 
 	runtime('org.springframework.boot:spring-boot-devtools')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+test {
+    systemProperty("spring.profiles.active", project.properties.get("springProfiles"))
+}
+
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+    }
 }
