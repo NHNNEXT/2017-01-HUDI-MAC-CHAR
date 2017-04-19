@@ -110,8 +110,16 @@ let WebSocket = (function() {
     function showUserList(access) {
     	const PLAYER_NOT_READY = "player_not_ready";
     	// sendAccess를 날린 클라이언트와 원래 방에 있던 사용자들을 구분해서 다르게 동작하게 하기
-    	if (userName === access.userName) {
-    		for (let user of access.users) {
+    	
+		if (access.access === "enter") {
+			let slots = document.querySelectorAll(".slot_layout");
+			for (let slot of slots) {
+				slot.querySelector(".player_name").textContent = "";
+				slot.querySelector(".player_status").classList.add(PLAYER_NOT_READY);
+				slot.removeAttribute("data-id");
+				slot.classList.add("empty_slot");
+			}
+			for (let user of access.users) {
     			let emptySlot = document.querySelector(".empty_slot");
     			emptySlot.querySelector(".player_name").textContent = user.nickname;
     			if (user.status === "READY") {
@@ -123,27 +131,16 @@ let WebSocket = (function() {
     		syncScroll();
     		let msg = `${access.userName} 님이 입장하셨습니다.\n`;
     		textArea.value += msg;
-    	} else {
-    		if (access.access === "enter") {
-    			let emptySlot = document.querySelector(".empty_slot");
-    			emptySlot.querySelector(".player_name").textContent = access.userName;
-    			emptySlot.querySelector(".player_status").classList.remove(PLAYER_NOT_READY);
-    			emptySlot.setAttribute("data-id", access.userName);
-    			emptySlot.classList.remove("empty_slot");
-    			syncScroll();
-        		let msg = `${access.userName} 님이 입장하셨습니다.\n`;
-        		textArea.value += msg;
-    		} else { // access.access === "exit"
-    			let userSlot = document.querySelector(`[data-id=${access.userName}]`);
-    			userSlot.querySelector(".player_name").textContent = "";
-    			userSlot.querySelector(".player_status").classList.add(PLAYER_NOT_READY);
-    			userSlot.removeAttribute("data-id");
-    			userSlot.classList.add("empty_slot");
-    			syncScroll();
-        		let msg = `${access.userName} 님이 퇴장하셨습니다.`;
-        		textArea.value += msg;
-    		}
-    	}
+		} else { // access.access === "exit"
+			let userSlot = document.querySelector(`[data-id=${access.userName}]`);
+			userSlot.querySelector(".player_name").textContent = "";
+			userSlot.querySelector(".player_status").classList.add(PLAYER_NOT_READY);
+			userSlot.removeAttribute("data-id");
+			userSlot.classList.add("empty_slot");
+			syncScroll();
+    		let msg = `${access.userName} 님이 퇴장하셨습니다.`;
+    		textArea.value += msg;
+		}
     }
 
     function sendMessage(userName, text) {
@@ -197,7 +194,7 @@ let WebSocket = (function() {
     function syncScroll() {
         textArea.scrollTop = textArea.scrollHeight;
     }
-
+    
     function init() {
         connect();
         readyBtn.addEventListener("click", readyBtnClickHandler);

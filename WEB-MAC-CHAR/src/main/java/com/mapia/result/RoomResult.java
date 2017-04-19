@@ -37,7 +37,7 @@ public class RoomResult {
     public static RoomResult rejectToEnterRoomOfFull(long roomId) {
         return new RoomResult(Status.ENTER_FAILED, "The room is full", roomId);
     }
-
+    
     public static RoomResult successToEnterRoom(long roomId) {
         return new RoomResult(Status.OK, "success to enter the room", roomId);
     }

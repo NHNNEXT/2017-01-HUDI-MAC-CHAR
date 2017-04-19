@@ -43,7 +43,8 @@ public class MessageHandler {
     @MessageMapping("/access/{roomId}")
     @SendTo("/from/access/{roomId}")
     public ClientAccess broadcasting(ClientAccess access, @DestinationVariable long roomId) throws Exception {
-    	Set<User> userSet = lobby.getRoom(roomId).getUsers();
+    	Room room = lobby.getRoom(roomId);
+    	Set<User> userSet = room.getUsers();
     	access.setUsers(userSet);
     	return access;
     }
