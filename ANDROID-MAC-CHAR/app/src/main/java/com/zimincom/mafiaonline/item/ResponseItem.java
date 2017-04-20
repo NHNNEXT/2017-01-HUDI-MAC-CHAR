@@ -8,12 +8,28 @@ import java.util.ArrayList;
 
 public class ResponseItem {
 
-    public String status;
+
+    private String status;
+
     String msg;
     ArrayList<Room> rooms;
     User user;
 
 
+    public boolean isOk(){
+        return status.equals("Ok");
+    }
+
+    public boolean isEmailNotFound(){
+        return status.equals("EmailNotFound");
+    }
+    public boolean isPasswordInvaild(){
+        return status.equals("InvaildPassword");
+    }
+
+    public String getStatus(){
+        return status;
+    }
     public ArrayList<Room> getRooms() {
         return rooms;
     }
@@ -24,7 +40,6 @@ public class ResponseItem {
     @Override
     public String toString() {
         return "ResponseItem{" +
-                "status='" + status + '\'' +
                 ", msg='" + msg + '\'' +
                 ", rooms=" + rooms +
                 ", rooms=" + rooms +

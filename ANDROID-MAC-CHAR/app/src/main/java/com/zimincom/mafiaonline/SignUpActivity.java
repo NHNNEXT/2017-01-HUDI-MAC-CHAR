@@ -60,11 +60,11 @@ public class SignUpActivity extends AppCompatActivity {
                     Logger.d(response.body());
                     ResponseItem responseItem = response.body();
 
-                    if (responseItem.status.equals("Ok")){
-                        Toast.makeText(context,responseItem.status,Toast.LENGTH_LONG).show();
+                    if (responseItem.isOk()){
+                        Toast.makeText(context,"회원가입 성공!",Toast.LENGTH_LONG).show();
                         finish();
-                    }else if(responseItem.status.equals("EmailExits")){
-                        Toast.makeText(context,responseItem.status,Toast.LENGTH_LONG).show();
+                    }else if(responseItem.getStatus().equals("EmailExits")){
+                        Toast.makeText(context,"가입된 이메일 입니다",Toast.LENGTH_LONG).show();
                     }
 
                 }
