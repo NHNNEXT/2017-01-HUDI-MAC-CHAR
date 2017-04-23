@@ -12,12 +12,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.MessageItem;
+import com.zimincom.mafiaonline.item.ResponseItem;
+import com.zimincom.mafiaonline.item.User;
+import com.zimincom.mafiaonline.remote.MafiaRemoteService;
 
 import org.java_websocket.WebSocket;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ua.naiksoftware.stomp.Stomp;
 import ua.naiksoftware.stomp.client.StompClient;
+
+import static com.zimincom.mafiaonline.remote.MafiaRemoteService.retrofit;
 
 public class GameRoomActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -32,6 +41,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     Intent intent;
     String roomId;
     String userName;
+    User user;
 
     final public String socketLink = "ws://211.249.60.54:8000/websockethandler/websocket";
    // final public String socketLink = "ws://192.168.1.222:8080/websockethandler/websocket";
@@ -40,7 +50,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_room);
-
+        user = (User)getIntent().getSerializableExtra("user");
 
         sendButton = (Button)findViewById(R.id.send_button);
         messageInput = (EditText) findViewById(R.id.message_input);
@@ -48,6 +58,24 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         intent = getIntent();
         roomId = intent.getStringExtra("roomId");
         userName = intent.getStringExtra("userName");
+
+
+        MafiaRemoteService mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
+        Call<ResponseItem> call = mafiaRemoteService.enterRoom(roomId);
+
+        call.enqueue(new Callback<ResponseItem>() {
+            @Override
+            public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
+               if (response.isSuccessful()) {
+                   Logger.d(response.body());
+               }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseItem> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
 
         mStompClient = Stomp.over(WebSocket.class,socketLink);

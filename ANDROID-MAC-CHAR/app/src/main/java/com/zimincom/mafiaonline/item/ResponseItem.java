@@ -44,13 +44,14 @@ public class ResponseItem {
     public User getUser(){
         return user;
     }
+
     @Override
     public String toString() {
         return "ResponseItem{" +
+                "status='" + status + '\'' +
                 ", msg='" + msg + '\'' +
                 ", rooms=" + rooms +
-                ", rooms=" + rooms +
-                ", user=" + user.getNickName() +
+                ", roomId='" + roomId + '\'' +
                 '}';
     }
 }

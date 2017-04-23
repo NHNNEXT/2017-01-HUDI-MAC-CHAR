@@ -7,10 +7,12 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * Created by Zimincom on 2017. 3. 31..
@@ -40,7 +42,11 @@ public interface MafiaRemoteService {
     @POST("api/room")
     Call<ResponseItem> createNewRoom(@Field("title") String title);
 
+    @GET("/api/room/{id}")
+    Call<ResponseItem> enterRoom(@Path("id") String id);
 
+    @DELETE("/api/room")
+    Call<ResponseItem> leaveRoom(@Body User user);
 
      Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
