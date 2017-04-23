@@ -30,6 +30,7 @@ function init() {
     function forwardEachRoom(e) {
         let target = e.target;
         if (target.tagName.toLowerCase() === "td") {
+//        	window.open('/room/' + target.parentNode.id,'cong_window','toolbar=0, location=0, status=0, menubar=0, scrollbars=1, resizable=1, top=10, left=20, width=1024, height=800');
             window.location.href = "/room/" + target.parentNode.id;
         }
 	}
