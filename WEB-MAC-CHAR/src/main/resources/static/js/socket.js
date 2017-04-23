@@ -49,7 +49,8 @@ let WebSocket = (function() {
         }
     }
     
-    function readyBtnClickHandler(e) {
+    function readyBtnClickHandler() {
+        this.classList.toggle("ready_status")
     	sendReady(userName);
     }
 

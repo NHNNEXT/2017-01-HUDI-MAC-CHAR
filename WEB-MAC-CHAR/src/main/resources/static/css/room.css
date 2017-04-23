@@ -127,20 +127,27 @@ footer {
   font-size: 32px;
   padding-top: 24px;
   border-radius: 20px;
-  transition: all 1s;
+  transition: all 0.3s;
 }
 
 .game_status:hover {
   background-color: rgba(255, 255, 255, 0);
   color: #C80006;
   cursor: pointer;
-  transition: all 1s;
+  transition: all 0.3s;
 }
 
 .game_status.timer_started:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: black;
   cursor: default;
+}
+
+.ready_status {
+  background-color: rgba(255, 255, 255, 0);
+  color: #C80006;
+  border: 2px solid #C80006;
+  border-radius: 3px;
 }
 
 .timer {
