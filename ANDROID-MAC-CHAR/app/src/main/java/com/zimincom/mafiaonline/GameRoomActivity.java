@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.MessageItem;
@@ -20,18 +20,17 @@ import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
 import com.zimincom.mafiaonline.remote.ServiceGenerator;
-
 import org.java_websocket.WebSocket;
-
 import java.util.Timer;
 import java.util.TimerTask;
-
+import java.util.Timer;
+import java.util.TimerTask;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ua.naiksoftware.stomp.Stomp;
 import ua.naiksoftware.stomp.client.StompClient;
-
+import static android.R.attr.isGame;
 
 public class GameRoomActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -43,6 +42,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     Button sendButton;
     Button readyButton;
     EditText messageInput;
+    ChatLayout chatLayout;
     TextView textView;
     TextView timer;
     LinearLayout messageContainer;
@@ -52,7 +52,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     User user;
 
     int gameTime = 120;
-
+    boolean isGameStarted = false;
 
     final public String socketLink = MafiaRemoteService.SOCKET_URL;
 
@@ -102,17 +102,26 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         mStompClient.topic("/from/chat/"+roomId).subscribe(topicMessage -> {
 
             runOnUiThread(() -> {
+                chatLayout = new ChatLayout(getBaseContext());
+                MessageItem messageItem = gson.fromJson(topicMessage.getPayload(),MessageItem.class);
+                chatLayout.setName(messageItem.userName);
+                if (messageItem.userName.equals(userName)) {
+                    chatLayout.setToMyMessage();
+                }
+                chatLayout.setMessage(messageItem.content);
+                messageContainer.addView(chatLayout);
 
-                    textView = new TextView(getApplicationContext());
-                    MessageItem messageItem = gson.fromJson(topicMessage.getPayload(),MessageItem.class);
+            });
+        });
 
-                    textView.setText(messageItem.content);
-                    textView.setGravity(Gravity.CENTER);
-                    textView.setBackgroundResource(R.drawable.rsz_speech_bubble);
+        mStompClient.topic("/from/ready/"+roomId).subscribe( message -> {
 
-                    Log.d("MainActivity", topicMessage.getPayload());
-
-                    messageContainer.addView(textView);
+            runOnUiThread(() -> {
+                ReadySignal readySignal = gson.fromJson(message.getPayload(), ReadySignal.class);
+                if (readySignal.isStartTimer()) {
+                    toolbar.setTitle("게임이 시작되었습니다.");
+                    startTimer();
+                }
             });
         });
 
@@ -144,6 +153,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     public void send(String message){
         mStompClient.send("/to/chat/"+roomId, gson.toJson(new MessageItem(userName,message))).subscribe();
     }
+
 
     private void startTimer() {
 
@@ -198,5 +208,25 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     protected void onPause() {
         super.onPause();
         mStompClient.disconnect();
+    }
+
+    private boolean isGameStarted() {
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                if (!isGameStarted)
+                    onBackPressed();
+                else {
+                    Toast.makeText(getBaseContext(),"게임중에는 나갈 수 없습니다.",Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }

@@ -21,9 +21,7 @@
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".GameRoomActivity"
-            android:theme="@style/gameRoomTheme"
-            android:windowSoftInputMode="adjustPan">
-
+            android:theme="@style/gameRoomTheme">
         </activity>
     </application>
 
