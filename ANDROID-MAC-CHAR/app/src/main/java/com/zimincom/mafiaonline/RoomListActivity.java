@@ -1,13 +1,19 @@
 package com.zimincom.mafiaonline;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
@@ -33,14 +39,15 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
     ArrayList<Room> rooms = new ArrayList<>();
     RecyclerView roomListView;
     User user;
+    MafiaRemoteService mafiaRemoteService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_list);
+        mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
 
         user = (User)getIntent().getSerializableExtra("user");
-        Logger.d(user.getNickName());
 
         roomCreate = (Button)findViewById(R.id.create_room);
         logout = (Button) findViewById(R.id.logout);
@@ -62,7 +69,6 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
 
     public void getRoomList(){
 
-        MafiaRemoteService mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
         Call<ResponseItem> call = mafiaRemoteService.getRoomList();
 
         call.enqueue(new Callback<ResponseItem>() {
@@ -84,7 +90,6 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
     }
 
     void logoutUser(){
-        MafiaRemoteService mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
         Call<String> call = mafiaRemoteService.getLogout();
 
         call.enqueue(new Callback<String>() {
@@ -102,13 +107,48 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
         });
     }
 
+
+    void createRoom(){
+
+        LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout newRoomLayout = (LinearLayout) vi.inflate(R.layout.layout_create_room,null);
+        final EditText roomTitleInput = (EditText) newRoomLayout.findViewById(R.id.room_title);
+
+        new AlertDialog.Builder(this)
+                .setTitle("방 만들기")
+                .setView(newRoomLayout)
+                .setNeutralButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Call<ResponseItem> call = mafiaRemoteService.createNewRoom(roomTitleInput.getText().toString());
+
+                        call.enqueue(new Callback<ResponseItem>() {
+                            @Override
+                            public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
+                                Logger.d("방 만들기 성공");
+
+                                Intent intent = new Intent(context,GameRoomActivity.class);
+                                intent.putExtra("roomId",response.body().getRoomId());
+                                intent.putExtra("userName",user.getNickName());
+
+                                context.startActivity(intent);
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseItem> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
+                    }
+                }).show();
+
+    }
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.create_room) {
+            createRoom();
         } else if (view.getId() == R.id.logout) {
             logoutUser();
         }
-
-
     }
 }

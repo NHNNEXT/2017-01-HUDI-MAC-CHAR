@@ -7,6 +7,8 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -34,8 +36,13 @@ public interface MafiaRemoteService {
     @GET("/api/lobby")
     Call<ResponseItem> getRoomList();
 
+    @FormUrlEncoded
+    @POST("api/room")
+    Call<ResponseItem> createNewRoom(@Field("title") String title);
 
-    public static final Retrofit retrofit = new Retrofit.Builder()
+
+
+     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
