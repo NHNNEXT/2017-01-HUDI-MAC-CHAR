@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.MessageItem;
@@ -20,17 +21,18 @@ import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
 import com.zimincom.mafiaonline.remote.ServiceGenerator;
+
 import org.java_websocket.WebSocket;
+
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Timer;
-import java.util.TimerTask;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ua.naiksoftware.stomp.Stomp;
 import ua.naiksoftware.stomp.client.StompClient;
-import static android.R.attr.isGame;
+
 
 public class GameRoomActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -114,16 +116,6 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
             });
         });
 
-        mStompClient.topic("/from/ready/"+roomId).subscribe( message -> {
-
-            runOnUiThread(() -> {
-                ReadySignal readySignal = gson.fromJson(message.getPayload(), ReadySignal.class);
-                if (readySignal.isStartTimer()) {
-                    toolbar.setTitle("게임이 시작되었습니다.");
-                    startTimer();
-                }
-            });
-        });
 
         mStompClient.topic("/from/ready/"+roomId).subscribe( message -> {
 
@@ -147,7 +139,6 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     public void send(String message){
@@ -210,9 +201,6 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         mStompClient.disconnect();
     }
 
-    private boolean isGameStarted() {
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -52,6 +52,7 @@ public class ResponseItem {
                 ", msg='" + msg + '\'' +
                 ", rooms=" + rooms +
                 ", roomId='" + roomId + '\'' +
+                ", rooms=" + rooms +
                 '}';
     }
 }

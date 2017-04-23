@@ -34,6 +34,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:maxLines="1"
+                android:inputType="text"
+                android:nextFocusDown="@+id/email_input"
                 android:textColor="@color/colorMainText"
                 android:backgroundTint="@color/colorMainText"
                 android:textColorHint="@color/colorMainText"
@@ -52,10 +55,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:nextFocusDown="@id/password"
                 android:textColor="@color/colorMainText"
                 android:backgroundTint="@color/colorMainText"
                 android:textColorHint="@color/colorMainText"
-
                 android:hint="이메일을 입력하세요" />
 
         </android.support.design.widget.TextInputLayout>
@@ -70,6 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:inputType="textPassword"
+                android:maxLines="1"
                 android:textColor="@color/colorMainText"
                 android:backgroundTint="@color/colorMainText"
                 android:textColorHint="@color/colorMainText"
@@ -87,6 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:inputType="textPassword"
+                android:maxLines="1"
                 android:textColor="@color/colorMainText"
                 android:shadowColor="@color/colorMainText"
                 android:backgroundTint="@color/colorMainText"

@@ -19,7 +19,8 @@
         <activity
             android:name=".RoomListActivity"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".SignUpActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".GameRoomActivity"
             android:theme="@style/gameRoomTheme">
         </activity>
