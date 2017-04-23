@@ -1,6 +1,7 @@
 package com.zimincom.mafiaonline;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zimincom.mafiaonline.item.Room;
+import com.zimincom.mafiaonline.item.User;
 
 import java.util.ArrayList;
 
@@ -19,12 +21,15 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     Context context;
     ArrayList<Room> rooms;
+    User user;
+
     int itemLayout;
 
-    public RoomAdapter(Context context, ArrayList<Room> rooms, int itemLayout){
+    public RoomAdapter(Context context, ArrayList<Room> rooms, User user, int itemLayout){
         this.context = context;
         this.rooms = rooms;
         this.itemLayout = itemLayout;
+        this.user = user;
     }
 
     @Override
@@ -39,6 +44,16 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         holder.roomTitle.setText(rooms.get(position).getTitle());
         String playerCount = rooms.get(position).getUserCount()+"/8";
         holder.playerCount.setText(playerCount);
+
+        holder.itemView.setOnClickListener( view -> {
+            String roomId = rooms.get(position).getId();
+
+            Intent intent = new Intent(context,GameRoomActivity.class);
+            intent.putExtra("roomId",roomId);
+            intent.putExtra("userName",user.getNickName());
+
+            context.startActivity(intent);
+        });
     }
 
     @Override

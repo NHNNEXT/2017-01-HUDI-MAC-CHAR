@@ -29,7 +29,7 @@ public interface MafiaRemoteService {
     Call<ResponseItem> sendSignUpInfo(@Body User user);
 
     @GET("/logout")
-    Call<String> getLogout(@Body  String email, String password);
+    Call<String> getLogout();
 
     @GET("/api/lobby")
     Call<ResponseItem> getRoomList();

@@ -2,7 +2,6 @@ package com.zimincom.mafiaonline;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.Room;
+import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
 
 import java.util.ArrayList;
@@ -29,25 +29,31 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
 
     Context context = this;
     Button roomCreate;
+    Button logout;
     ArrayList<Room> rooms = new ArrayList<>();
     RecyclerView roomListView;
-
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_list);
 
-        roomCreate = (Button)findViewById(R.id.create_room);
-        roomCreate.setOnClickListener(this);
+        user = (User)getIntent().getSerializableExtra("user");
+        Logger.d(user.getNickName());
 
+        roomCreate = (Button)findViewById(R.id.create_room);
+        logout = (Button) findViewById(R.id.logout);
+
+        roomCreate.setOnClickListener(this);
+        logout.setOnClickListener(this);
 
         roomListView = (RecyclerView) findViewById(R.id.room_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         roomListView.setLayoutManager(layoutManager);
         roomListView.setItemAnimator(new DefaultItemAnimator());
-        RoomAdapter roomAdapter = new RoomAdapter(context,rooms,R.layout.item_room);
+        RoomAdapter roomAdapter = new RoomAdapter(context,rooms,user,R.layout.item_room);
         roomListView.setAdapter(roomAdapter);
 
         getRoomList();
@@ -63,15 +69,8 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
             @Override
             public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
                 if (response.isSuccessful()) {
-                    Logger.d(response.body());
                     rooms = response.body().getRooms();
-
-                    Logger.d(rooms.get(0).toString());
-
-
-                    roomListView.setAdapter(new RoomAdapter(context,rooms,R.layout.item_room));
-
-
+                    roomListView.setAdapter(new RoomAdapter(context,rooms,user,R.layout.item_room));
                 }
 
             }
@@ -84,10 +83,32 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
         });
     }
 
+    void logoutUser(){
+        MafiaRemoteService mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
+        Call<String> call = mafiaRemoteService.getLogout();
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                    Toast.makeText(getBaseContext(),"로그아웃 성공", Toast.LENGTH_LONG).show();
+                    finish();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(getBaseContext(),"서버오류", Toast.LENGTH_LONG).show();
+                t.printStackTrace();
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(getApplicationContext(),GameRoomActivity.class);
+        if (view.getId() == R.id.create_room) {
+        } else if (view.getId() == R.id.logout) {
+            logoutUser();
+        }
 
-        startActivity(intent);
+
     }
 }

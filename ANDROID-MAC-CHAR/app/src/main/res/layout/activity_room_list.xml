@@ -37,13 +37,64 @@
         android:scaleType="centerCrop"
         android:src="@drawable/room_back" />
 
-    <ImageView
-        android:id="@+id/profile"
+    <RelativeLayout
+        android:id="@+id/profile_container"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:layout_alignParentBottom="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/profile_back" />
+        android:background="@drawable/profile_back">
+
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:text="로그아웃"
+            android:background="@color/textBackground"
+            android:textColor="@color/colorMainText" />
+
+        <LinearLayout
+            android:id="@+id/user_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/profile_image"
+            android:orientation="vertical"
+            android:paddingTop="30dp">
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorMainText"
+                android:text="default" />
+
+            <TextView
+                android:id="@+id/wins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorMainText"
+                android:text="승리: " />
+
+            <TextView
+                android:id="@+id/loses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorMainText"
+                android:text="패배: " />
+        </LinearLayout>
+
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/room_list"

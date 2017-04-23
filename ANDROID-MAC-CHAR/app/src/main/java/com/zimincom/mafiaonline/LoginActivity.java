@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
@@ -50,37 +49,39 @@ public class LoginActivity extends AppCompatActivity {
         passwordInput = (EditText)findViewById(R.id.password);
         loginButton = (Button)findViewById(R.id.login);
         signInButton = (Button)findViewById(R.id.signin);
+
         startMainAnimation();
+        setButtons();
+
+    }
 
 
+    void setButtons(){
         loginButton.setOnClickListener(view -> {
 
-                String email = emailInput.getText().toString();
-                String password = passwordInput.getText().toString();
+            String email = emailInput.getText().toString();
+            String password = passwordInput.getText().toString();
 
-                sendUserData(email,password);
+            sendUserData(email,password);
 
-                Log.i("mainact",email);
-                Log.i("mainact",password);
-
-
+            Log.i("mainact",email);
+            Log.i("mainact",password);
         });
 
         loginButton.setOnLongClickListener(view -> {
 
-                Intent intent = new Intent(getApplicationContext(),RoomListActivity.class);
-                startActivity(intent);
-                return false;
+            Intent intent = new Intent(getApplicationContext(),RoomListActivity.class);
+            startActivity(intent);
+            return false;
         });
 
         signInButton.setOnClickListener(view ->  {
 
-                Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
+            startActivity(intent);
 
         });
     }
-
 
     void sendUserData(String userEmail,String userPassword){
 
@@ -93,18 +94,21 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
-                Logger.d(response.body());
-                ResponseItem responseItem = response.body();
-
-                if (responseItem.status.equals("Ok")){
-                    Toast.makeText(context,responseItem.status,Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(context,RoomListActivity.class);
-                    startActivity(intent);
-                }else if(responseItem.status.equals("EmailNotFound")){
-                    Toast.makeText(context,responseItem.status,Toast.LENGTH_LONG).show();
-                }else if(responseItem.status.equals("InvalidPassword")) {
-                    Toast.makeText(context,responseItem.status,Toast.LENGTH_LONG).show();
+                if (response.isSuccessful()){
+                    ResponseItem responseItem = response.body();
+                    User user = responseItem.getUser();
+                    if (responseItem.isOk()){
+                        Toast.makeText(context,user.getNickName() + "님 환영합니다 ",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(context,RoomListActivity.class);
+                        intent.putExtra("user",user);
+                        startActivity(intent);
+                    }else if(responseItem.isEmailNotFound()){
+                        Toast.makeText(context,"존재하지 않는 이메일입니다.",Toast.LENGTH_LONG).show();
+                    }else if(responseItem.isPasswordInvaild()) {
+                        Toast.makeText(context,"잘못된 비밀번호 입니다.",Toast.LENGTH_LONG).show();
+                    }
                 }
+
             }
 
             @Override
