@@ -83,7 +83,7 @@ public class Room {
 
 	public boolean isAllReady() {
 		for (User user : users) {
-			log.debug("{}", user.getStatus().toString());
+			log.debug("isAllReady::user.getStatus: {}", user.getStatus());
 			if(!user.isReady()){
 				return false;
 			}

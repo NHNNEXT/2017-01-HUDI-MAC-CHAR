@@ -30,5 +30,4 @@ public class GameManagerTest {
 			log.debug("{}", players.get(i).getRole().getRoleName());
 		}
 	}
-
 }
