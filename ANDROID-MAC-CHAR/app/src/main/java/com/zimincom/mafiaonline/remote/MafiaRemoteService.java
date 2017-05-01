@@ -4,8 +4,6 @@ import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 
 import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
@@ -20,11 +18,9 @@ import retrofit2.http.Path;
 
 public interface MafiaRemoteService {
 
-
-    String BASE_URL = "http://211.249.60.54:8000";
-    //String BASE_URL = "http://1.255.56.109:8080";
-    //String BASE_URL = "http://172.30.1.50:3000";
-    //String BASE_URL = "http://192.168.1.222:8080";
+    String configAddress = "211.249.60.54:8000";
+    String BASE_URL = "http://" + configAddress;
+    String SOCKET_URL = "ws://" + configAddress + "/websockethandler/websocket";
 
     @POST("/api/login")
     Call<ResponseItem> sendLoginInput(@Body User user);
@@ -47,10 +43,5 @@ public interface MafiaRemoteService {
 
     @DELETE("/api/room")
     Call<ResponseItem> leaveRoom(@Body User user);
-
-     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
 
 }

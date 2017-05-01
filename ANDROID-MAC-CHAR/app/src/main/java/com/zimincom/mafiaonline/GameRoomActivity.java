@@ -17,6 +17,7 @@ import com.zimincom.mafiaonline.item.MessageItem;
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
+import com.zimincom.mafiaonline.remote.ServiceGenerator;
 
 import org.java_websocket.WebSocket;
 
@@ -25,8 +26,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ua.naiksoftware.stomp.Stomp;
 import ua.naiksoftware.stomp.client.StompClient;
-
-import static com.zimincom.mafiaonline.remote.MafiaRemoteService.retrofit;
 
 public class GameRoomActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -43,8 +42,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     String userName;
     User user;
 
-    final public String socketLink = "ws://211.249.60.54:8000/websockethandler/websocket";
-   // final public String socketLink = "ws://192.168.1.222:8080/websockethandler/websocket";
+    final public String socketLink = MafiaRemoteService.SOCKET_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +58,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         userName = intent.getStringExtra("userName");
 
 
-        MafiaRemoteService mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
+        MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class);
         Call<ResponseItem> call = mafiaRemoteService.enterRoom(roomId);
 
         call.enqueue(new Callback<ResponseItem>() {
@@ -84,7 +82,6 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
         mStompClient.topic("/from/chat/"+roomId).subscribe(topicMessage -> {
 
-
             runOnUiThread(() -> {
 
                     textView = new TextView(getApplicationContext());
@@ -99,13 +96,11 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                     messageContainer.addView(textView);
             });
 
-
         });
 
         gson = new Gson();
 
         sendButton.setOnClickListener(this);
-
 
     }
 

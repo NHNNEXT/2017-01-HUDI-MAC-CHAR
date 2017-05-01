@@ -15,20 +15,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.Room;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
-
+import com.zimincom.mafiaonline.remote.ServiceGenerator;
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.zimincom.mafiaonline.remote.MafiaRemoteService.retrofit;
 
 public class RoomListActivity extends Activity implements View.OnClickListener{
 
@@ -45,7 +41,7 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_list);
-        mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
+        mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class);
 
         user = (User)getIntent().getSerializableExtra("user");
 

@@ -16,12 +16,11 @@ import android.widget.Toast;
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
+import com.zimincom.mafiaonline.remote.ServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.zimincom.mafiaonline.remote.MafiaRemoteService.retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -64,8 +63,6 @@ public class LoginActivity extends AppCompatActivity {
 
             sendUserData(email,password);
 
-            Log.i("mainact",email);
-            Log.i("mainact",password);
         });
 
         loginButton.setOnLongClickListener(view -> {
@@ -87,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
         User user = new User(userEmail,userPassword);
 
-        MafiaRemoteService mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
+        MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class);
         Call<ResponseItem> call = mafiaRemoteService.sendLoginInput(user);
 
         call.enqueue(new Callback<ResponseItem>() {
@@ -97,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     ResponseItem responseItem = response.body();
                     User user = responseItem.getUser();
+
                     if (responseItem.isOk()){
                         Toast.makeText(context,user.getNickName() + "님 환영합니다 ",Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(context,RoomListActivity.class);
