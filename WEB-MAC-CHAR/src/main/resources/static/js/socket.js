@@ -82,7 +82,7 @@ let WebSocket = (function() {
      	calcLeftTime = setInterval(timer, 1000); 
      	readyBtn.removeEventListener("click", readyBtnClickHandler);
      	readyBtn.classList.add("timer_started");
-     }
+    }
     let leftTime;
     let calcLeftTime;
     

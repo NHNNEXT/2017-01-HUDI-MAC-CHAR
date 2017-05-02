@@ -7,6 +7,8 @@
     <title>GameRoom</title>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/room.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
     <header>
@@ -15,10 +17,10 @@
       </div>
       <span class="room_description"><span id="roomId">No.{{room.id}}</span>{{room.title}}</span>
       <nav>
-      	<form class="out_room_form" action="/room" method="POST">
-					<input type="hidden" name="_method" value="DELETE">
-					<button id="exit_button" class="exit_button" type="submit">나가기</button>
-				</form>
+        <form class="out_room_form" action="/room" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <button id="exit_button" class="exit_button" type="submit">나가기</button>
+        </form>
       </nav>
     </header>
     <section id="container">
@@ -88,32 +90,53 @@
           </div>
         </section>
         <section class="right_container">
-          <div id="readyBtn" class="game_status right_container_top_elm_layout elm_background_style">
-            Ready
-          </div>
+          <div id="readyBtn"
+            class="game_status right_container_top_elm_layout elm_background_style">
+            Ready</div>
           <div class="timer right_container_bottom_elm_layout">
-            00:00
-          </div>
+            00:00</div>
         </section>
       </section>
-      
+  
       <section id="bottom_container" class="flexible">
         <section class="left_container">
-          <textarea id="chatOutput" name="" class="chatting_history" rows="10" readonly></textarea>
+          <textarea id="chatOutput" name="" class="chatting_history"
+            rows="10" readonly></textarea>
           <div class="chatting_input">
             <input id="chatInput" type="text" class="chat">
           </div>
         </section>
-        
+  
         <section class="right_container">
           <div class="right_container_top_elm_layout elm_background_style">
-            <div class="player_role_description"><span id="userName">{{user.nickname}}</span>님은 <span class="player_role">마피아</span> 입니다.</div>
+            <div class="player_role_description">
+            <span class="player_role">회원정보</span>
+              <!-- <span id="userName">{{user.nickname}}</span>님은 
+              <span class="player_role">마피아</span> 입니다. -->
+            </div>
           </div>
           <div id="player_mission" class="right_container_bottom_elm_layout elm_background_style">
-            <div class="player_mission_title">Mission</div>
+          <table class="table table-hover" id="profile_table">
+                <tr>
+                  <td>{{nickname}}</td>
+                </tr>
+                <tr>
+                  <td>레벨</td>
+                </tr>
+                <tr>
+                  <td>자산</td>
+                </tr>
+                <tr>
+                  <td>전적</td>
+                </tr>
+                <tr>
+                  <td>경험치</td>
+                </tr>
+              </table>
+            <!-- <div class="player_mission_title">Mission</div>
             <div class="player_mission_description">
               동료와 함께 작당하여 밤에 시민들을 죽이세요. 자신의 신분을 들키지 않는 것이 무엇보다 중요합니다!
-            </div>
+            </div> -->
           </div>
         </section>
       </section>

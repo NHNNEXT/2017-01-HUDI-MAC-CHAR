@@ -6,10 +6,13 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+
+import com.mapia.domain.User.Status;
 
 public class Room {
 	private static final Logger log = LoggerFactory.getLogger(Room.class);
-	 
+	
 	private static final int CAPACITY = 8;
 	private Set<User> users = Collections.synchronizedSet(new LinkedHashSet(CAPACITY));
 	private long id;
@@ -46,7 +49,7 @@ public class Room {
 		this.secretMode = true;
 	}
 
-	private int getCountOfUserInRoom() {
+	public int getCountOfUserInRoom() {
 		return users.size();
 	}
 
@@ -80,7 +83,7 @@ public class Room {
 
 	public boolean isAllReady() {
 		for (User user : users) {
-			log.debug(user.getStatus().toString());
+			log.debug("isAllReady::user.getStatus: {}", user.getStatus());
 			if(!user.isReady()){
 				return false;
 			}
@@ -96,4 +99,5 @@ public class Room {
 		}
 		return null;
 	}
+	
 }
