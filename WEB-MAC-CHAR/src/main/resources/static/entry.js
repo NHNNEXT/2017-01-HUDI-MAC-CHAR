@@ -1,1 +1,5 @@
-import socket from './js/socket';
+import chatSocket from "./js/chatSocket";
+
+(function() {
+    new chatSocket().init();
+})();
