@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import com.mapia.domain.GameManager;
 import com.mapia.domain.Player;
+import com.mapia.domain.User;
+
+import junit.framework.Assert;
 
 public class GameManagerTest {
 	private static final Logger log = LoggerFactory.getLogger(GameManagerTest.class);
@@ -18,16 +21,11 @@ public class GameManagerTest {
 
 	@Test
 	public void assignRole() {
-		List<Player> players = new ArrayList<>();
-		players.add(new Player());
-		players.add(new Player());
-		players.add(new Player());
-		players.add(new Player());
-		players.add(new Player());
-		gm.setPlayers(players);
-		gm.assignRole(players);
-		for(int i = 0 ; i < players.size() ; i++) {
-			log.debug("{}", players.get(i).getRole().getRoleName());
-		}
+		gm.addPlayer(new User());
+		gm.addPlayer(new User());
+		gm.addPlayer(new User());
+		gm.addPlayer(new User());
+		gm.addPlayer(new User());
+		gm.assignRole();
 	}
 }
