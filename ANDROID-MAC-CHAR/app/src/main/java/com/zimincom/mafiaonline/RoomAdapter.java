@@ -50,6 +50,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
             Intent intent = new Intent(context,GameRoomActivity.class);
             intent.putExtra("roomId",roomId);
+            intent.putExtra("user",user);
             intent.putExtra("userName",user.getNickName());
 
             context.startActivity(intent);

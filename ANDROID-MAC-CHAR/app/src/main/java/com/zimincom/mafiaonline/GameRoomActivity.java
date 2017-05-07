@@ -12,10 +12,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.MessageItem;
+import com.zimincom.mafiaonline.item.ResponseItem;
+import com.zimincom.mafiaonline.item.User;
+import com.zimincom.mafiaonline.remote.MafiaRemoteService;
+import com.zimincom.mafiaonline.remote.ServiceGenerator;
 
 import org.java_websocket.WebSocket;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ua.naiksoftware.stomp.Stomp;
 import ua.naiksoftware.stomp.client.StompClient;
 
@@ -32,15 +40,15 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     Intent intent;
     String roomId;
     String userName;
+    User user;
 
-    final public String socketLink = "ws://211.249.60.54:8000/websockethandler/websocket";
-   // final public String socketLink = "ws://192.168.1.222:8080/websockethandler/websocket";
+    final public String socketLink = MafiaRemoteService.SOCKET_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_room);
-
+        user = (User)getIntent().getSerializableExtra("user");
 
         sendButton = (Button)findViewById(R.id.send_button);
         messageInput = (EditText) findViewById(R.id.message_input);
@@ -50,12 +58,29 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         userName = intent.getStringExtra("userName");
 
 
+        MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class);
+        Call<ResponseItem> call = mafiaRemoteService.enterRoom(roomId);
+
+        call.enqueue(new Callback<ResponseItem>() {
+            @Override
+            public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
+               if (response.isSuccessful()) {
+                   Logger.d(response.body());
+               }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseItem> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+
         mStompClient = Stomp.over(WebSocket.class,socketLink);
         mStompClient.connect();
 
 
         mStompClient.topic("/from/chat/"+roomId).subscribe(topicMessage -> {
-
 
             runOnUiThread(() -> {
 
@@ -71,13 +96,11 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                     messageContainer.addView(textView);
             });
 
-
         });
 
         gson = new Gson();
 
         sendButton.setOnClickListener(this);
-
 
     }
 

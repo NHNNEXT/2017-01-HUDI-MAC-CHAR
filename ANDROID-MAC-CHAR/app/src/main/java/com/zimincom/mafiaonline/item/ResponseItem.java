@@ -14,6 +14,7 @@ public class ResponseItem {
     String msg;
     ArrayList<Room> rooms;
     User user;
+    String roomId;
 
 
     public boolean isOk(){
@@ -23,6 +24,7 @@ public class ResponseItem {
     public boolean isEmailNotFound(){
         return status.equals("EmailNotFound");
     }
+
     public boolean isPasswordInvaild(){
         return status.equals("InvaildPassword");
     }
@@ -30,20 +32,26 @@ public class ResponseItem {
     public String getStatus(){
         return status;
     }
+
     public ArrayList<Room> getRooms() {
         return rooms;
+    }
+
+    public String getRoomId() {
+        return roomId;
     }
 
     public User getUser(){
         return user;
     }
+
     @Override
     public String toString() {
         return "ResponseItem{" +
+                "status='" + status + '\'' +
                 ", msg='" + msg + '\'' +
                 ", rooms=" + rooms +
-                ", rooms=" + rooms +
-                ", user=" + user.getNickName() +
+                ", roomId='" + roomId + '\'' +
                 '}';
     }
 }

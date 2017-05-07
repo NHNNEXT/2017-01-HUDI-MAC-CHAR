@@ -12,12 +12,12 @@ import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
+import com.zimincom.mafiaonline.remote.ServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.zimincom.mafiaonline.remote.MafiaRemoteService.retrofit;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -50,7 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             User user = new User(nickName,email,password);
 
-            MafiaRemoteService mafiaRemoteService = retrofit.create(MafiaRemoteService.class);
+            MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class);
             Call<ResponseItem> call = mafiaRemoteService.sendSignUpInfo(user);
 
             call.enqueue(new Callback<ResponseItem>() {
