@@ -20,11 +20,12 @@ public class GameManager {
 	private List<Role> roles = new ArrayList<>();
 	private List<Player> players = new ArrayList<>();
 
-	public void assignRole(List<Player> players) {
+	public void assignRole() {
 		int playerCount = players.size();
 		
 		AssignRoleManagerMapping am = new AssignRoleManagerMapping();
 		AssignRoleManager assignRoleManager = am.findAssignRoleManager(playerCount);
+		log.debug("{}", playerCount);
 		assignRoleManager.assign(roles);
 		
 		shuffleRoles();
@@ -34,13 +35,29 @@ public class GameManager {
 		log.debug("{}", players.toString());
 	}
 	
-	public void shuffleRoles() {
+	private void shuffleRoles() {
 		long seed = System.nanoTime();
 		Collections.shuffle(roles, new Random(seed));
 		log.debug("ROLES AFTER SHUFFLE: {}", roles.toString());
 	}
 	
 	public void setPlayers(List<Player> players) {
-		this.players = players;
+		players = players;
+	}
+	
+	public void addPlayer(Player player) {
+		players.add(player);
+	}
+	
+	public Role findRoleNameByUserName(String userName) {
+		for (Player player : players) {
+			log.info("PLAYER NIACKNAME: {}", player.getUser().getNickname());
+			log.info("USER NAME: {}", userName);
+			if(player.getUser().getNickname().contains(userName)) {
+				return player.getRole();
+			}
+		}
+		return null;
+		
 	}
 }

@@ -14,14 +14,19 @@ let WebSocket = (function() {
     const FROM_READY_API = "/from/ready/";
     const TO_ACCESS_API = "/to/access/";
     const FROM_ACCESS_API = "/from/access/";
+    const TO_GAME_START_API = "/to/gameStart/";
+    const FROM_GAME_START_API = "/from/gameStart/"; 
+    
     
     let stompClient;
-
+    
     function connect() {
-        let socket = new SockJS(SERVER_SOCKET_API);
-        let chat_url = FROM_CHAT_API + getRoomId();
-        let ready_url = FROM_READY_API + getRoomId();
-        let access_url = FROM_ACCESS_API + getRoomId();
+        const socket = new SockJS(SERVER_SOCKET_API);
+        const chat_url = FROM_CHAT_API + getRoomId();
+        const ready_url = FROM_READY_API + getRoomId();
+        const access_url = FROM_ACCESS_API + getRoomId();
+        const game_start_url = FROM_GAME_START_API + getRoomId() + "/" + userName;
+        
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function () {
             stompClient.subscribe(chat_url, function (message) {
@@ -35,13 +40,16 @@ let WebSocket = (function() {
             stompClient.subscribe(access_url, function (access) {
             	showUserList(JSON.parse(access.body));
             });
+            stompClient.subscribe(game_start_url, function (gameStart) {
+            	
+            });
             sendAccess(userName, "enter");
         });
     }
 
-    let inputElm = document.getElementById("chatInput");
-    let readyBtn = document.getElementById("readyBtn");
-    let userName = document.getElementById("userName").textContent;
+    const inputElm = document.getElementById("chatInput");
+    const readyBtn = document.getElementById("readyBtn");
+    const userName = document.getElementById("userName").textContent;
     function chatKeyDownHandler(e) {
         if (e.which === ENTER_KEY && inputElm.value.trim() !== "") {
             sendMessage(userName, inputElm.value);
@@ -72,17 +80,21 @@ let WebSocket = (function() {
     
     function checkTimerStart(canStart) {
     	if(canStart) {
-    		startTimer(5);
+    		startTimer(5, sendGameStart);
     		return;
     	}
     }
     
-    function startTimer(time){
+    function startTimer(time, callback){
     	leftTime = time;
      	calcLeftTime = setInterval(timer, 1000); 
      	readyBtn.removeEventListener("click", readyBtnClickHandler);
      	readyBtn.classList.add("timer_started");
+     	if(callback) {
+     		callback();
+     	}
     }
+    
     let leftTime;
     let calcLeftTime;
     
@@ -105,7 +117,6 @@ let WebSocket = (function() {
     	}
     	return num;
     }
-    
     
     function showUserList(access) {
     	const PLAYER_NOT_READY = "player_not_ready";
@@ -169,6 +180,15 @@ let WebSocket = (function() {
     	let msg = {
     			"userName": userName,
     			"access": access
+    	};
+    	console.log(msg);
+    	stompClient.send(destinationUrl, JSON.stringify(msg));
+    }
+    
+    function sendGameStart() {
+    	let destinationUrl = TO_GAME_START_API + getRoomId() + "/" + userName;
+    	let msg = {
+    			"userName": userName,
     	};
     	console.log(msg);
     	stompClient.send(destinationUrl, JSON.stringify(msg));

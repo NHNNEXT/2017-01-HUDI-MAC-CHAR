@@ -12,22 +12,24 @@ import org.slf4j.LoggerFactory;
 import com.mapia.domain.GameManager;
 import com.mapia.domain.Player;
 
+import junit.framework.Assert;
+
 public class GameManagerTest {
 	private static final Logger log = LoggerFactory.getLogger(GameManagerTest.class);
 	GameManager gm = new GameManager();
 
 	@Test
 	public void assignRole() {
-		List<Player> players = new ArrayList<>();
-		players.add(new Player());
-		players.add(new Player());
-		players.add(new Player());
-		players.add(new Player());
-		players.add(new Player());
-		gm.setPlayers(players);
-		gm.assignRole(players);
-		for(int i = 0 ; i < players.size() ; i++) {
-			log.debug("{}", players.get(i).getRole().getRoleName());
-		}
+		gm.addPlayer(new Player());
+		gm.addPlayer(new Player());
+		gm.addPlayer(new Player());
+		gm.addPlayer(new Player());
+		gm.addPlayer(new Player());
+		gm.assignRole();
+	}
+	
+	@Test
+	public void a() {
+		Assert.assertEquals(true, "asdf" == "asdf");
 	}
 }
