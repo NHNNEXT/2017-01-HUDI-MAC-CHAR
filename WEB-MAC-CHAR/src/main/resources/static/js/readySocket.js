@@ -52,8 +52,28 @@ export default class readySocket {
 
     startTimer(time) {
         this.leftTime = time;
-        this.calcLeftTime = setInterval(timer, 1000);
+        this.calcLeftTime = setInterval(this.timer.bind(this), 1000);
         this.readyBtn.removeEventListener("click", this.readyBtnClickHandler);
         this.readyBtn.classList.add("timer_started");
+    }
+    
+    timer() {
+        document.querySelector(".timer").innerText = this.timeFormat(this.leftTime--);
+        if(this.leftTime < 0) {
+            clearInterval(this.calcLeftTime);
+        }
+    }
+   
+    timeFormat(leftTime) {
+        let leftMinutes = parseInt(leftTime / 60);
+        let leftSeconds = leftTime % 60;
+        return this.prependZero(leftMinutes, 2) + ":" + this.prependZero(leftSeconds, 2);
+    }
+   
+    prependZero(num, len) {
+        while(num.toString().length < len) {
+            num = "0" + num;
+        }
+        return num;
     }
 }

@@ -3,6 +3,7 @@ package com.mapia.api;
 import com.mapia.domain.Lobby;
 import com.mapia.domain.Room;
 import com.mapia.domain.User;
+import com.mapia.domain.User.Status;
 import com.mapia.result.RoomResult;
 import com.mapia.utils.HttpSessionUtils;
 import org.slf4j.Logger;
@@ -46,7 +47,7 @@ public class ApiRoomController {
             exitUserFromRoom(user);
             return RoomResult.invalidAccess(id);
         }
-
+        
         if (room.isFull()) {
             return RoomResult.rejectToEnterRoomOfFull(id);
         }
