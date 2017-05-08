@@ -1,10 +1,11 @@
+import { textArea, syncScroll } from './room_util';
+
 export default class chatSocket {
     constructor() {
         this.ENTER_KEY = 13;
 
         this.inputElm = document.getElementById("chatInput");
         this.userName = document.getElementById("userName").textContent;
-        this.textArea = document.getElementById("chatOutput");
     }
 
     init() {
@@ -25,6 +26,7 @@ export default class chatSocket {
             this.inputElm.value = "";
         }
     }
+    
     sendMessage(userName, text) {
         const msg = {
             "content": text,
@@ -34,12 +36,8 @@ export default class chatSocket {
     }
 
     printMessage(message) {
-        this.syncScroll();
+        syncScroll();
         const msg = `${message.userName}:\t${message.content}\n`;
-        this.textArea.value += msg;
-    }
-
-    syncScroll() {
-        this.textArea.scrollTop = this.textArea.scrollHeight;
+        textArea.value += msg;
     }
 }

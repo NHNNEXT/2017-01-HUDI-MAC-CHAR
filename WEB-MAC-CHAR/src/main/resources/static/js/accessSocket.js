@@ -1,46 +1,32 @@
-import SockJS from 'sockjs-client';
-import Stomp from 'webstomp-client';
-import Util from './room_util';
+import { textArea, syncScroll } from './room_util';
 
-export default class socket {
+export default class accessSocket {
 	constructor() {
-		this.SERVER_SOCKET_API = "/websockethandler";
-		this.FROM_ACCESS_API = "/from/access/";
-		this.TO_ACCESS_API = "/to/access/";
-		
 		this.PLAYER_NOT_READY = "player_not_ready";
 		
-		this.textArea = document.getElementById("chatOutput");
-		
-		this.stompClient;
+        this.userName = document.getElementById("userName").textContent;
+        this.exitBtn = document.getElementById("exit_button");
 	}
 	
 	init() {
-        document.addEventListener("DOMContentLoaded", this.connect.bind(this));
+        this.exitBtn.addEventListener("click", this.disconnect.bind(this));
 	}
 	
-	connect() {
-		console.log(this);
-		let socket = new SockJS(this.SERVER_SOCKET_API);
-		let access_url = this.FROM_ACCESS_API + Util.getRoomId();
-		
-		this.stompClient = Stomp.over(socket);
-		console.log(this.stompClient);
-		this.stompClient.connect({}, () => {
-			this.stompClient.subscribe(access_url, access => {
-				this.showUserList(JSON.parse(access.body));
-			})
-		})
+	connect(stompClient, access_url, destinationUrl) {
+		this.stompClient = stompClient;
+		this.destinationUrl = destinationUrl;
+		stompClient.subscribe(access_url, access => {
+			this.showUserList(JSON.parse(access.body));
+		});
 	}
 	
 	sendAccess(userName, access) {
-		let destinationUrl = this.TO_ACCESS_API + Util.getRoomId();
 		let msg = {
 				"userName": userName,
 				"access": access
 		};
 		console.log(msg);
-		this.stompClient.send(destinationUrl, JSON.stringify(msg));
+		this.stompClient.send(this.destinationUrl, JSON.stringify(msg));
 	}
 	
 	showUserList(access) {
@@ -61,9 +47,26 @@ export default class socket {
 				emptySlot.setAttribute("data-id", user.nickname);
 				emptySlot.classList.remove("empty_slot");
 			}
-			Util.syncScroll();
+			syncScroll();
 			let msg = `${access.userName} 님이 입장하셨습니다.\n`;
 			textArea.value += msg;
+		} else {
+			let userSlot = document.querySelector(`[data-id=${access.userName}]`);
+			userSlot.querySelector(".player_name").textContent = "";
+			userSlot.querySelector(".player_status").classList.add(this.PLAYER_NOT_READY);
+			userSlot.removeAttribute("data-id");
+			userSlot.classList.add("empty_slot");
+			syncScroll();
+			let msg = `${access.userName} 님이 퇴장하셨습니다.\n`;
+			textArea.value += msg;
 		}
+	}
+	
+	disconnect() {
+		this.sendAccess(this.userName, "exit");
+		if (stompClient != null) {
+			stompClient.disconnect();
+		}
+		console.log("Disconnected");
 	}
 }
