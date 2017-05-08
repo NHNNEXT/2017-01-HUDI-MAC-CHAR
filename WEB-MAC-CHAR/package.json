@@ -8,7 +8,7 @@
     "watch": "webpack -d --watch",
     "dev": "webpack -d",
     "prod": "webpack -p",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "webpack-dev-server --watch"
   },
   "dependencies": {
     "babel-core": "^6.18.2",
@@ -27,7 +27,7 @@
     "css-loader": "^0.27.3",
     "extract-text-webpack-plugin": "^2.1.0",
     "style-loader": "^0.16.1",
-    "webpack": "^1.14.0"
+    "webpack": "^2.5.0"
   },
   "author": "",
   "license": "ISC"
