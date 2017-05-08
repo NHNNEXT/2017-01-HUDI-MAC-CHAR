@@ -58,22 +58,22 @@ export default class readySocket {
     }
     
     timer() {
-    	document.querySelector(".timer").innerText = this.timeFormat(this.leftTime--);
-    	if(this.leftTime < 0) {
-    		clearInterval(this.calcLeftTime);
-    	}
-   }
+        document.querySelector(".timer").innerText = this.timeFormat(this.leftTime--);
+        if(this.leftTime < 0) {
+            clearInterval(this.calcLeftTime);
+        }
+    }
    
-   timeFormat(leftTime) {
-	   let leftMinutes = parseInt(leftTime / 60);
-	   let leftSeconds = leftTime % 60;
-	   return this.prependZero(leftMinutes, 2) + ":" + this.prependZero(leftSeconds, 2);
-   }
+    timeFormat(leftTime) {
+        let leftMinutes = parseInt(leftTime / 60);
+        let leftSeconds = leftTime % 60;
+        return this.prependZero(leftMinutes, 2) + ":" + this.prependZero(leftSeconds, 2);
+    }
    
-   prependZero(num, len) {
-	   while(num.toString().length < len) {
-		   num = "0" + num;
-	   }
-	   return num;
-   }
+    prependZero(num, len) {
+        while(num.toString().length < len) {
+            num = "0" + num;
+        }
+        return num;
+    }
 }
