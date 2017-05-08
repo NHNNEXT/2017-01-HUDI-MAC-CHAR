@@ -45,8 +45,8 @@ public class GameManager {
 		players = players;
 	}
 	
-	public void addPlayer(Player player) {
-		players.add(player);
+	public void addPlayer(User user) {
+		players.add(new Player(user));
 	}
 	
 	public Role findRoleNameByUserName(String userName) {

@@ -104,9 +104,7 @@ public class Room {
 	public GameManager createGameManager() {
 		gameManager = new GameManager();
 		for (User user : users) {
-			Player player = new Player();
-			player.setUser(user);
-			gameManager.addPlayer(player);
+			gameManager.addPlayer(user);
 		}
 		gameManager.assignRole();
 		return gameManager;

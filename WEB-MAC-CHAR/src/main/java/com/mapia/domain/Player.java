@@ -7,6 +7,10 @@ public class Player {
 	private Role role;
 	private boolean stillAlive = true;
 	
+	public Player(User user) {
+		this.user = user;
+	}
+
 	public Role getRole() {
 		return role;
 	}

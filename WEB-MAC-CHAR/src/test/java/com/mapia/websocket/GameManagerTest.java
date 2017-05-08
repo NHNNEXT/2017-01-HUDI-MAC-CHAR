@@ -27,9 +27,4 @@ public class GameManagerTest {
 		gm.addPlayer(new Player());
 		gm.assignRole();
 	}
-	
-	@Test
-	public void a() {
-		Assert.assertEquals(true, "asdf" == "asdf");
-	}
 }
