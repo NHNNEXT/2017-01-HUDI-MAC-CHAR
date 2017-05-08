@@ -27,6 +27,14 @@ public class ReadySignal {
 	public void setStartTimer(boolean startTimer) {
 		this.startTimer = startTimer;
 	}
+	
+	public void startTimer() {
+		this.startTimer = true;
+	}
+	
+	public void stopTimer() {
+		this.startTimer = false;
+	}
 
 	public boolean isStartTimer() {
 		return startTimer;

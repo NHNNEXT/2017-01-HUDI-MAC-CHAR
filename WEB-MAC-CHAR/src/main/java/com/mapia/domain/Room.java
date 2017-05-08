@@ -19,6 +19,7 @@ public class Room {
 	private String title;
 	private volatile int userCount;
 	private boolean secretMode;
+	private GameManager gameManager;
 
 	public Room(long roomId, String title) {
 		this.id = roomId;
@@ -98,6 +99,19 @@ public class Room {
 			}
 		}
 		return null;
+	}
+	
+	public GameManager createGameManager() {
+		gameManager = new GameManager();
+		for (User user : users) {
+			gameManager.addPlayer(user);
+		}
+		gameManager.assignRole();
+		return gameManager;
+	}
+
+	public GameManager getGameManager() {
+		return gameManager;
 	}
 	
 }
