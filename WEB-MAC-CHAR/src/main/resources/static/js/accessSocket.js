@@ -4,12 +4,12 @@ export default class accessSocket {
 	constructor() {
 		this.PLAYER_NOT_READY = "player_not_ready";
 		
-        this.userName = document.getElementById("userName").textContent;
-        this.exitBtn = document.getElementById("exit_button");
+		this.userName = document.getElementById("userName").textContent;
+		this.exitBtn = document.getElementById("exit_button");
 	}
 	
 	init() {
-        this.exitBtn.addEventListener("click", this.disconnect.bind(this));
+		this.exitBtn.addEventListener("click", this.disconnect.bind(this));
 	}
 	
 	connect(stompClient, access_url, destinationUrl) {
@@ -28,7 +28,7 @@ export default class accessSocket {
 		console.log(msg);
 		this.stompClient.send(this.destinationUrl, JSON.stringify(msg));
 	}
-	
+
 	showUserList(access) {
 		if (access.access === "enter") {
 			let slots = document.querySelectorAll(".slot_layout");
