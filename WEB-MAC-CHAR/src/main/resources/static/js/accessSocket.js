@@ -10,6 +10,8 @@ export default class accessSocket {
 
     init() {
         this.exitBtn.addEventListener("click", this.disconnect.bind(this));
+        this.slots = document.querySelectorAll(".slot_layout");
+        this.emptySlot = document.querySelector(".empty_slot");
     }
 
     connect(stompClient, access_url, destinationUrl) {
@@ -18,6 +20,7 @@ export default class accessSocket {
         stompClient.subscribe(access_url, access => {
             this.showUserList(JSON.parse(access.body));
         });
+        this.sendAccess(this.userName, "enter");
     }
 
     sendAccess(userName, access) {
@@ -30,21 +33,19 @@ export default class accessSocket {
 
     showUserList(access) {
         if (access.access === "enter") {
-            let slots = document.querySelectorAll(".slot_layout");
-            for (let slot of slots) {
+            for (let slot of this.slots) {
                 slot.querySelector(".player_name").textContent = "";
                 slot.querySelector(".player_status").classList.add(this.PLAYER_NOT_READY);
                 slot.removeAttribute("data-id");
                 slot.classList.add("empty_slot");
             }
             for (let user of access.users) {
-                let emptySlot = document.querySelector(".empty_slot");
-                emptySlot.querySelector(".player_name").textContent = user.nickname;
+                this.emptySlot.querySelector(".player_name").textContent = user.nickname;
                 if (user.status === "READY") {
-                    emptySlot.querySelector(".player_status").classList.remove(this.PLAYER_NOT_READY);
+                    this.emptySlot.querySelector(".player_status").classList.remove(this.PLAYER_NOT_READY);
                 }
-                emptySlot.setAttribute("data-id", user.nickname);
-                emptySlot.classList.remove("empty_slot");
+                this.emptySlot.setAttribute("data-id", user.nickname);
+                this.emptySlot.classList.remove("empty_slot");
             }
             syncScroll();
             let msg = `${access.userName} 님이 입장하셨습니다.\n`;
@@ -63,9 +64,8 @@ export default class accessSocket {
 
     disconnect() {
         this.sendAccess(this.userName, "exit");
-        if (stompClient != null) {
-            stompClient.disconnect();
+        if (this.stompClient !== null) {
+            this.stompClient.disconnect();
         }
-        console.log("Disconnected");
     }
 }

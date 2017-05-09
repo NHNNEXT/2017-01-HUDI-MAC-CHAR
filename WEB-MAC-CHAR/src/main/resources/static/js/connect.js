@@ -40,7 +40,6 @@ export default class connectSocket {
             this.chatSocket.connect(this.stompClient, chat_url, this.TO_CHAT_API + this.getRoomId());
             this.readySocket.connect(this.stompClient, ready_url, this.TO_READY_API + this.getRoomId());
             this.accessSocket.connect(this.stompClient, access_url, this.TO_ACCESS_API + this.getRoomId());
-            this.accessSocket.sendAccess(this.userName, "enter");
         });
     }
 
