@@ -1,17 +1,17 @@
-import { textArea, syncScroll } from './room_util';
+import {textArea, syncScroll} from './room_util';
 
 export default class accessSocket {
     constructor() {
         this.PLAYER_NOT_READY = "player_not_ready";
-		
+
         this.userName = document.getElementById("userName").textContent;
         this.exitBtn = document.getElementById("exit_button");
     }
-	
+
     init() {
         this.exitBtn.addEventListener("click", this.disconnect.bind(this));
     }
-	
+
     connect(stompClient, access_url, destinationUrl) {
         this.stompClient = stompClient;
         this.destinationUrl = destinationUrl;
@@ -19,13 +19,12 @@ export default class accessSocket {
             this.showUserList(JSON.parse(access.body));
         });
     }
-	
+
     sendAccess(userName, access) {
         let msg = {
             "userName": userName,
             "access": access
         };
-        console.log(msg);
         this.stompClient.send(this.destinationUrl, JSON.stringify(msg));
     }
 
@@ -65,7 +64,7 @@ export default class accessSocket {
     disconnect() {
         this.sendAccess(this.userName, "exit");
         if (stompClient != null) {
-    	    stompClient.disconnect();
+            stompClient.disconnect();
         }
         console.log("Disconnected");
     }

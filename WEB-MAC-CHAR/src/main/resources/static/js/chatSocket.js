@@ -1,4 +1,4 @@
-import { textArea, syncScroll } from './room_util';
+import {textArea, syncScroll} from './room_util';
 
 export default class chatSocket {
     constructor() {
@@ -26,7 +26,7 @@ export default class chatSocket {
             this.inputElm.value = "";
         }
     }
-    
+
     sendMessage(userName, text) {
         const msg = {
             "content": text,
