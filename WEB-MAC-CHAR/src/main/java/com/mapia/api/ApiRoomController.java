@@ -27,15 +27,18 @@ public class ApiRoomController {
 
     @GetMapping("/{id}")
     public RoomResult enter(@PathVariable long id, HttpSession session, Model model) {
+    	
         if (!HttpSessionUtils.isLoginUser(session)) {
             return RoomResult.invalidAccess(id);
         }
 
         User user = HttpSessionUtils.getUserFromSession(session);
+        log.info("user is :{}",user.toString());
         if (!lobby.isExistRoom(id)) {
             session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
-
+            log.info("there is no room: {}", id);
             if (!user.isLobby()) {
+            	log.info("user is not in lobby");
                 exitUserFromRoom(user);
             }
             return RoomResult.invalidAccess(id);
@@ -44,6 +47,7 @@ public class ApiRoomController {
         Room room = lobby.getRoom(id);
         if (!user.isAbleToEnter(id)) {
             session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
+            log.info("u are invaild");
             exitUserFromRoom(user);
             return RoomResult.invalidAccess(id);
         }

@@ -37,7 +37,21 @@ public class User implements Serializable{
     }
 
 
+
     public String getNickName() {
         return nickname;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", status=" + status +
+                ", enteredRoomId=" + enteredRoomId +
+                ", LOBBY_ID=" + LOBBY_ID +
+                '}';
     }
 }

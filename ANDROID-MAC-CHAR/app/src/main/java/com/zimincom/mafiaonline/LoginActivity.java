@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
@@ -84,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
 
         User user = new User(userEmail,userPassword);
 
-        MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class);
+        MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class, getBaseContext());
         Call<ResponseItem> call = mafiaRemoteService.sendLoginInput(user);
 
         call.enqueue(new Callback<ResponseItem>() {
@@ -94,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     ResponseItem responseItem = response.body();
                     User user = responseItem.getUser();
+                    Logger.i(user.toString());
 
                     if (responseItem.isOk()){
                         Toast.makeText(context,user.getNickName() + "님 환영합니다 ",Toast.LENGTH_LONG).show();

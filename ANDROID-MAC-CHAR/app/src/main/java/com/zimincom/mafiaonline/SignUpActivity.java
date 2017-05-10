@@ -50,7 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             User user = new User(nickName,email,password);
 
-            MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class);
+            MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class, getBaseContext());
             Call<ResponseItem> call = mafiaRemoteService.sendSignUpInfo(user);
 
             call.enqueue(new Callback<ResponseItem>() {

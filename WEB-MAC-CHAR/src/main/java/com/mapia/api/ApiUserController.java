@@ -41,6 +41,8 @@ public class ApiUserController {
 		}
 		
 		session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
+		logger.info(session.getAttribute(HttpSessionUtils.USER_SESSION_KEY).toString());
+		logger.info(user.toString());
 		return LoginResult.ok(user);
 	}
 	
