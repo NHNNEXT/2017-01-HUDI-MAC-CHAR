@@ -36,6 +36,11 @@ public class Room {
         return secretMode;
     }
 
+    public Room (String id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public Room(User[] users, String id, String title, int userCount, boolean secretMode, boolean empty, boolean full) {
         this.users = users;
         this.id = id;
