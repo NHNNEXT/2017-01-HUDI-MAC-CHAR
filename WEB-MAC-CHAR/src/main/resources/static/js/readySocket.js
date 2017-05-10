@@ -2,6 +2,9 @@ export default class readySocket {
     constructor() {
         this.userName = document.getElementById("userName").textContent;
         this.readyBtn = document.getElementById("readyBtn");
+        this.ONE_MINUTE = 60;
+        this.TIME_OUT = 5;
+        this.ONE_SECOND = 1000;
 
         this.leftTime;
         this.calcLeftTime;
@@ -33,26 +36,26 @@ export default class readySocket {
         this.stompClient.send(this.destinationUrl, JSON.stringify(msg));
     }
 
-    printReady(ready) {
+    printReady({userName}) {
         let playerNames = document.getElementsByClassName("player_name");
         for (let playerName of playerNames) {
-            if (playerName.textContent === ready.userName) {
+            if (playerName.textContent === userName) {
                 playerName.nextElementSibling.classList.toggle("player_not_ready");
             }
         }
     }
 
-    checkTimerStart(canStart) {
-        console.log(this);
-        if (canStart) {
-            this.startTimer(5);
-            return;
+    checkTimerStart(isStartTimerTrue) {
+        if (isStartTimerTrue) {
+            this.startTimer(this.TIME_OUT);
         }
+        return;
     }
 
     startTimer(time) {
         this.leftTime = time;
-        this.calcLeftTime = setInterval(this.timer.bind(this), 1000);
+        this.calcLeftTime = setInterval(this.timer.bind(this), this.ONE_SECOND);
+        //Once ready, player can't cancel ready
         this.readyBtn.removeEventListener("click", this.readyBtnClickHandler);
         this.readyBtn.classList.add("timer_started");
     }
@@ -65,14 +68,14 @@ export default class readySocket {
     }
 
     timeFormat(leftTime) {
-        let leftMinutes = parseInt(leftTime / 60);
-        let leftSeconds = leftTime % 60;
-        return this.prependZero(leftMinutes, 2) + ":" + this.prependZero(leftSeconds, 2);
+        const leftMinutes = parseInt(leftTime / this.ONE_MINUTE);
+        const leftSeconds = leftTime % this.ONE_MINUTE;
+        return `${this.buildTimeFormat(leftMinutes)}:${this.buildTimeFormat(leftSeconds)}`;
     }
 
-    prependZero(num, len) {
-        while (num.toString().length < len) {
-            num = "0" + num;
+    buildTimeFormat(num) {
+        if (num.toString().length < 2) {
+            return `0${num}`;
         }
         return num;
     }
