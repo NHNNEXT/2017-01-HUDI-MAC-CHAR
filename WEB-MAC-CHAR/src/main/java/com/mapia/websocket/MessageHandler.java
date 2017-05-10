@@ -50,17 +50,15 @@ public class MessageHandler {
     	Room room = lobby.getRoom(roomId);
     	Set<User> userSet = room.getUsers();
     	access.setUsers(userSet);
-    	log.debug("ACESS: {}", access.toString());
     	return access;
     }
     
     @MessageMapping("/gameStart/{roomId}/{userName}")
     @SendTo("/from/gameStart/{roomId}/{userName}")
     public String broadcasting(GameStart gameStart, @DestinationVariable long roomId) throws Exception {
-    	log.info(gameStart.getUserName());
     	GameManager gameManager = lobby.getRoom(roomId).getGameManager();
-    	log.info("GM: {}", gameManager);
     	Role role = gameManager.findRoleNameByUserName(gameStart.getUserName());
+    	log.info("{}: {}", gameStart.getUserName(), role.getRoleName());
     	return role.getRoleName().toString();
     }
 }

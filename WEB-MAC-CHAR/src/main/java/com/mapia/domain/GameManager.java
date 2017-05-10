@@ -25,7 +25,6 @@ public class GameManager {
 		
 		AssignRoleManagerMapping am = new AssignRoleManagerMapping();
 		AssignRoleManager assignRoleManager = am.findAssignRoleManager(playerCount);
-		log.debug("{}", playerCount);
 		assignRoleManager.assign(roles);
 		
 		shuffleRoles();
@@ -51,8 +50,6 @@ public class GameManager {
 	
 	public Role findRoleNameByUserName(String userName) {
 		for (Player player : players) {
-			log.info("PLAYER NIACKNAME: {}", player.getUser().getNickname());
-			log.info("USER NAME: {}", userName);
 			if(player.getUser().getNickname().contains(userName)) {
 				return player.getRole();
 			}
