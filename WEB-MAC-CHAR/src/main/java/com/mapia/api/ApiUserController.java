@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mapia.dao.UserRepository;
 import com.mapia.domain.User;
+import com.mapia.domain.User.Status;
 import com.mapia.result.LoginResult;
 import com.mapia.result.SignUpResult;
 import com.mapia.utils.HttpSessionUtils;
@@ -40,6 +41,7 @@ public class ApiUserController {
 			return LoginResult.invalidPassword("잘못된 비밀번호입니다.");
 		}
 		
+		user.setStatus(Status.LOBBY);
 		session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
 		return LoginResult.ok(user);
 	}

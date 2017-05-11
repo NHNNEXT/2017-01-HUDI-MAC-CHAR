@@ -58,7 +58,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         userName = intent.getStringExtra("userName");
 
 
-        MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class);
+        MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class, getBaseContext());
         Call<ResponseItem> call = mafiaRemoteService.enterRoom(roomId);
 
         call.enqueue(new Callback<ResponseItem>() {
@@ -74,7 +74,6 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                 t.printStackTrace();
             }
         });
-
 
         mStompClient = Stomp.over(WebSocket.class,socketLink);
         mStompClient.connect();

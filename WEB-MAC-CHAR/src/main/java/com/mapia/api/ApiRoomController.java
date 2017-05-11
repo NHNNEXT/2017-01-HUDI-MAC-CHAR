@@ -27,6 +27,7 @@ public class ApiRoomController {
 
     @GetMapping("/{id}")
     public RoomResult enter(@PathVariable long id, HttpSession session, Model model) {
+    	
         if (!HttpSessionUtils.isLoginUser(session)) {
             return RoomResult.invalidAccess(id);
         }
@@ -34,7 +35,6 @@ public class ApiRoomController {
         User user = HttpSessionUtils.getUserFromSession(session);
         if (!lobby.isExistRoom(id)) {
             session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
-
             if (!user.isLobby()) {
                 exitUserFromRoom(user);
             }

@@ -41,7 +41,7 @@ public class RoomListActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_list);
-        mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class);
+        mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class, context);
 
         user = (User)getIntent().getSerializableExtra("user");
 
