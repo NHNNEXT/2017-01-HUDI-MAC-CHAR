@@ -13,7 +13,7 @@ export default class accessSocket {
         this.slots = document.querySelectorAll(".slot_layout");
         this.emptySlot = document.querySelector(".empty_slot");
     }
-
+    
     connect(stompClient, access_url, destinationUrl) {
         this.stompClient = stompClient;
         this.destinationUrl = destinationUrl;
