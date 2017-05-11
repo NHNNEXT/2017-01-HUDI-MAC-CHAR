@@ -25,7 +25,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     int itemLayout;
 
-    public RoomAdapter(Context context, ArrayList<Room> rooms, User user, int itemLayout){
+    public RoomAdapter(Context context, ArrayList<Room> rooms, User user, int itemLayout) {
         this.context = context;
         this.rooms = rooms;
         this.itemLayout = itemLayout;
@@ -34,7 +34,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(itemLayout,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
         return new ViewHolder(v);
     }
 
@@ -42,16 +42,16 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.roomId.setText(rooms.get(position).getId());
         holder.roomTitle.setText(rooms.get(position).getTitle());
-        String playerCount = rooms.get(position).getUserCount()+"/8";
+        String playerCount = rooms.get(position).getUserCount() + "/8";
         holder.playerCount.setText(playerCount);
 
-        holder.itemView.setOnClickListener( view -> {
+        holder.itemView.setOnClickListener(view -> {
             String roomId = rooms.get(position).getId();
 
-            Intent intent = new Intent(context,GameRoomActivity.class);
-            intent.putExtra("roomId",roomId);
-            intent.putExtra("user",user);
-            intent.putExtra("userName",user.getNickName());
+            Intent intent = new Intent(context, GameRoomActivity.class);
+            intent.putExtra("roomId", roomId);
+            intent.putExtra("user", user);
+            intent.putExtra("userName", user.getNickName());
 
             context.startActivity(intent);
         });
@@ -67,7 +67,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         public TextView roomTitle;
         public TextView playerCount;
 
-        public ViewHolder(View itemView){
+        public ViewHolder(View itemView) {
             super(itemView);
             roomId = (TextView) itemView.findViewById(R.id.room_id);
             roomTitle = (TextView) itemView.findViewById(R.id.room_title);

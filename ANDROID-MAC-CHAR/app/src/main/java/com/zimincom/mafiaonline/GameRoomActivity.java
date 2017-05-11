@@ -34,10 +34,10 @@ import ua.naiksoftware.stomp.Stomp;
 import ua.naiksoftware.stomp.client.StompClient;
 
 
-public class GameRoomActivity extends AppCompatActivity implements View.OnClickListener{
+public class GameRoomActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    private StompClient mStompClient;
+    final public String socketLink = MafiaRemoteService.SOCKET_URL;
     Gson gson;
     MessageItem messageItem;
     Toolbar toolbar;
@@ -55,8 +55,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
     int gameTime = 120;
     boolean isGameStarted = false;
-
-    final public String socketLink = MafiaRemoteService.SOCKET_URL;
+    private StompClient mStompClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +67,13 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        user = (User)getIntent().getSerializableExtra("user");
+        user = (User) getIntent().getSerializableExtra("user");
 
         sendButton = (Button) findViewById(R.id.send_button);
         readyButton = (Button) findViewById(R.id.ready_button);
         timer = (TextView) findViewById(R.id.timer_view);
         messageInput = (EditText) findViewById(R.id.message_input);
-        messageContainer =(LinearLayout)findViewById(R.id.messages_container);
+        messageContainer = (LinearLayout) findViewById(R.id.messages_container);
         intent = getIntent();
         roomId = intent.getStringExtra("roomId");
         userName = intent.getStringExtra("userName");
@@ -86,9 +85,9 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback<ResponseItem>() {
             @Override
             public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
-               if (response.isSuccessful()) {
-                   Logger.d(response.body());
-               }
+                if (response.isSuccessful()) {
+                    Logger.d(response.body());
+                }
             }
 
             @Override
@@ -97,15 +96,15 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-        mStompClient = Stomp.over(WebSocket.class,socketLink);
+        mStompClient = Stomp.over(WebSocket.class, socketLink);
         mStompClient.connect();
 
 
-        mStompClient.topic("/from/chat/"+roomId).subscribe(topicMessage -> {
+        mStompClient.topic("/from/chat/" + roomId).subscribe(topicMessage -> {
 
             runOnUiThread(() -> {
                 chatLayout = new ChatLayout(getBaseContext());
-                MessageItem messageItem = gson.fromJson(topicMessage.getPayload(),MessageItem.class);
+                MessageItem messageItem = gson.fromJson(topicMessage.getPayload(), MessageItem.class);
                 chatLayout.setName(messageItem.userName);
                 if (messageItem.userName.equals(userName)) {
                     chatLayout.setToMyMessage();
@@ -117,7 +116,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         });
 
 
-        mStompClient.topic("/from/ready/"+roomId).subscribe( message -> {
+        mStompClient.topic("/from/ready/" + roomId).subscribe(message -> {
 
             runOnUiThread(() -> {
                 ReadySignal readySignal = gson.fromJson(message.getPayload(), ReadySignal.class);
@@ -141,8 +140,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         super.onStart();
     }
 
-    public void send(String message){
-        mStompClient.send("/to/chat/"+roomId, gson.toJson(new MessageItem(userName,message))).subscribe();
+    public void send(String message) {
+        mStompClient.send("/to/chat/" + roomId, gson.toJson(new MessageItem(userName, message))).subscribe();
     }
 
 
@@ -154,8 +153,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                 try {
                     runOnUiThread(() -> {
                         gameTime--;
-                        int min = gameTime/60;
-                        int sec = gameTime%60;
+                        int min = gameTime / 60;
+                        int sec = gameTime % 60;
                         String time = min + ":" + sec;
                         timer.setText(time);
                         if (gameTime == 0) {
@@ -171,26 +170,26 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         runOnUiThread(timerTask);
 
         Timer mTimer = new Timer();
-        mTimer.schedule(timerTask,0,1000);
+        mTimer.schedule(timerTask, 0, 1000);
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        mStompClient = Stomp.over(WebSocket.class,socketLink);
+        mStompClient = Stomp.over(WebSocket.class, socketLink);
         mStompClient.connect();
     }
 
     @Override
     public void onClick(View view) {
 
-        if (view.getId() == R.id.send_button){
+        if (view.getId() == R.id.send_button) {
             String message = messageInput.getText().toString();
-            Log.d("MainActivity",message);
+            Log.d("MainActivity", message);
             messageInput.setText("");
             send(message);
-        } else if (view.getId() == R.id.ready_button){
+        } else if (view.getId() == R.id.ready_button) {
             mStompClient.send("/to/ready/" + roomId, gson.toJson(new ReadySignal(userName))).subscribe();
         }
     }
@@ -204,12 +203,12 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 if (!isGameStarted)
                     onBackPressed();
                 else {
-                    Toast.makeText(getBaseContext(),"게임중에는 나갈 수 없습니다.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "게임중에는 나갈 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             default:

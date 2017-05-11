@@ -6,12 +6,12 @@ package com.zimincom.mafiaonline.item;
 
 public class ReadySignal {
 
+    Lobby lobby;
     private String userName;
     private boolean startTimer;
 
-    Lobby lobby;
-
-    public ReadySignal() {}
+    public ReadySignal() {
+    }
 
     public ReadySignal(String userName) {
         this.userName = userName;
@@ -24,12 +24,13 @@ public class ReadySignal {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    public void setStartTimer(boolean startTimer) {
-        this.startTimer = startTimer;
-    }
 
     public boolean isStartTimer() {
         return startTimer;
+    }
+
+    public void setStartTimer(boolean startTimer) {
+        this.startTimer = startTimer;
     }
 
 }

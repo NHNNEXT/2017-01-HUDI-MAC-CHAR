@@ -12,8 +12,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class Lobby implements Iterable {
 
-    private volatile Map<Long, Room> rooms = new ConcurrentHashMap<>();
     private final AtomicLong roomIdentifier = new AtomicLong();
+    private volatile Map<Long, Room> rooms = new ConcurrentHashMap<>();
 
     public Collection<Room> rooms() {
         return rooms.values();

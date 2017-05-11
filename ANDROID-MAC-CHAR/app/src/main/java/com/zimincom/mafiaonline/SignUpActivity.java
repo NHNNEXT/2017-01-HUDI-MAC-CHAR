@@ -37,18 +37,18 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signin);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        nickNameInput = (EditText)findViewById(R.id.nickname_input);
-        emailInput = (EditText)findViewById(R.id.email_input);
-        passwordInput = (EditText)findViewById(R.id.password);
-        passwordCheckInput = (EditText)findViewById(R.id.password_check);
-        signInButton = (Button)findViewById(R.id.signin);
+        nickNameInput = (EditText) findViewById(R.id.nickname_input);
+        emailInput = (EditText) findViewById(R.id.email_input);
+        passwordInput = (EditText) findViewById(R.id.password);
+        passwordCheckInput = (EditText) findViewById(R.id.password_check);
+        signInButton = (Button) findViewById(R.id.signin);
 
         signInButton.setOnClickListener(view -> {
             String nickName = nickNameInput.getText().toString();
             String email = emailInput.getText().toString();
             String password = passwordInput.getText().toString();
 
-            User user = new User(nickName,email,password);
+            User user = new User(nickName, email, password);
 
             MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class, getBaseContext());
             Call<ResponseItem> call = mafiaRemoteService.sendSignUpInfo(user);
@@ -60,11 +60,11 @@ public class SignUpActivity extends AppCompatActivity {
                     Logger.d(response.body());
                     ResponseItem responseItem = response.body();
 
-                    if (responseItem.isOk()){
-                        Toast.makeText(context,"회원가입 성공!",Toast.LENGTH_LONG).show();
+                    if (responseItem.isOk()) {
+                        Toast.makeText(context, "회원가입 성공!", Toast.LENGTH_LONG).show();
                         finish();
-                    }else if(responseItem.getStatus().equals("EmailExits")){
-                        Toast.makeText(context,"가입된 이메일 입니다",Toast.LENGTH_LONG).show();
+                    } else if (responseItem.getStatus().equals("EmailExits")) {
+                        Toast.makeText(context, "가입된 이메일 입니다", Toast.LENGTH_LONG).show();
                     }
 
                 }
@@ -81,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
