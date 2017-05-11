@@ -5,10 +5,10 @@ import java.util.List;
 import com.mapia.game.AssignRoleManager;
 import com.mapia.domain.role.Role;
 
-public class Assign7Roles extends AssignRoleManager{
-	public static final int MEMBER_COUNT = 7;
-	public final int MAFIA_COUNT = 2;
-	public final int CITIZEN_COUNT = 3;
+public class Assign7Roles extends AssignRoleManager {
+    public static final int MEMBER_COUNT = 7;
+    public final int MAFIA_COUNT = 2;
+    public final int CITIZEN_COUNT = 3;
 
     @Override
     public List<Role> customizedRole() {

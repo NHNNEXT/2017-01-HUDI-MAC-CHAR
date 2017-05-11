@@ -22,17 +22,17 @@ public class MainController {
     }
 
     @GetMapping("login")
-	public String loginPage(HttpSession session) {
-    	User sessionedUser = (User)session.getAttribute(HttpSessionUtils.USER_SESSION_KEY);
-		if (sessionedUser == null) {
-			return "login_page.html";
-		}
-    	
-		return "redirect:/lobby";
-	}
+    public String loginPage(HttpSession session) {
+        User sessionedUser = (User) session.getAttribute(HttpSessionUtils.USER_SESSION_KEY);
+        if (sessionedUser == null) {
+            return "login_page.html";
+        }
+
+        return "redirect:/lobby";
+    }
 
     @GetMapping("signup")
-	public String signupPage() {
-		return "signup_page.html";
-	}
+    public String signupPage() {
+        return "signup_page.html";
+    }
 }

@@ -11,16 +11,16 @@ import com.mapia.game.GameManager;
 import com.mapia.domain.User;
 
 public class GameManagerTest {
-	private static final Logger log = LoggerFactory.getLogger(GameManagerTest.class);
-	Set<User> users = new HashSet<User>();
+    private static final Logger log = LoggerFactory.getLogger(GameManagerTest.class);
+    Set<User> users = new HashSet<User>();
 
-	@Test
-	public void assignRole() {
-		users.add(new User());
-		users.add(new User());
-		users.add(new User());
-		users.add(new User());
-		users.add(new User());
-		GameManager gm = new GameManager(users);
-	}
+    @Test
+    public void assignRole() {
+        users.add(new User());
+        users.add(new User());
+        users.add(new User());
+        users.add(new User());
+        users.add(new User());
+        GameManager gm = new GameManager(users);
+    }
 }

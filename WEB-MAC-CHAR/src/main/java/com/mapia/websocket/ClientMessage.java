@@ -7,7 +7,8 @@ public class ClientMessage {
     private String userName;
     private String content;
 
-    public ClientMessage() {}
+    public ClientMessage() {
+    }
 
     public ClientMessage(String userName, String content) {
         this.userName = userName;

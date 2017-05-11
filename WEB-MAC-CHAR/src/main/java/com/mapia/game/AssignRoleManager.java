@@ -13,23 +13,23 @@ import com.mapia.domain.role.Police;
 import com.mapia.domain.role.Role;
 
 public abstract class AssignRoleManager {
-	private static final Logger log = LoggerFactory.getLogger(GameManager.class);
+    private static final Logger log = LoggerFactory.getLogger(GameManager.class);
 
-	public List<Role> makeRoles(int mafiaCount, int citizenCount) {
-	    List<Role> roles = new ArrayList<>();
-		for (int i = 0; i < mafiaCount; i++) {
-			roles.add(new Mafia());
-		}
+    public List<Role> makeRoles(int mafiaCount, int citizenCount) {
+        List<Role> roles = new ArrayList<>();
+        for (int i = 0; i < mafiaCount; i++) {
+            roles.add(new Mafia());
+        }
 
-		for (int i = 0; i < citizenCount; i++) {
-			roles.add(new Citizen());
-		}
+        for (int i = 0; i < citizenCount; i++) {
+            roles.add(new Citizen());
+        }
 
-		roles.add(new Police());
-		roles.add(new Doctor());
-		log.debug("ROLES: {}", roles.toString());
-		return roles;
-	}
+        roles.add(new Police());
+        roles.add(new Doctor());
+        log.debug("ROLES: {}", roles.toString());
+        return roles;
+    }
 
-	public abstract List<Role> customizedRole();
+    public abstract List<Role> customizedRole();
 }

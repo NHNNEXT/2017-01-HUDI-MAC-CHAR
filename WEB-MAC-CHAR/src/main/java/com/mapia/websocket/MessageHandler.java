@@ -19,38 +19,38 @@ import com.mapia.domain.User;
  */
 @RestController
 public class MessageHandler {
-	private static final Logger log = LoggerFactory.getLogger(MessageHandler.class);
-	
-	@Autowired
-	Lobby lobby;
+    private static final Logger log = LoggerFactory.getLogger(MessageHandler.class);
+
+    @Autowired
+    Lobby lobby;
 
     @MessageMapping("/chat/{roomId}")
     @SendTo("/from/chat/{roomId}")
     public ClientMessage broadcasting(ClientMessage message) throws Exception {
         return message;
     }
-    
+
     @MessageMapping("/ready/{roomId}")
     @SendTo("/from/ready/{roomId}")
     public ReadySignal broadcasting(ReadySignal ready, @DestinationVariable long roomId) throws Exception {
-    	Room room = lobby.getRoom(roomId);
-    	room.findByNickname(ready.getUserName()).toggleReady();
-    	if(room.isAllReady()) {
-    		ready.setStartTimer(true);
-    		room.createGameManager();
-    	}
-    	return ready;
+        Room room = lobby.getRoom(roomId);
+        room.findByNickname(ready.getUserName()).toggleReady();
+        if (room.isAllReady()) {
+            ready.setStartTimer(true);
+            room.createGameManager();
+        }
+        return ready;
     }
-    
+
     @MessageMapping("/access/{roomId}")
     @SendTo("/from/access/{roomId}")
     public ClientAccess broadcasting(ClientAccess access, @DestinationVariable long roomId) throws Exception {
-    	Room room = lobby.getRoom(roomId);
-    	Set<User> userSet = room.getUsers();
-    	access.setUsers(userSet);
-    	return access;
+        Room room = lobby.getRoom(roomId);
+        Set<User> userSet = room.getUsers();
+        access.setUsers(userSet);
+        return access;
     }
-    
+
     @MessageMapping("/gameStart/{roomId}/{userName}")
     @SendTo("/from/gameStart/{roomId}/{userName}")
     public String broadcasting(GameStart gameStart, @DestinationVariable long roomId) throws Exception {

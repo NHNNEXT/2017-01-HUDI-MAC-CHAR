@@ -64,7 +64,7 @@ public class RoomController {
     @PostMapping("")
     public String create(String title) {
         //TODO Add secret mode logic
-        long roomId  = lobby.createRoom(title);
+        long roomId = lobby.createRoom(title);
         log.info("Created RoomId: {}", roomId);
         return "redirect:/room/" + roomId;
     }
