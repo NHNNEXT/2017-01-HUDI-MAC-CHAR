@@ -1,5 +1,3 @@
-import {textArea, syncScroll} from './room_util';
-
 export default class gameStartSocket {
     constructor() {
         this.ENTER_KEY = 13;

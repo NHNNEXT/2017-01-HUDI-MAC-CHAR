@@ -102,11 +102,7 @@ public class Room {
 	}
 	
 	public GameManager createGameManager() {
-		gameManager = new GameManager();
-		for (User user : users) {
-			gameManager.addPlayer(user);
-		}
-		gameManager.assignRole();
+		gameManager = new GameManager(users);
 		return gameManager;
 	}
 

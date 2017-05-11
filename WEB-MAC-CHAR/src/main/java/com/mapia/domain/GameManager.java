@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,13 @@ public class GameManager {
 	
 	private List<Role> roles = new ArrayList<>();
 	private List<Player> players = new ArrayList<>();
+	
+	public GameManager(Set<User> users) {
+		for (User user : users) {
+			addPlayer(user);
+		}
+		assignRole();
+	}
 
 	public void assignRole() {
 		int playerCount = players.size();
@@ -31,7 +39,6 @@ public class GameManager {
 		for( int i = 0 ; i < playerCount ; i++) {
 			players.get(i).setRole(roles.get(i));
 		}
-		log.debug("{}", players.toString());
 	}
 	
 	private void shuffleRoles() {
@@ -40,17 +47,13 @@ public class GameManager {
 		log.debug("ROLES AFTER SHUFFLE: {}", roles.toString());
 	}
 	
-	public void setPlayers(List<Player> players) {
-		players = players;
-	}
-	
 	public void addPlayer(User user) {
 		players.add(new Player(user));
 	}
 	
 	public Role findRoleNameByUserName(String userName) {
 		for (Player player : players) {
-			if(player.getUser().getNickname().contains(userName)) {
+			if(player.getUser().getNickname().equals(userName)) {
 				return player.getRole();
 			}
 		}

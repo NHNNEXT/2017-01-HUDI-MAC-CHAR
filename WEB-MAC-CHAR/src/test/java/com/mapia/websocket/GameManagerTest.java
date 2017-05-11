@@ -3,7 +3,9 @@ package com.mapia.websocket;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -17,15 +19,15 @@ import junit.framework.Assert;
 
 public class GameManagerTest {
 	private static final Logger log = LoggerFactory.getLogger(GameManagerTest.class);
-	GameManager gm = new GameManager();
+	Set<User> users = new HashSet<User>();
 
 	@Test
 	public void assignRole() {
-		gm.addPlayer(new User());
-		gm.addPlayer(new User());
-		gm.addPlayer(new User());
-		gm.addPlayer(new User());
-		gm.addPlayer(new User());
-		gm.assignRole();
+		users.add(new User());
+		users.add(new User());
+		users.add(new User());
+		users.add(new User());
+		users.add(new User());
+		GameManager gm = new GameManager(users);
 	}
 }

@@ -25,10 +25,6 @@ public class AssignRoleManagerMapping {
 		mappings.put(Assign8Roles.MEMBER_COUNT, new Assign8Roles());
 	}
 	
-	void put(int memberCount, AssignRoleManager assignRoleManager) {
-		mappings.put(memberCount, assignRoleManager);
-	}
-	
 	AssignRoleManager findAssignRoleManager(int memberCount) {
 		return mappings.get(memberCount);
 	}
