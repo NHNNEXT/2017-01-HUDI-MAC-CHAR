@@ -6,16 +6,12 @@ export default class gameStartSocket {
 
     }
 
-    init() {
-
-    }
-
     connect(stompClient, gameStart_url, destinationUrl) {
         console.log('DESTINATION URL: ' + destinationUrl);
         this.stompClient = stompClient;
         this.destinationUrl = destinationUrl;
         stompClient.subscribe(gameStart_url, gameStart => {
-
+            document.querySelector('.player_role_name').textContent = gameStart.body;
         });
     }
 }
