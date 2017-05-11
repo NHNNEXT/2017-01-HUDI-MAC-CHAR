@@ -1,5 +1,7 @@
+import {sendGameStart} from './gameStartSocket';
+
 export default class readySocket {
-    constructor() {
+    constructor(gameStartSocket) {
         this.userName = document.getElementById("userName").textContent;
         this.readyBtn = document.getElementById("readyBtn");
         this.ONE_MINUTE = 60;
@@ -8,6 +10,8 @@ export default class readySocket {
 
         this.leftTime;
         this.calcLeftTime;
+        
+        this.gameStartSocket = gameStartSocket;
     }
 
     init() {
@@ -20,12 +24,12 @@ export default class readySocket {
         stompClient.subscribe(ready_url, ready => {
             let readySignal = JSON.parse(ready.body);
             this.printReady(readySignal);
-            this.checkTimerStart(readySignal.startTimer);
+            this.checkTimerStart(readySignal.startTimer, sendGameStart.bind(this.gameStartSocket));
         });
     }
 
     readyBtnClickHandler() {
-        this.readyBtn.classList.toggle("ready_status")
+        this.readyBtn.classList.toggle("ready_status");
         this.sendReady(this.userName);
     }
 
@@ -45,9 +49,10 @@ export default class readySocket {
         }
     }
 
-    checkTimerStart(isStartTimerTrue) {
+    checkTimerStart(isStartTimerTrue, cb = () => console.log('undefined')) {
         if (isStartTimerTrue) {
             this.startTimer(this.TIME_OUT);
+            cb();
         }
         return;
     }

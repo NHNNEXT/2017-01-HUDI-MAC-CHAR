@@ -11,9 +11,8 @@ export default class accessSocket {
     init() {
         this.exitBtn.addEventListener("click", this.disconnect.bind(this));
         this.slots = document.querySelectorAll(".slot_layout");
-        this.emptySlot = document.querySelector(".empty_slot");
     }
-
+    
     connect(stompClient, access_url, destinationUrl) {
         this.stompClient = stompClient;
         this.destinationUrl = destinationUrl;
@@ -40,6 +39,7 @@ export default class accessSocket {
                 slot.classList.add("empty_slot");
             }
             for (let user of access.users) {
+                this.emptySlot = document.querySelector(".empty_slot");
                 this.emptySlot.querySelector(".player_name").textContent = user.nickname;
                 if (user.status === "READY") {
                     this.emptySlot.querySelector(".player_status").classList.remove(this.PLAYER_NOT_READY);

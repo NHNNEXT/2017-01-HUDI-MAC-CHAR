@@ -10,9 +10,11 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mapia.domain.GameManager;
 import com.mapia.domain.Lobby;
 import com.mapia.domain.Room;
 import com.mapia.domain.User;
+import com.mapia.domain.role.Role;
 
 /**
  * Created by Jbee on 2017. 3. 28..
@@ -33,9 +35,11 @@ public class MessageHandler {
     @MessageMapping("/ready/{roomId}")
     @SendTo("/from/ready/{roomId}")
     public ReadySignal broadcasting(ReadySignal ready, @DestinationVariable long roomId) throws Exception {
-    	lobby.getRoom(roomId).findByNickname(ready.getUserName()).toggleReady();
-    	if(lobby.getRoom(roomId).isAllReady()) {
+    	Room room = lobby.getRoom(roomId);
+    	room.findByNickname(ready.getUserName()).toggleReady();
+    	if(room.isAllReady()) {
     		ready.setStartTimer(true);
+    		room.createGameManager();
     	}
     	return ready;
     }
@@ -47,5 +51,14 @@ public class MessageHandler {
     	Set<User> userSet = room.getUsers();
     	access.setUsers(userSet);
     	return access;
+    }
+    
+    @MessageMapping("/gameStart/{roomId}/{userName}")
+    @SendTo("/from/gameStart/{roomId}/{userName}")
+    public String broadcasting(GameStart gameStart, @DestinationVariable long roomId) throws Exception {
+    	GameManager gameManager = lobby.getRoom(roomId).getGameManager();
+    	Role role = gameManager.findRoleNameByUserName(gameStart.getUserName());
+    	log.info("{}: {}", gameStart.getUserName(), role.getRoleName());
+    	return role.getRoleName().toString();
     }
 }
