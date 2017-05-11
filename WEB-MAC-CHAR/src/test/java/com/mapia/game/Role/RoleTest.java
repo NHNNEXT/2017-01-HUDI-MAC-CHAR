@@ -9,7 +9,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,6 +31,7 @@ public class RoleTest {
     User user7;
     User user8;
     Room room;
+    Set<User> users = new LinkedHashSet<>();
 
     @Before
     public void setUsers() {
@@ -65,7 +69,6 @@ public class RoleTest {
         user8.setNickname("h");
 
         room = new Room(1, "test");
-
     }
 
     public void countRoles(List<Player> players,
@@ -101,71 +104,56 @@ public class RoleTest {
 
     @Test
     public void isCorrectShuffleWhenFour() {
-        room.enter(user1);
-        room.enter(user2);
-        room.enter(user3);
-        room.enter(user4);
-        room.createGameManager();
-
-        GameManager gm = room.getGameManager();
-        countRoles(gm.getPlayers(), 1, 1, 1, 1);
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        users.add(user4);
+        countRoles(new GameManager(users).getPlayers(), 1, 1, 1, 1);
     }
 
     @Test
     public void isCorrectShuffleWhenFive() {
-        room.enter(user1);
-        room.enter(user2);
-        room.enter(user3);
-        room.enter(user4);
-        room.enter(user5);
-        room.createGameManager();
-
-        GameManager gm = room.getGameManager();
-        countRoles(gm.getPlayers(), 1, 1, 2, 1);
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        users.add(user4);
+        users.add(user5);
+        countRoles(new GameManager(users).getPlayers(), 1, 1, 2, 1);
     }
 
     @Test
     public void isCorrectShuffleWhenSix() {
-        room.enter(user1);
-        room.enter(user2);
-        room.enter(user3);
-        room.enter(user4);
-        room.enter(user5);
-        room.enter(user6);
-        room.createGameManager();
-
-        GameManager gm = room.getGameManager();
-        countRoles(gm.getPlayers(), 2, 1, 2, 1);
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        users.add(user4);
+        users.add(user5);
+        users.add(user6);
+        countRoles(new GameManager(users).getPlayers(), 2, 1, 2, 1);
     }
 
     @Test
     public void isCorrectShuffleWhenSeven() {
-        room.enter(user1);
-        room.enter(user2);
-        room.enter(user3);
-        room.enter(user4);
-        room.enter(user5);
-        room.enter(user6);
-        room.enter(user7);
-        room.createGameManager();
-
-        GameManager gm = room.getGameManager();
-        countRoles(gm.getPlayers(), 2, 1, 3, 1);
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        users.add(user4);
+        users.add(user5);
+        users.add(user6);
+        users.add(user7);
+        countRoles(new GameManager(users).getPlayers(), 2, 1, 3, 1);
     }
 
     @Test
     public void isCorrectShuffleWhenEight() {
-        room.enter(user1);
-        room.enter(user2);
-        room.enter(user3);
-        room.enter(user4);
-        room.enter(user5);
-        room.enter(user6);
-        room.enter(user7);
-        room.enter(user8);
-        room.createGameManager();
-
-        GameManager gm = room.getGameManager();
-        countRoles(gm.getPlayers(), 2, 1, 4, 1);
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        users.add(user4);
+        users.add(user5);
+        users.add(user6);
+        users.add(user7);
+        users.add(user8);
+        countRoles(new GameManager(users).getPlayers(), 2, 1, 4, 1);
     }
 }
