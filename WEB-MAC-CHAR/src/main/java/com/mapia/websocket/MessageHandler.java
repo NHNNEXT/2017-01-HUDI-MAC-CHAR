@@ -10,11 +10,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mapia.game.GameManager;
 import com.mapia.domain.Lobby;
 import com.mapia.domain.Room;
 import com.mapia.domain.User;
-import com.mapia.domain.role.Role;
 
 /**
  * Created by Jbee on 2017. 3. 28..
@@ -56,9 +54,7 @@ public class MessageHandler {
     @MessageMapping("/gameStart/{roomId}/{userName}")
     @SendTo("/from/gameStart/{roomId}/{userName}")
     public String broadcasting(GameStart gameStart, @DestinationVariable long roomId) throws Exception {
-    	GameManager gameManager = lobby.getRoom(roomId).getGameManager();
-    	Role role = gameManager.findRoleNameByUserName(gameStart.getUserName());
-    	log.info("{}: {}", gameStart.getUserName(), role.getRoleName());
-    	return role.getRoleName().toString();
+        Room gameRoom = lobby.getRoom(roomId);
+        return gameRoom.getUserRoleNameInGame(gameStart.getUserName());
     }
 }

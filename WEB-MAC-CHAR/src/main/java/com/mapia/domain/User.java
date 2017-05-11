@@ -92,6 +92,10 @@ public class User {
     	return this.status.isLobby();
 	}
 
+	public boolean isSameUser(String nickname) {
+        return this.nickname.equals(nickname);
+    }
+
 	public void enterLobby() {
 		this.enteredRoomId = LOBBY_ID;
 		this.status = Status.LOBBY;

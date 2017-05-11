@@ -9,9 +9,9 @@ public class Assign4Roles extends AssignRoleManager{
 	public static final int MEMBER_COUNT = 4;
 	public final int MAFIA_COUNT = 1;
 	public final int CITIZEN_COUNT = 1;
-	
-	@Override
-	public void assign(List<Role> roles) {
-		super.makeRoles(MAFIA_COUNT, CITIZEN_COUNT, roles);
-	}
+
+    @Override
+    public List<Role> customizedRole() {
+        return super.makeRoles(MAFIA_COUNT, CITIZEN_COUNT);
+    }
 }

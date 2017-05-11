@@ -99,13 +99,15 @@ public class Room {
 		return null;
 	}
 	
-	public GameManager createGameManager() {
-		gameManager = new GameManager(users);
-		return gameManager;
+	public void createGameManager() {
+		this.gameManager = new GameManager(this.users);
 	}
 
 	public GameManager getGameManager() {
 		return gameManager;
 	}
-	
+
+    public String getUserRoleNameInGame(String userNickName) {
+        return this.gameManager.findRoleNameByUserNickName(userNickName);
+    }
 }

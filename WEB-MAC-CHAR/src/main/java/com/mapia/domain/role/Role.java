@@ -11,11 +11,16 @@ public abstract class Role {
 		return player;
 	}
 
-	public RoleName getRoleName() {
-		return roleName;
+	public String getRoleName() {
+		return roleName.name();
 	}
 
 	public void setRoleName(RoleName roleName) {
 		this.roleName = roleName;
 	}
+
+    @Override
+    public String toString() {
+        return roleName.name();
+    }
 }

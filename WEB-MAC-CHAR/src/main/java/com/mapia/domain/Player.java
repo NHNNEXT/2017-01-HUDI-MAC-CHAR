@@ -27,4 +27,11 @@ public class Player {
 		this.user = user;
 	}
 
+    public String getRoleName() {
+        return this.role.getRoleName();
+    }
+
+    public boolean isSameNickName(String userNickName) {
+        return this.user.isSameUser(userNickName);
+    }
 }
