@@ -1,4 +1,4 @@
-package com.mapia.domain;
+package com.mapia.game;
 
 import java.util.List;
 

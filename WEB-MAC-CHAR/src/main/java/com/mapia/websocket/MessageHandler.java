@@ -10,7 +10,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mapia.domain.GameManager;
+import com.mapia.game.GameManager;
 import com.mapia.domain.Lobby;
 import com.mapia.domain.Room;
 import com.mapia.domain.User;

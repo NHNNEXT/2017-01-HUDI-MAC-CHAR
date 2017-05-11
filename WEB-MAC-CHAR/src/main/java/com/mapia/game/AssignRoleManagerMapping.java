@@ -1,14 +1,14 @@
-package com.mapia.domain;
+package com.mapia.game;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mapia.domain.assignRoles.Assign2Roles;
-import com.mapia.domain.assignRoles.Assign4Roles;
-import com.mapia.domain.assignRoles.Assign5Roles;
-import com.mapia.domain.assignRoles.Assign6Roles;
-import com.mapia.domain.assignRoles.Assign7Roles;
-import com.mapia.domain.assignRoles.Assign8Roles;
+import com.mapia.game.assignRoles.Assign2Roles;
+import com.mapia.game.assignRoles.Assign4Roles;
+import com.mapia.game.assignRoles.Assign5Roles;
+import com.mapia.game.assignRoles.Assign6Roles;
+import com.mapia.game.assignRoles.Assign7Roles;
+import com.mapia.game.assignRoles.Assign8Roles;
 
 public class AssignRoleManagerMapping {
 	private Map<Integer, AssignRoleManager> mappings = new HashMap<>();

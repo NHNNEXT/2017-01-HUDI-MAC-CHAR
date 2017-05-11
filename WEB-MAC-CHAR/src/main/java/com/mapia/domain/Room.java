@@ -4,11 +4,9 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import com.mapia.game.GameManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-
-import com.mapia.domain.User.Status;
 
 public class Room {
 	private static final Logger log = LoggerFactory.getLogger(Room.class);

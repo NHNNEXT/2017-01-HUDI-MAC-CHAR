@@ -1,4 +1,4 @@
-package com.mapia.domain;
+package com.mapia.game;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,13 +6,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import com.mapia.domain.Player;
+import com.mapia.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mapia.domain.role.Citizen;
-import com.mapia.domain.role.Doctor;
-import com.mapia.domain.role.Mafia;
-import com.mapia.domain.role.Police;
 import com.mapia.domain.role.Role;
 
 public class GameManager {

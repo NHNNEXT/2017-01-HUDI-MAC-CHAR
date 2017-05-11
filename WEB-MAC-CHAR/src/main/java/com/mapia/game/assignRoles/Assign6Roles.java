@@ -1,8 +1,8 @@
-package com.mapia.domain.assignRoles;
+package com.mapia.game.assignRoles;
 
 import java.util.List;
 
-import com.mapia.domain.AssignRoleManager;
+import com.mapia.game.AssignRoleManager;
 import com.mapia.domain.role.Role;
 
 public class Assign6Roles extends AssignRoleManager{
