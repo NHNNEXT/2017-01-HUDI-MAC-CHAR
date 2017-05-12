@@ -1,12 +1,12 @@
 package com.mapia.game;
 
-import com.mapia.domain.Player;
 import com.mapia.domain.role.Role;
 import com.mapia.game.assignRoles.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RoleManager {
     private static Map<Integer, AssignRoleManager> mappings = new HashMap<>();
@@ -22,6 +22,9 @@ public class RoleManager {
 
     public static List<Role> assignRoleToPlayers(GamePlayers players) {
         AssignRoleManager arm = mappings.get(players.countOfPlayers());
+        if (arm == null) {
+            throw new RuntimeException("Cannot find appropriate roles");
+        }
         List<Role> roles = arm.customizedRole();
         Collections.shuffle(roles);
         players.setRole(roles);
