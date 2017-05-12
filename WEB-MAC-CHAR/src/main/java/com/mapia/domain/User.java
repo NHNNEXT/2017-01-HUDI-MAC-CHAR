@@ -7,114 +7,119 @@ public class User {
     public enum Status {
         LOBBY, READY, NOT_READY, IN_GAME;
 
-		public boolean isLobby() {
-        	return this == Status.LOBBY;
-		}
+        public boolean isLobby() {
+            return this == Status.LOBBY;
+        }
     }
 
-	private long id;
-	private String email;
-	private String password;
-	private String nickname;
-	private Status status;
+    private long id;
+    private String email;
+    private String password;
+    private String nickname;
+    private Status status;
     private long enteredRoomId;
     private long LOBBY_ID = 0;
 
-    public User(){}
+    public User() {
+    }
 
-	public long getId() {
-		return id;
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		try {
-			this.password = PasswordEncryptUtils.getEncSHA256(password);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public String getNickname() {
-		return nickname;
-	}
-	
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public Status getStatus() {
-		return status;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setStatus(Status status) {
-		this.status = status;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public long getEnteredRoomId() {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        try {
+            this.password = PasswordEncryptUtils.getEncSHA256(password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public long getEnteredRoomId() {
         return this.enteredRoomId;
     }
 
     public void setEnteredRoomId(long enteredRoomId) {
         this.enteredRoomId = enteredRoomId;
     }
-    
-	public boolean matchPassword(User user) {
-		try {
-			return this.password.equals(PasswordEncryptUtils.getEncSHA256(user.password));			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
 
-	public boolean isAbleToEnter(long id) {
-	    return this.status == Status.LOBBY || enteredRoomId == id;
+    public boolean matchPassword(User user) {
+        try {
+            return this.password.equals(PasswordEncryptUtils.getEncSHA256(user.password));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
-	@JsonIgnore
+    public boolean isAbleToEnter(long id) {
+        return this.status == Status.LOBBY || enteredRoomId == id;
+    }
+
+    @JsonIgnore
     public boolean isLobby() {
-    	return this.status.isLobby();
-	}
-
-	public void enterLobby() {
-		this.enteredRoomId = LOBBY_ID;
-		this.status = Status.LOBBY;
-	}
-
-	public void enterRoom(long id) {
-		this.enteredRoomId = id;
-	    this.status = Status.READY;
+        return this.status.isLobby();
     }
-	
-	@Override
-	public String toString() {
-		return "User[nickname=" + nickname +
-                ", Status=" + status +
-                ", enteredRoomId=" + enteredRoomId;
-	}
 
-	public boolean isReady() {
-		return getStatus() == Status.READY;
-	}
-	
-	public void toggleReady() {
-		status = status == Status.READY ? Status.NOT_READY : Status.READY;
-	}
-	
+    public boolean isSameUser(String nickname) {
+        return this.nickname.equals(nickname);
+    }
+
+    public void enterLobby() {
+        this.enteredRoomId = LOBBY_ID;
+        this.status = Status.LOBBY;
+    }
+
+    public void enterRoom(long id) {
+        this.enteredRoomId = id;
+        this.status = Status.READY;
+    }
+
+    @Override
+    public String toString() {
+        return "User[nickname=" + nickname +
+            ", Status=" + status +
+            ", enteredRoomId=" + enteredRoomId;
+    }
+
+    public boolean isReady() {
+        return getStatus() == Status.READY;
+    }
+
+    public void toggleReady() {
+        status = status == Status.READY ? Status.NOT_READY : Status.READY;
+    }
+
 }

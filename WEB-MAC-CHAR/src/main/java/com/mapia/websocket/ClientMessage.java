@@ -7,7 +7,8 @@ public class ClientMessage {
     private String userName;
     private String content;
 
-    public ClientMessage() {}
+    public ClientMessage() {
+    }
 
     public ClientMessage(String userName, String content) {
         this.userName = userName;
@@ -28,5 +29,10 @@ public class ClientMessage {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("userName:%s, content:%s", userName, content);
     }
 }

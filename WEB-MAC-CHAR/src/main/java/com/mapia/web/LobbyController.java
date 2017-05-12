@@ -16,21 +16,21 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/lobby")
 public class LobbyController {
-	private static final Logger log = LoggerFactory.getLogger(LobbyController.class);
+    private static final Logger log = LoggerFactory.getLogger(LobbyController.class);
 
-	@Autowired
-	private Lobby lobby;
+    @Autowired
+    private Lobby lobby;
 
-	@GetMapping("")
-	public String waitingRoomPage(HttpSession session, Model model) {
-		if (!HttpSessionUtils.isLoginUser(session)) {
-			return "redirect:/login";
-		}
+    @GetMapping("")
+    public String waitingRoomPage(HttpSession session, Model model) {
+        if (!HttpSessionUtils.isLoginUser(session)) {
+            return "redirect:/login";
+        }
 
-		User user = HttpSessionUtils.getUserFromSession(session);
-		user.enterLobby();
-		model.addAttribute("lobby", lobby);
-		model.addAttribute("user", user);
-		return "lobby";
-	}
+        User user = HttpSessionUtils.getUserFromSession(session);
+        user.enterLobby();
+        model.addAttribute("lobby", lobby);
+        model.addAttribute("user", user);
+        return "lobby";
+    }
 }

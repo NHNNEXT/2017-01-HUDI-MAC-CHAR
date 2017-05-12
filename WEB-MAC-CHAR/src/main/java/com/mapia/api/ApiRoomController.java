@@ -27,7 +27,7 @@ public class ApiRoomController {
 
     @GetMapping("/{id}")
     public RoomResult enter(@PathVariable long id, HttpSession session, Model model) {
-    	
+
         if (!HttpSessionUtils.isLoginUser(session)) {
             return RoomResult.invalidAccess(id);
         }
@@ -47,7 +47,7 @@ public class ApiRoomController {
             exitUserFromRoom(user);
             return RoomResult.invalidAccess(id);
         }
-        
+
         if (room.isFull()) {
             return RoomResult.rejectToEnterRoomOfFull(id);
         }
@@ -66,8 +66,8 @@ public class ApiRoomController {
     @PostMapping("")
     public RoomResult create(String title) {
         //TODO Add secret mode logic
-        long roomId  = lobby.createRoom(title);
-        log.info("Created RoomId: {}", roomId);
+        long roomId = lobby.createRoom(title);
+        log.debug("Created RoomId: {}", roomId);
         return RoomResult.successToCreateRoom(roomId);
     }
 

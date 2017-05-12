@@ -7,22 +7,23 @@ export default class connectSocket {
         this.readySocket = readySocket;
         this.accessSocket = accessSocket;
         this.gameStartSocket = gameStartSocket;
+
         this.chatSocket.init();
         this.readySocket.init();
         this.accessSocket.init();
 
-
         this.ENTER_KEY = 13;
-        this.userName = document.getElementById("userName").textContent;
 
         this.SERVER_SOCKET_API = "/websockethandler";
-        this.FROM_CHAT_API = "/from/chat/";
+
         this.TO_CHAT_API = "/to/chat/";
         this.TO_READY_API = "/to/ready/";
-        this.FROM_READY_API = "/from/ready/";
-        this.FROM_ACCESS_API = "/from/access/";
         this.TO_ACCESS_API = "/to/access/";
         this.TO_GAME_START_API = "/to/gameStart/";
+
+        this.FROM_CHAT_API = "/from/chat/";
+        this.FROM_READY_API = "/from/ready/";
+        this.FROM_ACCESS_API = "/from/access/";
         this.FROM_GAME_START_API = "/from/gameStart/";
 
         this.stompClient;
@@ -30,6 +31,7 @@ export default class connectSocket {
 
     init() {
         document.addEventListener("DOMContentLoaded", this.connect.bind(this));
+        this.userName = document.getElementById("userName").textContent;
     }
 
     connect() {
