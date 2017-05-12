@@ -103,10 +103,6 @@ public class Room {
         this.gameManager = new GameManager(this.users);
     }
 
-    public GameManager getGameManager() {
-        return gameManager;
-    }
-
     public String getUserRoleNameInGame(String userNickName) {
         return this.gameManager.findRoleNameByUserNickName(userNickName);
     }

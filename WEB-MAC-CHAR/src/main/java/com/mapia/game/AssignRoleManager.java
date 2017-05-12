@@ -13,10 +13,10 @@ import com.mapia.domain.role.Police;
 import com.mapia.domain.role.Role;
 
 public abstract class AssignRoleManager {
-    private static final Logger log = LoggerFactory.getLogger(GameManager.class);
+    private static final Logger log = LoggerFactory.getLogger(AssignRoleManager.class);
 
-    public List<Role> makeRoles(int mafiaCount, int citizenCount) {
-        List<Role> roles = new ArrayList<>();
+    public List<Role> makeRoles(int mafiaCount, int citizenCount, int memberCount) {
+        List<Role> roles = new ArrayList<>(memberCount);
         for (int i = 0; i < mafiaCount; i++) {
             roles.add(new Mafia());
         }

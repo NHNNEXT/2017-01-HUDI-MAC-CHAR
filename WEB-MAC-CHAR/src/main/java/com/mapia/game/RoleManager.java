@@ -9,11 +9,9 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 public class RoleManager {
-    private static final Logger log = LoggerFactory.getLogger(RoleManager.class);
+    private static Map<Integer, AssignRoleManager> mappings = new HashMap<>();
 
-    private Map<Integer, AssignRoleManager> mappings = new HashMap<>();
-
-    public RoleManager() {
+    static {
         mappings.put(Assign2Roles.MEMBER_COUNT, new Assign2Roles());
         mappings.put(Assign4Roles.MEMBER_COUNT, new Assign4Roles());
         mappings.put(Assign5Roles.MEMBER_COUNT, new Assign5Roles());
@@ -22,14 +20,11 @@ public class RoleManager {
         mappings.put(Assign8Roles.MEMBER_COUNT, new Assign8Roles());
     }
 
-    public List<Role> assignRoleToPlayers(List<Player> players) {
-        AssignRoleManager arm = mappings.get(players.size());
+    public static List<Role> assignRoleToPlayers(GamePlayers players) {
+        AssignRoleManager arm = mappings.get(players.countOfPlayers());
         List<Role> roles = arm.customizedRole();
         Collections.shuffle(roles);
-
-        for (int i = 0; i < players.size(); i++) {
-            players.get(i).setRole(roles.get(i));
-        }
+        players.setRole(roles);
         return roles;
     }
 }
