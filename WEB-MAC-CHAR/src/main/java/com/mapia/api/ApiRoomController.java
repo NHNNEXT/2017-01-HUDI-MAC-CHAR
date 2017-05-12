@@ -35,6 +35,7 @@ public class ApiRoomController {
         User user = HttpSessionUtils.getUserFromSession(session);
         if (!lobby.isExistRoom(id)) {
             session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
+
             if (!user.isLobby()) {
                 exitUserFromRoom(user);
             }

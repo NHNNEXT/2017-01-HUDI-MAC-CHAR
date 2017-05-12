@@ -4,18 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zimincom.mafiaonline.GameRoomActivity">
+    tools:context="com.zimincom.mafiaonline.GameRoomActivity"
+    android:background="@drawable/background_night">
 
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary">
+
+    </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ready_button"
+        android:layout_below="@id/toolBar">
 
         <LinearLayout
             android:id="@+id/messages_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
+            android:layout_gravity="bottom"
             android:orientation="vertical">
 
         </LinearLayout>
@@ -30,6 +42,14 @@
         android:layout_alignParentRight="true"
         android:text="@string/send"/>
 
+    <Button
+        android:id="@+id/ready_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/send_button"
+        android:layout_alignParentEnd="true"
+        android:text="ready"/>
+
     <EditText
         android:id="@+id/message_input"
         android:layout_width="match_parent"
@@ -38,10 +58,18 @@
         android:layout_alignBaseline="@+id/send_button"
         android:layout_alignParentBottom="true"
         android:hint="메시지를 입력하세요"
-        android:textColorHint="#000000"
-        android:textColorHighlight="@color/black_overlay"
-        android:textColor="#000000"/>
+        android:textColorHint="#ffffff"
+        android:textColorHighlight="#ffffff"
+        android:textColorLink="#ffffff"
+        android:textColor="#ffffff"/>
 
-
+    <TextView
+        android:id="@+id/timer_view"
+        android:layout_toLeftOf="@id/ready_button"
+        android:layout_above="@id/message_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textColor="#ffffff"/>
 
 </RelativeLayout>

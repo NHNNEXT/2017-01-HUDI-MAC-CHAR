@@ -13,7 +13,7 @@ public class MessageItem {
         this.content = content;
     }
 
-    public MessageItem(String userName, String content){
+    public MessageItem(String userName, String content) {
         this.userName = userName;
         this.content = content;
     }

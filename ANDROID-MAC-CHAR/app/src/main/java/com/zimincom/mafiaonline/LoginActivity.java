@@ -43,12 +43,12 @@ public class LoginActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        logoImage= (ImageView)findViewById(R.id.logo_image);
-        logoText = (ImageView)findViewById(R.id.logo_text);
-        emailInput = (EditText)findViewById(R.id.email);
-        passwordInput = (EditText)findViewById(R.id.password);
-        loginButton = (Button)findViewById(R.id.login);
-        signInButton = (Button)findViewById(R.id.signin);
+        logoImage = (ImageView) findViewById(R.id.logo_image);
+        logoText = (ImageView) findViewById(R.id.logo_text);
+        emailInput = (EditText) findViewById(R.id.email);
+        passwordInput = (EditText) findViewById(R.id.password);
+        loginButton = (Button) findViewById(R.id.login);
+        signInButton = (Button) findViewById(R.id.signin);
 
         startMainAnimation();
         setButtons();
@@ -56,34 +56,34 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    void setButtons(){
+    void setButtons() {
         loginButton.setOnClickListener(view -> {
 
             String email = emailInput.getText().toString();
             String password = passwordInput.getText().toString();
 
-            sendUserData(email,password);
+            sendUserData(email, password);
 
         });
 
         loginButton.setOnLongClickListener(view -> {
 
-            Intent intent = new Intent(getApplicationContext(),RoomListActivity.class);
+            Intent intent = new Intent(getApplicationContext(), RoomListActivity.class);
             startActivity(intent);
             return false;
         });
 
-        signInButton.setOnClickListener(view ->  {
+        signInButton.setOnClickListener(view -> {
 
-            Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
             startActivity(intent);
 
         });
     }
 
-    void sendUserData(String userEmail,String userPassword){
+    void sendUserData(String userEmail, String userPassword) {
 
-        User user = new User(userEmail,userPassword);
+        User user = new User(userEmail, userPassword);
 
         MafiaRemoteService mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class, getBaseContext());
         Call<ResponseItem> call = mafiaRemoteService.sendLoginInput(user);
@@ -92,20 +92,20 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ResponseItem responseItem = response.body();
                     User user = responseItem.getUser();
                     Logger.i(user.toString());
 
-                    if (responseItem.isOk()){
-                        Toast.makeText(context,user.getNickName() + "님 환영합니다 ",Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(context,RoomListActivity.class);
-                        intent.putExtra("user",user);
+                    if (responseItem.isOk()) {
+                        Toast.makeText(context, user.getNickName() + "님 환영합니다 ", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(context, RoomListActivity.class);
+                        intent.putExtra("user", user);
                         startActivity(intent);
-                    }else if(responseItem.isEmailNotFound()){
-                        Toast.makeText(context,"존재하지 않는 이메일입니다.",Toast.LENGTH_LONG).show();
-                    }else if(responseItem.isPasswordInvaild()) {
-                        Toast.makeText(context,"잘못된 비밀번호 입니다.",Toast.LENGTH_LONG).show();
+                    } else if (responseItem.isEmailNotFound()) {
+                        Toast.makeText(context, "존재하지 않는 이메일입니다.", Toast.LENGTH_LONG).show();
+                    } else if (responseItem.isPasswordInvaild()) {
+                        Toast.makeText(context, "잘못된 비밀번호 입니다.", Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseItem> call, Throwable t) {
-                Log.d("response","error");
+                Log.d("response", "error");
                 t.printStackTrace();
             }
         });
@@ -121,9 +121,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-    void startMainAnimation(){
-        TranslateAnimation moveUpAnimation = new TranslateAnimation(0,0,0,-1000);
+    void startMainAnimation() {
+        TranslateAnimation moveUpAnimation = new TranslateAnimation(0, 0, 0, -1000);
 
         moveUpAnimation.setDuration(1000);
         moveUpAnimation.setFillAfter(true);

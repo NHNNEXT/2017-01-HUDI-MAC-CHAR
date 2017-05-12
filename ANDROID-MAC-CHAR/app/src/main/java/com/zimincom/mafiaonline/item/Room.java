@@ -16,6 +16,21 @@ public class Room {
     boolean full;
 
 
+    public Room(String id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
+    public Room(User[] users, String id, String title, int userCount, boolean secretMode, boolean empty, boolean full) {
+        this.users = users;
+        this.id = id;
+        this.title = title;
+        this.userCount = userCount;
+        this.secretMode = secretMode;
+        this.empty = empty;
+        this.full = full;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -34,16 +49,6 @@ public class Room {
 
     public boolean isSecretMode() {
         return secretMode;
-    }
-
-    public Room(User[] users, String id, String title, int userCount, boolean secretMode, boolean empty, boolean full) {
-        this.users = users;
-        this.id = id;
-        this.title = title;
-        this.userCount = userCount;
-        this.secretMode = secretMode;
-        this.empty = empty;
-        this.full = full;
     }
 
     @Override

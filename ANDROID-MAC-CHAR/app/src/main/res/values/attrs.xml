@@ -9,4 +9,10 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="chatLayout">
+        <attr name="profileImg" format="reference|integer" />
+        <attr name="name" format="string|integer" />
+        <attr name="message" format="string|integer" />
+    </declare-styleable>
+
 </resources>

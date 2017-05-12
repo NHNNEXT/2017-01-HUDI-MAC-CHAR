@@ -9,27 +9,25 @@ import java.util.ArrayList;
 public class ResponseItem {
 
 
-    private String status;
-
     String msg;
     ArrayList<Room> rooms;
     User user;
     String roomId;
+    private String status;
 
-
-    public boolean isOk(){
+    public boolean isOk() {
         return status.equals("Ok");
     }
 
-    public boolean isEmailNotFound(){
+    public boolean isEmailNotFound() {
         return status.equals("EmailNotFound");
     }
 
-    public boolean isPasswordInvaild(){
+    public boolean isPasswordInvaild() {
         return status.equals("InvaildPassword");
     }
 
-    public String getStatus(){
+    public String getStatus() {
         return status;
     }
 
@@ -41,7 +39,7 @@ public class ResponseItem {
         return roomId;
     }
 
-    public User getUser(){
+    public User getUser() {
         return user;
     }
 
@@ -52,6 +50,7 @@ public class ResponseItem {
                 ", msg='" + msg + '\'' +
                 ", rooms=" + rooms +
                 ", roomId='" + roomId + '\'' +
+                ", rooms=" + rooms +
                 '}';
     }
 }
