@@ -12,6 +12,7 @@ public class Room {
     private static final Logger log = LoggerFactory.getLogger(Room.class);
 
     private static final int CAPACITY = 8;
+    private static final int MINIMUM_COUNT = 4;
     private Set<User> users = Collections.synchronizedSet(new LinkedHashSet(CAPACITY));
     private long id;
     private String title;
@@ -81,7 +82,12 @@ public class Room {
     }
 
     public boolean isAllReady() {
-        for (User user : users) {
+        if (this.users.size() < MINIMUM_COUNT) {
+            log.debug("isAllReady::Not yet, count of users: {}", this.users.size());
+            return false;
+        }
+
+        for (User user : this.users) {
             log.debug("isAllReady::user: {}, status: {}", user.getNickname(), user.getStatus());
             if (!user.isReady()) {
                 return false;
@@ -91,7 +97,7 @@ public class Room {
     }
 
     public User findByNickname(String nickName) {
-        for (User user : users) {
+        for (User user : this.users) {
             if (user.getNickname().equals(nickName)) {
                 return user;
             }
