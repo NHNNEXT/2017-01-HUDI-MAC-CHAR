@@ -27,14 +27,14 @@ public class MessageHandler {
     @MessageMapping("/chat/{roomId}")
     @SendTo("/from/chat/{roomId}")
     public ClientMessage broadcasting(ClientMessage message, @DestinationVariable long roomId) throws Exception {
-        log.debug("MessageHandler::ClientMessage arrived:/chat/{}, message: {}", roomId, message);
+        log.debug("ClientMessage arrived:/chat/{}, message: {}", roomId, message);
         return message;
     }
 
     @MessageMapping("/ready/{roomId}")
     @SendTo("/from/ready/{roomId}")
     public ReadySignal broadcasting(ReadySignal ready, @DestinationVariable long roomId) throws Exception {
-        log.debug("MessageHandler::ReadySignal arrived: /ready/{}, ready: {}", roomId, ready);
+        log.debug("ReadySignal arrived: /ready/{}, ready: {}", roomId, ready);
         Room room = lobby.getRoom(roomId);
         room.findByNickname(ready.getUserName()).toggleReady();
         if (room.isAllReady()) {
@@ -47,7 +47,7 @@ public class MessageHandler {
     @MessageMapping("/access/{roomId}")
     @SendTo("/from/access/{roomId}")
     public ClientAccess broadcasting(ClientAccess access, @DestinationVariable long roomId) throws Exception {
-        log.debug("MessageHandler::ClientAccess arrived: /access/{}, access: {}", roomId, access);
+        log.debug("ClientAccess arrived: /access/{}, access: {}", roomId, access);
         Room room = lobby.getRoom(roomId);
         access.setUsers(room.getUsers());
         return access;
@@ -57,7 +57,7 @@ public class MessageHandler {
     @SendTo("/from/gameStart/{roomId}/{userName}")
     public String broadcasting(GameStart gameStart, @DestinationVariable long roomId,
                                @DestinationVariable String userName) throws Exception {
-        log.debug("MessageHandler::GameStart arrived: /gameStart/{}/{}, gameStart: {}", roomId, userName, gameStart);
+        log.debug("GameStart arrived: /gameStart/{}/{}, gameStart: {}", roomId, userName, gameStart);
         Room gameRoom = lobby.getRoom(roomId);
         return gameRoom.getUserRoleNameInGame(userName);
     }
