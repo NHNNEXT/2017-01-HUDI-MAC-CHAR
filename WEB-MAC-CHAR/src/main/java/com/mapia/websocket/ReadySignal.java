@@ -9,7 +9,7 @@ public class ReadySignal {
     private boolean startTimer;
 
     @Autowired
-    Lobby lobby;
+    private Lobby lobby;
 
     public ReadySignal() {
     }

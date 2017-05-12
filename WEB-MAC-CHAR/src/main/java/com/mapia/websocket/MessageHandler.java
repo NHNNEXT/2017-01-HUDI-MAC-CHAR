@@ -22,7 +22,7 @@ public class MessageHandler {
     private static final Logger log = LoggerFactory.getLogger(MessageHandler.class);
 
     @Autowired
-    Lobby lobby;
+    private Lobby lobby;
 
     @MessageMapping("/chat/{roomId}")
     @SendTo("/from/chat/{roomId}")
