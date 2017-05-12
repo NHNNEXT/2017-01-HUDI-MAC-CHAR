@@ -1,9 +1,7 @@
 export default class gameStartSocket {
     constructor() {
         this.ENTER_KEY = 13;
-
         this.userName = document.getElementById("userName").textContent;
-
     }
 
     connect(stompClient, gameStart_url, destinationUrl) {
