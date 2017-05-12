@@ -67,7 +67,7 @@ public class ApiRoomController {
     public RoomResult create(String title) {
         //TODO Add secret mode logic
         long roomId = lobby.createRoom(title);
-        log.info("Created RoomId: {}", roomId);
+        log.debug("Created RoomId: {}", roomId);
         return RoomResult.successToCreateRoom(roomId);
     }
 

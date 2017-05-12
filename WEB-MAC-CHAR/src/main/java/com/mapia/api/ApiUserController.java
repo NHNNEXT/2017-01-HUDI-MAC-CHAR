@@ -24,12 +24,11 @@ public class ApiUserController {
     private static final Logger logger = LoggerFactory.getLogger(ApiUserController.class);
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @PostMapping("/login")
     public LoginResult login(@RequestBody User loginUser, HttpSession session) {
-        logger.info("loginUser email : {}", loginUser.getEmail());
-        logger.info("loginUser password : {}", loginUser.getPassword());
+        logger.debug("loginUser email : {}", loginUser.getEmail());
 
         User user = userRepository.findUserByEmail(loginUser.getEmail());
 
@@ -48,7 +47,7 @@ public class ApiUserController {
 
     @PostMapping("/signup")
     public SignUpResult signup(@RequestBody User newUser) {
-        logger.info("newUser : {}", newUser);
+        logger.debug("newUser : {}", newUser);
 
         if (userRepository.findUserByEmail(newUser.getEmail()) != null) {
             return SignUpResult.emailExist("이미 가입된 이메일입니다.");
