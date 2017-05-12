@@ -42,5 +42,8 @@ public class ReadySignal {
         return startTimer;
     }
 
-
+    @Override
+    public String toString() {
+        return String.format("userName:%s, isStart:%s", userName, startTimer);
+    }
 }

@@ -17,4 +17,9 @@ public class GameStart {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    @Override
+    public String toString() {
+        return String.format("userName:%s started!", userName);
+    }
 }

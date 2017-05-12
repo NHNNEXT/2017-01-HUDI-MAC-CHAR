@@ -40,4 +40,9 @@ public class ClientAccess {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        return String.format("userName:%s, access:%s", userName, access);
+    }
 }

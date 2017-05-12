@@ -30,4 +30,9 @@ public class ClientMessage {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return String.format("userName:%s, content:%s", userName, content);
+    }
 }
