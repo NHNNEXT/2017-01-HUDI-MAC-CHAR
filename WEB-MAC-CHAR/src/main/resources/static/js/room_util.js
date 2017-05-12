@@ -1,4 +1,4 @@
-export let textArea = document.getElementById("chatOutput");
+export const textArea = document.getElementById("chatOutput");
 
 export function syncScroll() {
     textArea.scrollTop = textArea.scrollHeight;
