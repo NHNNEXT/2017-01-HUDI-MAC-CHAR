@@ -9,9 +9,20 @@ import junit.framework.Assert;
 public class RoomTest {
 
 	@Test
-	public void allReady() {
+	public void isNotAllReady() {
 		Room room = new Room(1, "testRoom");
 		
+		room.enter(new User());
+		room.enter(new User());
+		room.enter(new User());
+		assertEquals(false, room.isAllReady());
+	}
+
+	@Test
+	public void allReady() {
+		Room room = new Room(1, "testRoom");
+
+		room.enter(new User());
 		room.enter(new User());
 		room.enter(new User());
 		room.enter(new User());
