@@ -62,8 +62,6 @@ public class RoomListActivity extends Activity implements View.OnClickListener {
         RoomAdapter roomAdapter = new RoomAdapter(context, rooms, user, R.layout.item_room);
         roomListView.setAdapter(roomAdapter);
 
-        getRoomList();
-
     }
 
     public void getRoomList() {
@@ -141,6 +139,12 @@ public class RoomListActivity extends Activity implements View.OnClickListener {
                     }
                 }).show();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getRoomList();
     }
 
     @Override

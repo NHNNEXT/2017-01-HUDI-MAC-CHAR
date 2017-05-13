@@ -16,10 +16,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Zimincom on 2016. 11. 29..
- */
-
 public class ServiceGenerator {
 
     public static <S> S createService(Class<S> serviceClass, Context context) {
