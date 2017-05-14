@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zimincom.mafiaonline.item.ClientAccess;
+import com.zimincom.mafiaonline.item.GameStart;
 import com.zimincom.mafiaonline.item.MessageItem;
 import com.zimincom.mafiaonline.item.ReadySignal;
 import com.zimincom.mafiaonline.item.ResponseItem;
@@ -28,6 +29,8 @@ import org.java_websocket.WebSocket;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,13 +43,14 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
     final public String socketLink = MafiaRemoteService.SOCKET_URL;
     Gson gson;
-    Toolbar toolbar;
-    Button sendButton;
-    Button readyButton;
-    EditText messageInput;
-    ChatLayout chatLayout;
-    TextView timer;
-    LinearLayout messageContainer;
+
+    @BindView(R.id.toolBar) Toolbar toolbar;
+    @BindView(R.id.send_button) Button sendButton;
+    @BindView(R.id.ready_button) Button readyButton;
+    @BindView(R.id.message_input) EditText messageInput;
+    @BindView(R.id.timer_view) TextView timer;
+    @BindView(R.id.messages_container) LinearLayout messageContainer;
+
     Intent intent;
     String roomId;
     String userName;
@@ -62,19 +66,14 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_room);
-
-        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        ButterKnife.bind(this);
+        
         toolbar.setTitle("입장대기중");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         user = (User) getIntent().getSerializableExtra("user");
 
-        sendButton = (Button) findViewById(R.id.send_button);
-        readyButton = (Button) findViewById(R.id.ready_button);
-        timer = (TextView) findViewById(R.id.timer_view);
-        messageInput = (EditText) findViewById(R.id.message_input);
-        messageContainer = (LinearLayout) findViewById(R.id.messages_container);
         intent = getIntent();
         roomId = intent.getStringExtra("roomId");
         userName = intent.getStringExtra("userName");
@@ -91,33 +90,40 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void subscribeSockets() {
-        mStompClient.topic("/from/chat/" + roomId).subscribe(topicMessage -> {
+        mStompClient.topic("/from/chat/" + roomId)
+                .subscribe(message -> runOnUiThread(() -> {
+                    ChatLayout chatLayout = new ChatLayout(getBaseContext());
+                    MessageItem messageItem = gson.fromJson(message.getPayload(), MessageItem.class);
+                    chatLayout.setName(messageItem.userName);
+                    if (messageItem.userName.equals(userName)) {
+                         chatLayout.setToMyMessage();
+                    }
+                    chatLayout.setMessage(messageItem.content);
+                    messageContainer.addView(chatLayout);
 
-            runOnUiThread(() -> {
-                chatLayout = new ChatLayout(getBaseContext());
-                MessageItem messageItem = gson.fromJson(topicMessage.getPayload(), MessageItem.class);
-                chatLayout.setName(messageItem.userName);
-                if (messageItem.userName.equals(userName)) {
-                    chatLayout.setToMyMessage();
-                }
-                chatLayout.setMessage(messageItem.content);
-                messageContainer.addView(chatLayout);
+        }));
 
-            });
-        });
-
-
-        mStompClient.topic("/from/ready/" + roomId).subscribe(message -> {
-
-            runOnUiThread(() -> {
-                ReadySignal readySignal = gson.fromJson(message.getPayload(), ReadySignal.class);
-                if (readySignal.isStartTimer()) {
-                    toolbar.setTitle("게임이 시작되었습니다.");
+        mStompClient.topic("/from/ready/" + roomId)
+                .subscribe(message -> runOnUiThread(() -> {
+                    ReadySignal readySignal = gson.fromJson(message.getPayload(), ReadySignal.class);
+                    if (readySignal.isStartTimer()) {
+                        toolbar.setTitle("게임이 시작되었습니다.");
                     startTimer(5);
                 }
-            });
+        }));
 
-        });
+        mStompClient.topic("/from/access/" + roomId)
+                .subscribe(message -> runOnUiThread(() -> {
+                    ClientAccess clientAccess = gson.fromJson(message.getPayload(), ClientAccess.class);
+                    Logger.d(clientAccess);
+                }));
+
+        mStompClient.topic("/from/gameStart/" + roomId + "/" + userName)
+                .subscribe(message -> runOnUiThread(() -> {
+                    String role = gson.fromJson(message.getPayload(), String.class);
+                    Logger.d(role);
+                }));
+
     }
 
     @Override
@@ -220,6 +226,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
             send(message);
         } else if (view.getId() == R.id.ready_button) {
             mStompClient.send("/to/ready/" + roomId, gson.toJson(new ReadySignal(userName))).subscribe();
+            mStompClient.send("/to/gameStart/" + roomId + userName, gson.toJson(new GameStart())).subscribe();
         }
     }
 
