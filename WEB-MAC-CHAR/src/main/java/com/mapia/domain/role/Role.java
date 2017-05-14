@@ -6,6 +6,10 @@ import com.mapia.domain.User;
 public abstract class Role {
 
     private RoleName roleName;
+    
+    public Role(RoleName roleName) {
+    	this.roleName = roleName;
+    }
 
     public Player vote(Player player) {
         return player;
@@ -13,10 +17,6 @@ public abstract class Role {
 
     public String getRoleName() {
         return roleName.name();
-    }
-
-    public void setRoleName(RoleName roleName) {
-        this.roleName = roleName;
     }
 
     @Override

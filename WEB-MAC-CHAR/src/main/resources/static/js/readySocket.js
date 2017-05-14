@@ -1,17 +1,17 @@
 import {sendGameStart} from './gameStartSocket';
+import timeCalculator from "./timeCalculator";
 
 export default class readySocket {
     constructor(gameStartSocket) {
         this.userName = document.getElementById("userName").textContent;
         this.readyBtn = document.getElementById("readyBtn");
-        this.ONE_MINUTE = 60;
         this.TIME_OUT = 5;
-        this.ONE_SECOND = 1000;
 
         this.leftTime;
         this.calcLeftTime;
         
         this.gameStartSocket = gameStartSocket;
+        this.timeCalculator = new timeCalculator();
     }
 
     init() {
@@ -51,37 +51,9 @@ export default class readySocket {
 
     checkTimerStart(isStartTimerTrue, cb = () => console.log('undefined')) {
         if (isStartTimerTrue) {
-            this.startTimer(this.TIME_OUT);
+            this.timeCalculator.startTimer(this.TIME_OUT);
             cb();
         }
         return;
-    }
-
-    startTimer(time) {
-        this.leftTime = time;
-        this.calcLeftTime = setInterval(this.timer.bind(this), this.ONE_SECOND);
-        //Once ready, player can't cancel ready
-        this.readyBtn.removeEventListener("click", this.readyBtnClickHandler);
-        this.readyBtn.classList.add("timer_started");
-    }
-
-    timer() {
-        document.querySelector(".timer").innerText = this.timeFormat(this.leftTime--);
-        if (this.leftTime < 0) {
-            clearInterval(this.calcLeftTime);
-        }
-    }
-
-    timeFormat(leftTime) {
-        const leftMinutes = parseInt(leftTime / this.ONE_MINUTE);
-        const leftSeconds = leftTime % this.ONE_MINUTE;
-        return `${this.buildTimeFormat(leftMinutes)}:${this.buildTimeFormat(leftSeconds)}`;
-    }
-
-    buildTimeFormat(num) {
-        if (num.toString().length < 2) {
-            return `0${num}`;
-        }
-        return num;
     }
 }
