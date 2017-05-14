@@ -6,9 +6,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * Created by Zimincom on 2017. 5. 7..
- */
 
 public class Lobby implements Iterable {
 

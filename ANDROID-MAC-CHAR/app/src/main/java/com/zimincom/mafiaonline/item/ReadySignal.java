@@ -1,8 +1,5 @@
 package com.zimincom.mafiaonline.item;
 
-/**
- * Created by Zimincom on 2017. 5. 7..
- */
 
 public class ReadySignal {
 

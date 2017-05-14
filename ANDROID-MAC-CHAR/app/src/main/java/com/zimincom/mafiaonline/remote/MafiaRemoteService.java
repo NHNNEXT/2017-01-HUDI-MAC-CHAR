@@ -12,14 +12,9 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-
-/**
- * Created by Zimincom on 2017. 3. 31..
- */
-
 public interface MafiaRemoteService {
 
-    String configAddress = "192.168.1.222:8080";
+    String configAddress = "172.30.1.50:8080";
     String BASE_URL = "http://" + configAddress;
     String SOCKET_URL = "ws://" + configAddress + "/websockethandler/websocket";
 
@@ -43,6 +38,6 @@ public interface MafiaRemoteService {
     Call<ResponseItem> enterRoom(@Path("id") String id);
 
     @DELETE("/api/room")
-    Call<ResponseItem> leaveRoom(@Body User user);
+    Call<ResponseItem> leaveRoom();
 
 }
