@@ -1,5 +1,7 @@
 # Mafia Online 
-
+[![Build Status](https://travis-ci.org/JaeYeopHan/2017-01-HUDI-MAC-CHAR.svg?branch=master)](https://travis-ci.org/JaeYeopHan/2017-01-HUDI-MAC-CHAR)
+[![GitHub issues](https://img.shields.io/github/issues/yandex/gixy.svg?style=flat-square)](https://github.com/NHNNEXT/2017-01-HUDI-MAC-CHAR/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/yandex/gixy.svg?style=flat-square)](https://github.com/NHNNEXT/2017-01-HUDI-MAC-CHAR/pulls)
 ### TEAM "MAC-CHAR"  *2017 1학기 _HUMAN-DESIGN-PROJECT (웹, 모바일)*
 2017년도 1학기 휴먼 디자인 프로젝트 Repository입니다. 'Mapia'라는 게임을 웹과 모바일에서 구현했습니다.
 >"밤이 되었습니다!"  
