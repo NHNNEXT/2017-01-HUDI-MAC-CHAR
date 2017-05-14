@@ -3,6 +3,4 @@ jdk:
   - oraclejdk8
 node_js:
   - "6"
-install:
-  - npm install
 script: ./build.sh
