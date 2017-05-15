@@ -25,7 +25,7 @@ public class Lobby implements Iterable {
     	testRoom.enter(new User(100, "c@c.com", "testUser3"));
     	testRoom.enter(new User(100, "d@d.com", "testUser4"));
     	testRoom.enter(new User(100, "e@e.com", "testUser5"));
-    	testRoom.getUsers().forEach(user -> user.setStatus(Status.READY));
+    	testRoom.getUsers().forEach(user -> user.ready());
     }
     
     public Collection<Room> rooms() {

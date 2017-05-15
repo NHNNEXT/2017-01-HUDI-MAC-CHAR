@@ -56,6 +56,7 @@ public class MessageHandler {
                                @DestinationVariable String userName) throws Exception {
         log.debug("GameStart arrived: /gameStart/{}/{}, gameStart: {}", roomId, userName, gameStart);
         Room gameRoom = lobby.getRoom(roomId);
+        gameRoom.getUsers().forEach(user -> user.gameStart());
         return gameRoom.getUserRoleNameInGame(userName);
     }
     

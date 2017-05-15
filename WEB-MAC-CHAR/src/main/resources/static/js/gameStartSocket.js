@@ -1,3 +1,6 @@
+import {textArea, syncScroll, printMessage} from './room_util';
+import {startNoon} from './noonLogic';
+
 export default class gameStartSocket {
     constructor(dayTime, nightTime, VoteSocket) {
         this.ENTER_KEY = 13;
