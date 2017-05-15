@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.zimincom.mafiaonline.item.ClientAccess;
 import com.zimincom.mafiaonline.item.GameStart;
 import com.zimincom.mafiaonline.item.MessageItem;
@@ -50,6 +52,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.message_input) EditText messageInput;
     @BindView(R.id.timer_view) TextView timer;
     @BindView(R.id.messages_container) LinearLayout messageContainer;
+    @BindView(R.id.sliding_layout) SlidingUpPanelLayout slidingLayout;
 
     Intent intent;
     String roomId;
@@ -79,6 +82,18 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         userName = intent.getStringExtra("userName");
 
         mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class, getBaseContext());
+
+        slidingLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+            }
+
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+
+            }
+        });
 
         gson = new Gson();
 
