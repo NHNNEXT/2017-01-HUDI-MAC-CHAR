@@ -3,7 +3,14 @@ package com.mapia.game.Role;
 import com.mapia.domain.Player;
 import com.mapia.domain.Room;
 import com.mapia.domain.User;
+import com.mapia.domain.role.Mafia;
+import com.mapia.domain.role.Police;
+import com.mapia.domain.role.Role;
+import com.mapia.domain.role.RoleName;
 import com.mapia.game.GameManager;
+
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;

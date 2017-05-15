@@ -23,6 +23,12 @@ public class User {
     public User() {
     }
 
+    public User(long id, String email, String nickname) {
+    	this.id = id;
+    	this.email = email;
+    	this.nickname = nickname;
+    }
+    
     public long getId() {
         return id;
     }

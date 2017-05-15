@@ -5,7 +5,7 @@ import com.mapia.domain.Player;
 public class Doctor extends Role {
 
     public Doctor() {
-        super.setRoleName(RoleName.Doctor);
+        super(RoleName.Doctor);
     }
 
     public Player heal(Player player) {
