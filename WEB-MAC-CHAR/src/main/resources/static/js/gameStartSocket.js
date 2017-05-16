@@ -1,5 +1,5 @@
-import {textArea, syncScroll, printMessage} from './room_util';
-import {startNoon} from './noonLogic';
+import {textArea, syncScroll, printMessage} from "./room_util";
+import {startNoon} from "./noonLogic";
 
 export default class gameStartSocket {
     constructor(dayTime, nightTime, VoteSocket) {
@@ -12,7 +12,7 @@ export default class gameStartSocket {
     }
 
     connect(stompClient, gameStart_url, destinationUrl) {
-        console.log('DESTINATION URL: ' + destinationUrl);
+        console.log("DESTINATION URL: " + destinationUrl);
         this.stompClient = stompClient;
         this.destinationUrl = destinationUrl;
         stompClient.subscribe(gameStart_url, gameStart => {
@@ -33,7 +33,7 @@ export function sendGameStart() {
     let msg = {
         "userName": this.userName,
     };
-    this.readyBtn.style.display = 'none';
+    this.readyBtn.style.display = "none";
     console.log(msg);
     this.stompClient.send(this.destinationUrl, JSON.stringify(msg));
 }

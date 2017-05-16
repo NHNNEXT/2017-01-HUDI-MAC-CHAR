@@ -9,7 +9,7 @@ export default class readySocket {
 
         this.leftTime;
         this.calcLeftTime;
-        
+
         this.gameStartSocket = gameStartSocket;
         this.timeCalculator = new timeCalculator();
     }

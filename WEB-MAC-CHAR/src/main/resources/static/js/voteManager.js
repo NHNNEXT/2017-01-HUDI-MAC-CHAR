@@ -1,23 +1,23 @@
 export default class voteManager {
-    constructor(dayTime) {
-      this.slotBox = document.querySelector('.slot_box');
+    constructor() {
+        this.slotBox = document.querySelector(".slot_box");
     }
-    
+
     init() {
-      this.slotBox.addEventListener('click', this.dayTimeVote);
-      Array.from(document.getElementsByClassName("player_status")).forEach(entry => {
-        entry.innerHTML = "";
-      });
+        this.slotBox.addEventListener("click", this.dayTimeVote.bind(this));
+        Array.from(document.getElementsByClassName("player_status")).forEach(entry => {
+            entry.innerHTML = "";
+        });
     }
-    
+
     dayTimeVote(e) {
-      if(e.target.tagName === 'DIV') {
-        if(this.voted != null) {
-          this.voted.parentElement.getElementsByClassName("player_status")[0].innerHTML = "";
+        if (e.target.tagName === "DIV") {
+            if (this.voted !== null) {
+                this.voted.parentElement.getElementsByClassName("player_status")[0].innerHTML = "";
+            }
+            e.target.parentElement.getElementsByClassName("player_status")[0].innerHTML = "VOTED";
+            this.voted = e.target;
         }
-        e.target.parentElement.getElementsByClassName("player_status")[0].innerHTML = "VOTED";
-        this.voted = e.target;
-      }
     }
 }
 

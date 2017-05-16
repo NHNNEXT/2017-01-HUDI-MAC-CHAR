@@ -1,9 +1,16 @@
 /* layout */
 body {
-  background: url("../img/background_main.jpg") fixed center;
   position: fixed;
   overflow-y: scroll;
   width: 100%;
+}
+
+body.main {
+  background: url("../img/background_main.jpg") fixed center;
+}
+
+body.noon {
+  background: url("../img/background_noon.jpg") fixed center;
 }
 
 #container {
@@ -183,7 +190,7 @@ footer {
 .player_role_description {
   margin: auto;
   text-align: center;
-  font-size:18px;
+  font-size: 18px;
   padding: 30px;
 }
 
