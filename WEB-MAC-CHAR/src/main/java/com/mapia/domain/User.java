@@ -110,7 +110,7 @@ public class User {
 
     public void enterRoom(long id) {
         this.enteredRoomId = id;
-        this.status = Status.READY;
+        this.status = Status.NOT_READY;
     }
 
     @Override

@@ -51,8 +51,8 @@ export default class readySocket {
 
     checkTimerStart(isStartTimerTrue, cb = () => console.log('undefined')) {
         if (isStartTimerTrue) {
-            this.timeCalculator.startTimer(this.TIME_OUT);
-            cb();
+            this.timeCalculator.startTimer(this.TIME_OUT, cb);
+//            cb();
         }
         return;
     }

@@ -216,3 +216,7 @@ footer {
 #profile_table td {
   text-align: center;
 }
+
+.dead {
+  background-color: rgba(100, 100, 100, .7);
+}
