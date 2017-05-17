@@ -37,7 +37,7 @@
             <LinearLayout
                 android:id="@+id/messages_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_margin="30dp"
                 android:orientation="vertical">
@@ -80,14 +80,22 @@
             android:layout_alignParentEnd="true"
             android:text="레디" />
 
-
-
         <TextView
             android:id="@+id/timer_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00:00"
             android:textColor="#ffffff" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/player_list"
+            android:layout_below="@+id/send_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+
     </RelativeLayout>
 
 

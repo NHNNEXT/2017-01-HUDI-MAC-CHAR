@@ -1,4 +1,4 @@
-package com.zimincom.mafiaonline;
+package com.zimincom.mafiaonline.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.zimincom.mafiaonline.GameRoomActivity;
+import com.zimincom.mafiaonline.R;
 import com.zimincom.mafiaonline.item.Room;
 import com.zimincom.mafiaonline.item.User;
 

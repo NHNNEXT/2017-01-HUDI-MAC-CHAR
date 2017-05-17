@@ -1,11 +1,11 @@
 package com.zimincom.mafiaonline.item;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 public class ClientAccess {
     private String userName;
     private String access;
-    private Set<User> users;
+    private ArrayList<User> users;
 
     public ClientAccess() {
     }
@@ -31,11 +31,11 @@ public class ClientAccess {
         this.access = access;
     }
 
-    public Set<User> getUsers() {
+    public ArrayList<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(ArrayList<User> users) {
         this.users = users;
     }
 

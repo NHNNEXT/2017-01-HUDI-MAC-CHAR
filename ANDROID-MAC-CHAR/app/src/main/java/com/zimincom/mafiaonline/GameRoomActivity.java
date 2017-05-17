@@ -3,6 +3,9 @@ package com.zimincom.mafiaonline;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.zimincom.mafiaonline.adapter.PlayerAdapter;
 import com.zimincom.mafiaonline.item.ClientAccess;
 import com.zimincom.mafiaonline.item.GameStart;
 import com.zimincom.mafiaonline.item.MessageItem;
@@ -28,6 +32,7 @@ import com.zimincom.mafiaonline.remote.ServiceGenerator;
 
 import org.java_websocket.WebSocket;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -53,11 +58,15 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.timer_view) TextView timer;
     @BindView(R.id.messages_container) LinearLayout messageContainer;
     @BindView(R.id.sliding_layout) SlidingUpPanelLayout slidingLayout;
+    @BindView(R.id.player_list) RecyclerView playerListView;
+
 
     Intent intent;
     String roomId;
     String userName;
     User user;
+    ArrayList<User> users;
+    PlayerAdapter playerAdapter;
 
     int gameTime = 0;
     boolean isGameStarted = false;
@@ -74,14 +83,25 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         toolbar.setTitle("입장대기중");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        user = (User) getIntent().getSerializableExtra("user");
+        gson = new Gson();
+        mafiaRemoteService = ServiceGenerator
+                .createService(MafiaRemoteService.class, getBaseContext());
+        ArrayList<User> users = new ArrayList<>();
 
         intent = getIntent();
+        user = (User) getIntent().getSerializableExtra("user");
         roomId = intent.getStringExtra("roomId");
         userName = intent.getStringExtra("userName");
 
-        mafiaRemoteService = ServiceGenerator.createService(MafiaRemoteService.class, getBaseContext());
+        enterRoom(roomId);
+
+        playerAdapter = new PlayerAdapter(getBaseContext(), users, R.layout.item_player, userName);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getBaseContext(),4);
+        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        playerListView.setLayoutManager(gridLayoutManager);
+        playerListView.setItemAnimator(new DefaultItemAnimator());
+        playerListView.setAdapter(playerAdapter);
+
 
         slidingLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
@@ -95,12 +115,12 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-        gson = new Gson();
+
 
         sendButton.setOnClickListener(this);
         readyButton.setOnClickListener(this);
 
-        enterRoom(roomId);
+
 
     }
 
@@ -121,6 +141,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         mStompClient.topic("/from/ready/" + roomId)
                 .subscribe(message -> runOnUiThread(() -> {
                     ReadySignal readySignal = gson.fromJson(message.getPayload(), ReadySignal.class);
+                    Logger.d(readySignal);
+                    playerAdapter.ready(readySignal.getUserName());
                     if (readySignal.isStartTimer()) {
                         toolbar.setTitle("게임이 시작되었습니다.");
                     startTimer(5);
@@ -130,7 +152,19 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         mStompClient.topic("/from/access/" + roomId)
                 .subscribe(message -> runOnUiThread(() -> {
                     ClientAccess clientAccess = gson.fromJson(message.getPayload(), ClientAccess.class);
-                    Logger.d(clientAccess);
+                    users = clientAccess.getUsers();
+                    String accessState = clientAccess.getAccess();
+                    String newUserName = clientAccess.getUserName();
+                    if (accessState.equals("enter")) {
+
+                        if (newUserName.equals(userName))
+                            playerAdapter.addItems(users);
+                        else
+                            playerAdapter.addItemByNickName(newUserName);
+
+                    } else if (accessState.equals("exit")) {
+                        playerAdapter.removeItemByNickName(newUserName);
+                    }
                 }));
 
         mStompClient.topic("/from/gameStart/" + roomId + "/" + userName)
@@ -239,6 +273,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
             Log.d("MainActivity", message);
             messageInput.setText("");
             send(message);
+
         } else if (view.getId() == R.id.ready_button) {
             mStompClient.send("/to/ready/" + roomId, gson.toJson(new ReadySignal(userName))).subscribe();
             mStompClient.send("/to/gameStart/" + roomId + userName, gson.toJson(new GameStart())).subscribe();
