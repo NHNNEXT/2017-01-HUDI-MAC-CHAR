@@ -2,6 +2,8 @@ package com.mapia.domain;
 
 import org.springframework.stereotype.Component;
 
+import com.mapia.domain.User.Status;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -17,12 +19,13 @@ public class Lobby implements Iterable {
 
     public Lobby(){
         //Test data(1 room, 5 users)
-//    	Room testRoom = getRoom(createRoom("test"));
-//    	testRoom.enter(new User(100, "a@a.com", "testUser1"));
-//    	testRoom.enter(new User(100, "b@b.com", "testUser2"));
-//    	testRoom.enter(new User(100, "c@c.com", "testUser3"));
-//    	testRoom.enter(new User(100, "d@d.com", "testUser4"));
-//    	testRoom.enter(new User(100, "e@e.com", "testUser5"));
+    	Room testRoom = getRoom(createRoom("test"));
+    	testRoom.enter(new User(100, "a@a.com", "testUser1"));
+    	testRoom.enter(new User(100, "b@b.com", "testUser2"));
+    	testRoom.enter(new User(100, "c@c.com", "testUser3"));
+    	testRoom.enter(new User(100, "d@d.com", "testUser4"));
+    	testRoom.enter(new User(100, "e@e.com", "testUser5"));
+    	testRoom.getUsers().forEach(user -> user.setStatus(Status.READY));
     }
     
     public Collection<Room> rooms() {

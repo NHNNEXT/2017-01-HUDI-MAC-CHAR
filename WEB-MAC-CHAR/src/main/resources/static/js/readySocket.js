@@ -5,7 +5,7 @@ export default class readySocket {
     constructor(gameStartSocket) {
         this.userName = document.getElementById("userName").textContent;
         this.readyBtn = document.getElementById("readyBtn");
-        this.TIME_OUT = 5;
+        this.TIME_OUT = 1;
 
         this.leftTime;
         this.calcLeftTime;
@@ -51,8 +51,8 @@ export default class readySocket {
 
     checkTimerStart(isStartTimerTrue, cb = () => console.log('undefined')) {
         if (isStartTimerTrue) {
-            this.timeCalculator.startTimer(this.TIME_OUT);
-            cb();
+            this.timeCalculator.startTimer(this.TIME_OUT, cb);
+//            cb();
         }
         return;
     }

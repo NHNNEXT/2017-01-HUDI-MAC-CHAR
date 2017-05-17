@@ -1,10 +1,11 @@
 package com.mapia.game;
 
-import com.mapia.domain.Player;
-import com.mapia.domain.User;
-
 import java.util.List;
 import java.util.Set;
+
+import com.mapia.domain.Player;
+import com.mapia.domain.User;
+import com.mapia.websocket.VoteMessage;
 
 public class GameManager {
 
@@ -21,5 +22,10 @@ public class GameManager {
 
     public List<Player> getPlayers() {
         return this.players.getPlayers();
+    }
+
+    public String voteResult(VoteMessage voteMessage) {
+        
+        return null;
     }
 }

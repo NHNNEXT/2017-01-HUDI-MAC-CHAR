@@ -5,16 +5,18 @@ export default class timeCalculator {
         this.MINUITE_BY_SECOND = 60;
     }
 
-    startTimer(time) {
+    startTimer(time, nextAction) {
         this.leftTime = time;
+        this.nextAction = nextAction;
         this.runningTimer = setInterval(this.timer.bind(this), this.SECOND_BY_MILLISECOND);
     }
 
     timer() {
         document.querySelector('.timer').innerText = this.timeFormat(this.leftTime--);
-        if(this.leftTime < 0) {
+        if (this.leftTime < 0) {
             console.log('STOP!?');
             clearInterval(this.runningTimer);
+            this.nextAction();
         }
     }
 
@@ -31,5 +33,3 @@ export default class timeCalculator {
         return num;
     }
 }
-
-

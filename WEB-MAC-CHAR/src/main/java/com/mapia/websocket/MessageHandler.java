@@ -1,7 +1,5 @@
 package com.mapia.websocket;
 
-import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mapia.domain.Lobby;
 import com.mapia.domain.Room;
-import com.mapia.domain.User;
 
 /**
  * Created by Jbee on 2017. 3. 28..
@@ -60,5 +57,14 @@ public class MessageHandler {
         log.debug("GameStart arrived: /gameStart/{}/{}, gameStart: {}", roomId, userName, gameStart);
         Room gameRoom = lobby.getRoom(roomId);
         return gameRoom.getUserRoleNameInGame(userName);
+    }
+    
+    @MessageMapping("/vote/{roomId}")
+    @SendTo("/from/vote/{roomId}")
+    public String broadcasting(VoteMessage voteMessage, @DestinationVariable long roomId) throws Exception {
+        log.debug("voteMessage arrived: /vote/{}, voteMessage: {}", roomId, voteMessage);
+        Room gameRoom = lobby.getRoom(roomId);
+//        return gameRoom.returnVoteResult(voteMessage);
+        return "testUser1";
     }
 }

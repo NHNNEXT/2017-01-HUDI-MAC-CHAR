@@ -10,7 +10,7 @@ public class UserTest {
 	public void isReady() {
 		User user = new User();
 		user.enterRoom(1);
-		assertEquals(true, user.isReady());
+		assertEquals(false, user.isReady());
 	}
 
 }

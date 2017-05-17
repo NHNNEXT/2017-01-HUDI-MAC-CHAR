@@ -4,9 +4,11 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import com.mapia.game.GameManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.mapia.game.GameManager;
+import com.mapia.websocket.VoteMessage;
 
 public class Room {
     private static final Logger log = LoggerFactory.getLogger(Room.class);
@@ -111,5 +113,9 @@ public class Room {
 
     public String getUserRoleNameInGame(String userNickName) {
         return this.gameManager.findRoleNameByUserNickName(userNickName);
+    }
+
+    public String returnVoteResult(VoteMessage voteMessage) {
+        return this.gameManager.voteResult(voteMessage);
     }
 }
