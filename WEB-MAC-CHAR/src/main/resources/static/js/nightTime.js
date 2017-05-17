@@ -1,19 +1,19 @@
 import timeCalculator from "./timeCalculator";
-import voteSocket from "./voteSocket";
 
 export default class nightTime {
-    constructor(role) {
+    constructor(voteSocket) {
         this.timeCalculator = new timeCalculator();
-        this.role = role;
+        this.userName = document.getElementById("userName").textContent;
         this.slot_box = document.getElementsByClassName("slot_box")[0];
-        this.voteSocket = new voteSocket();
+        this.voteSocket = voteSocket;
         this.voted = null;
         this.NIGHT_TIME = 4;
         this.nightTime = this; // to bind this to nightTime
     }
 
-    init() {
+    init(role) {
         this.slot_box.addEventListener("click", this.nightTimeVote.bind(this));
+        this.role = role
     }
 
     nightTimeVote({target}) {
@@ -33,7 +33,9 @@ export default class nightTime {
 
     sendNightTimeVoteResult() {
         let victim = this.voted.getElementsByClassName("player_name")[0].textContent;
-        this.voteSocket.killVictim(victim);
-        this.slot_box.removeEventListener("click", this.nightTimeVote);
+        console.log("victim :: " + victim);
+    	this.voteSocket.sendVoteResult(this.userName, victim);
+        
+        this.slot_box.removeEventListener("click", this.nightTimeVote.bind(this));
     }
 }
