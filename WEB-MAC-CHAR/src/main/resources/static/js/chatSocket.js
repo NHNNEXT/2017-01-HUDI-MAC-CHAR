@@ -16,7 +16,7 @@ export default class chatSocket {
         this.stompClient = stompClient;
         this.destinationUrl = destinationUrl;
         stompClient.subscribe(chat_url, message => {
-            this.printMessage(JSON.parse(message.body));
+            this.printChatMessage(JSON.parse(message.body));
         });
     }
 
@@ -35,7 +35,7 @@ export default class chatSocket {
         this.stompClient.send(this.destinationUrl, JSON.stringify(msg));
     }
 
-    printMessage(message) {
+    printChatMessage(message) {
         syncScroll();
         const msg = `${message.userName}:\t${message.content}\n`;
         textArea.value += msg;

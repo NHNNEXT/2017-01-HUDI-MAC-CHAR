@@ -72,6 +72,14 @@ public class User {
     public void setStatus(Status status) {
         this.status = status;
     }
+    
+    public void gameStart() {
+    	this.status = Status.IN_GAME;
+    }
+    
+    public void ready() {
+    	this.status = Status.READY;
+    }
 
     public long getEnteredRoomId() {
         return this.enteredRoomId;

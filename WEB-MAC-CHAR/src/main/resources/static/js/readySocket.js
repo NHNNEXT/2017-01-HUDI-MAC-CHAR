@@ -9,7 +9,7 @@ export default class readySocket {
 
         this.leftTime;
         this.calcLeftTime;
-        
+
         this.gameStartSocket = gameStartSocket;
         this.timeCalculator = new timeCalculator();
     }
@@ -52,7 +52,6 @@ export default class readySocket {
     checkTimerStart(isStartTimerTrue, cb = () => console.log('undefined')) {
         if (isStartTimerTrue) {
             this.timeCalculator.startTimer(this.TIME_OUT, cb);
-//            cb();
         }
         return;
     }
