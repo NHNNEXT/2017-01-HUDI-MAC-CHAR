@@ -30,4 +30,12 @@ public class ReadySignal {
         this.startTimer = startTimer;
     }
 
+    @Override
+    public String toString() {
+        return "ReadySignal{" +
+                "lobby=" + lobby +
+                ", userName='" + userName + '\'' +
+                ", startTimer=" + startTimer +
+                '}';
+    }
 }

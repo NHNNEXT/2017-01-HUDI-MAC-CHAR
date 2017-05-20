@@ -1,75 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zimincom.mafiaonline.GameRoomActivity"
-    android:background="@drawable/background_night">
+    android:gravity="bottom"
+    sothree:umanoDragView="@+id/controller"
+    sothree:layout_collapseMode="pin"
+    sothree:umanoPanelHeight="@dimen/message_input_height"
+    sothree:umanoParallaxOffset="250dp"
+    sothree:umanoScrollableView="@+id/list"
+    sothree:umanoFadeColor="@android:color/transparent"
+    sothree:umanoShadowHeight="4dp">
 
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary">
-
-    </android.support.v7.widget.Toolbar>
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/ready_button"
-        android:layout_below="@id/toolBar">
+        android:background="@drawable/background_night"
+        tools:context="com.zimincom.mafiaonline.GameRoomActivity">
 
-        <LinearLayout
-            android:id="@+id/messages_container"
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:layout_gravity="bottom"
-            android:orientation="vertical">
+            android:background="?attr/colorPrimary">
 
-        </LinearLayout>
-    </ScrollView>
+        </android.support.v7.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolBar">
+
+            <LinearLayout
+                android:id="@+id/messages_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="30dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
 
 
-    <Button
-        android:id="@+id/send_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/send"/>
-
-    <Button
-        android:id="@+id/ready_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/send_button"
-        android:layout_alignParentEnd="true"
-        android:text="ready"/>
-
-    <EditText
-        android:id="@+id/message_input"
+    <RelativeLayout
+        android:id="@+id/controller"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_toLeftOf="@+id/send_button"
-        android:layout_alignBaseline="@+id/send_button"
-        android:layout_alignParentBottom="true"
-        android:hint="메시지를 입력하세요"
-        android:textColorHint="#ffffff"
-        android:textColorHighlight="#ffffff"
-        android:textColorLink="#ffffff"
-        android:textColor="#ffffff"/>
+        android:layout_height="300dp"
+        android:background="@color/gray"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/timer_view"
-        android:layout_toLeftOf="@id/ready_button"
-        android:layout_above="@id/message_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="00:00"
-        android:textColor="#ffffff"/>
+        <EditText
+            android:id="@+id/message_input"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_toStartOf="@+id/send_button"
+            android:hint="메시지를 입력하세요"
+            android:textColor="#ffffff"
+            android:textColorHighlight="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textColorLink="#ffffff" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/ready_button"
+            android:text="@string/send" />
+
+        <Button
+            android:id="@+id/ready_button"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="레디" />
+
+        <TextView
+            android:id="@+id/timer_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textColor="#ffffff" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/player_list"
+            android:layout_below="@+id/send_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </RelativeLayout>
+
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

@@ -13,8 +13,13 @@ public class User implements Serializable {
     private String password;
     private String nickname;
     private Status status;
+    private boolean isReady = false;
     private long enteredRoomId;
     private long LOBBY_ID = 0;
+
+    public User(String nickname) {
+       this.nickname = nickname;
+    }
     public User(String email, String password) {
         this.email = email;
         this.password = password;
@@ -47,8 +52,14 @@ public class User implements Serializable {
     public enum Status {
         LOBBY, READY, NOT_READY, IN_GAME;
 
-        public boolean isLobby() {
-            return this == Status.LOBBY;
-        }
+        public boolean isReady() { return this == Status.READY; }
+    }
+
+    public boolean isReady() {
+        return status.isReady();
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
