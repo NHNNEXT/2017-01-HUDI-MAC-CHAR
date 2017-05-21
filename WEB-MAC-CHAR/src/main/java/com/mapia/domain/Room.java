@@ -116,6 +116,6 @@ public class Room {
     }
 
     public String returnVoteResult(VoteMessage voteMessage) {
-        return this.gameManager.voteResult(voteMessage);
+        return this.gameManager.returnVoteResult(voteMessage);
     }
 }

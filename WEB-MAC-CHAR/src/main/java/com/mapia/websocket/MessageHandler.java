@@ -65,7 +65,7 @@ public class MessageHandler {
     public String broadcasting(VoteMessage voteMessage, @DestinationVariable long roomId) throws Exception {
         log.debug("voteMessage arrived: /vote/{}, voteMessage: {}", roomId, voteMessage);
         Room gameRoom = lobby.getRoom(roomId);
-//        return gameRoom.returnVoteResult(voteMessage);
-        return "testUser1";
+        return gameRoom.returnVoteResult(voteMessage);
+//        return "testUser1";
     }
 }

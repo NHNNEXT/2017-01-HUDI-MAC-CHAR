@@ -11,9 +11,7 @@ public abstract class Role {
     	this.roleName = roleName;
     }
 
-    public Player vote(Player player) {
-        return player;
-    }
+    public abstract void vote(Player player);
 
     public String getRoleName() {
         return roleName.name();

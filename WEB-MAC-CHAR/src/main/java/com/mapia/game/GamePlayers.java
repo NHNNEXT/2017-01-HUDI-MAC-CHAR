@@ -4,9 +4,7 @@ import com.mapia.domain.Player;
 import com.mapia.domain.User;
 import com.mapia.domain.role.Role;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class GamePlayers {
     private List<Player> players;
@@ -39,5 +37,14 @@ public class GamePlayers {
 
     public List<Player> getPlayers() {
         return this.players;
+    }
+
+    public Player getPlayer(String userName) {
+        for (Player player : this.players) {
+            if (player.isSameNickName(userName)) {
+                return player;
+            }
+        }
+        return null;
     }
 }

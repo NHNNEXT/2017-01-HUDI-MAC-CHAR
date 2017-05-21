@@ -8,8 +8,7 @@ public class Doctor extends Role {
         super(RoleName.Doctor);
     }
 
-    public Player heal(Player player) {
-        return player;
+    @Override
+    public void vote(Player player) {
     }
-
 }

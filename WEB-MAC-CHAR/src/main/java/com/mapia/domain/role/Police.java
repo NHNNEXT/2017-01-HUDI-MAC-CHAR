@@ -8,7 +8,7 @@ public class Police extends Role {
         super(RoleName.Police);
     }
 
-    public String investigation(Player player) {
-        return player.getRoleName();
+    @Override
+    public void vote(Player player) {
     }
 }

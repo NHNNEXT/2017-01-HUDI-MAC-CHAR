@@ -8,8 +8,8 @@ public class Mafia extends Role {
         super(RoleName.Mafia);
     }
 
-    public Player assassination(Player player) {
-        return player;
+    @Override
+    public void vote(Player player) {
+        player.killed(false);
     }
-
 }
