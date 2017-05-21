@@ -12,6 +12,7 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String nickname;
+    private Role role;
     private Status status;
     private boolean isReady = false;
     private long enteredRoomId;
@@ -49,6 +50,10 @@ public class User implements Serializable {
                 '}';
     }
 
+    public enum Role {
+        MAFIA, CITIZEN, DOCTER, POLICE
+    }
+
     public enum Status {
         LOBBY, READY, NOT_READY, IN_GAME;
 
@@ -62,4 +67,6 @@ public class User implements Serializable {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public void setRole(Role role) {this.role = role;}
 }
