@@ -54,6 +54,8 @@ public class RoomController {
             //TODO Add secret mode logic
         }
 
+    	room.getUsers().forEach(ser -> ser.ready());
+
         room.enter(user);
         model.addAttribute("room", room);
         model.addAttribute("user", user);

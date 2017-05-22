@@ -7,13 +7,14 @@ import gameStartSocket from "./js/gameStartSocket";
 import voteSocket from "./js/voteSocket";
 import dayTime from "./js/dayTime";
 import nightTime from "./js/nightTime";
+import gameLogic from "./js/gameLogic";
 
 (function () {
-	const VoteSocket = new voteSocket();
-	const DayTime = new dayTime();
-	const NightTime = new nightTime(VoteSocket);
-    const GameStartSocket = new gameStartSocket(DayTime, NightTime, VoteSocket);
-
+    const VoteSocket = new voteSocket();
+    const DayTime = new dayTime(VoteSocket);
+    const NightTime = new nightTime(VoteSocket);
+    const GameStartSocket = new gameStartSocket(new gameLogic(DayTime, NightTime), VoteSocket);
+	    
     new connect(
         new chatSocket(),
         new readySocket(GameStartSocket),

@@ -32,7 +32,7 @@ public class GamePlayers {
                 return player.getRoleName();
             }
         }
-        throw new RuntimeException("Cannot find user");
+        return "undefined";
     }
 
     public List<Player> getPlayers() {
