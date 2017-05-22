@@ -24,7 +24,7 @@ public class RoomTest {
 		room.enter(new User());
 		room.enter(new User());
 		room.enter(new User());
-		assertEquals(true, room.isAllReady());
+		assertEquals(false, room.isAllReady());
 	}
 	
 	@Test
