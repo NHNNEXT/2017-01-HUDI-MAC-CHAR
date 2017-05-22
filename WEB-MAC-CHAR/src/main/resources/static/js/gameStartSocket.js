@@ -2,12 +2,11 @@ import {textArea, syncScroll, printMessage} from "./room_util";
 import {startNoon} from "./noonLogic";
 
 export default class gameStartSocket {
-    constructor(dayTime, nightTime, VoteSocket) {
+    constructor(gameLogic, VoteSocket) {
         this.ENTER_KEY = 13;
         this.userName = document.getElementById("userName").textContent;
         this.readyBtn = document.getElementById("readyBtn");
-        this.dayTime = dayTime;
-        this.nightTime = nightTime;
+        this.gameLogic = gameLogic;
         this.voteSocket = VoteSocket;
     }
 
@@ -20,11 +19,7 @@ export default class gameStartSocket {
             Array.from(document.getElementsByClassName("player_status")).forEach(s => {
     			s.innerHTML = "";
     		}); // Ready 지워주기
-//            this.dayTime.init();
-//            this.dayTime.dayTimerStart();
-            // 밤 시간대부터 시작한다고 가정
-            this.nightTime.init(gameStart.body);
-            this.nightTime.nightTimerStart();
+            this.gameLogic.start(gameStart.body);
         });
     }
 }

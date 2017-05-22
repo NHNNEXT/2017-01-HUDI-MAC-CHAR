@@ -21,4 +21,8 @@ public abstract class Role {
     public String toString() {
         return roleName.name();
     }
+
+	public boolean isMafia() {
+		return roleName == RoleName.Mafia;
+	}
 }

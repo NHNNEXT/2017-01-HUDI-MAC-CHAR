@@ -35,12 +35,16 @@ public class Player {
         return this.user.isSameUser(userNickName);
     }
 
-    public void killed(boolean aliveOrKill) {
-        this.stillAlive = aliveOrKill;
+    public void kill() {
+        this.stillAlive = false;
     }
 
     @Override
     public String toString() {
         return this.user.getNickname();
     }
+
+	public boolean isMafia() {
+		return role.isMafia();
+	}
 }

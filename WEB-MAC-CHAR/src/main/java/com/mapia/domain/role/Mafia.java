@@ -10,6 +10,6 @@ public class Mafia extends Role {
 
     @Override
     public void vote(Player player) {
-        player.killed(false);
+        player.kill();
     }
 }
