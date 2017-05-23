@@ -19,9 +19,9 @@ public class VoteManager {
         this.players = players;
         this.voteStatus = new HashMap<>(this.players.countOfPlayers());
         //TODO Below code is TEST CODE, DELETE or COMMENT this code before commit.
-        this.voteStatus.put(this.players.getPlayer("testUser1"), this.players.getPlayer("testUser1"));
-        this.voteStatus.put(this.players.getPlayer("testUser2"), this.players.getPlayer("testUser2"));
-        this.voteStatus.put(this.players.getPlayer("testUser3"), this.players.getPlayer("testUser3"));
+//        this.voteStatus.put(this.players.getPlayer("testUser1"), this.players.getPlayer("testUser1"));
+//        this.voteStatus.put(this.players.getPlayer("testUser2"), this.players.getPlayer("testUser2"));
+//        this.voteStatus.put(this.players.getPlayer("testUser3"), this.players.getPlayer("testUser3"));
         // test room 에 미리 들어가 있던 세명의 testUser 는 각각 자신을 vote 한다.
 //        here.
     }
