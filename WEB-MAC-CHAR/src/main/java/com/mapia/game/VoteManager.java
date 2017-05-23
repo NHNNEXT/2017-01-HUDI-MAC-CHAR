@@ -74,6 +74,8 @@ public class VoteManager {
         }
         log.debug("determineResult:resultPlayer: {}", resultPlayer);
         resultPlayer.kill();
+        this.players.removeDeadPlayer(resultPlayer); //투표의 결과로 사망시 players에서 제외
+        voteStatus.clear();; //투표가 종료된 뒤 voteStatus 초기화
         return resultPlayer.getUser().getNickname();
     }
 }
