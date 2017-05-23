@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
@@ -24,12 +25,15 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     ArrayList<User> users;
     int playerLayout;
     String userName;
+    String gameState;
+    int selectedPotiton = 0;
 
-    public PlayerAdapter(Context context, ArrayList<User> users, int messageLayout, String userName) {
+    public PlayerAdapter(Context context, ArrayList<User> users, int messageLayout, String userName, String gameState) {
         this.context = context;
         this.users = users;
         this.playerLayout = messageLayout;
         this.userName = userName;
+        this.gameState = gameState;
     }
 
     @Override
@@ -43,25 +47,38 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
         int readyColor = context.getResources().getColor(R.color.colorPrimary);
         User selectedUser = users.get(position);
+        // use handler
 
-        holder.nickname.setText(users.get(position).getNickName());
-        if (users.get(position).isReady()) {
-            holder.readyState.setTextColor(readyColor);
-        }
+//        if (gameState.equals("Waiting"))
+            holder.nickname.setText(users.get(position).getNickName());
+            if (users.get(position).isReady()) {
+                holder.readyState.setTextColor(readyColor);
 
-        holder.itemView.setOnClickListener(view -> {
-            if (selectedUser.getNickName().equals(userName)) {
-                if (!selectedUser.isReady()) {
-                    holder.readyState.setTextColor(readyColor);
-                    selectedUser.setStatus(User.Status.READY);
-                    Logger.d("im ready");
-                } else {
-                    holder.readyState.setTextColor(Color.WHITE);
-                    selectedUser.setStatus(User.Status.NOT_READY);
-                    Logger.d("ready canceled");
+
+            holder.itemView.setOnClickListener(view -> {
+                if (selectedUser.getNickName().equals(userName)) {
+                    if (!selectedUser.isReady()) {
+                        holder.readyState.setTextColor(readyColor);
+                        selectedUser.setStatus(User.Status.READY);
+                        holder.container.setSelected(true);
+                        Logger.d("im ready");
+                    } else {
+                        holder.readyState.setTextColor(Color.WHITE);
+                        selectedUser.setStatus(User.Status.NOT_READY);
+                        Logger.d("ready canceled");
+                    }
                 }
-            }
-        });
+            });
+        }
+//        } else if (gameState.equals("Vote")) {
+//            holder.itemView.setOnClickListener(view -> {
+//                if (selectedUser.getNickName().equals(userName)) {
+//                    holder.itemView.setSelected(true);
+//
+//                }
+//            });
+//        }
+
     }
 
     public void addItems(ArrayList<User> users) {
@@ -71,7 +88,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     }
 
     public void addItemByNickName(String nickName) {
-        User user = new User(nickName);
+        User user = new User(nickName, User.Status.NOT_READY);
         users.add(user);
         notifyDataSetChanged();
     }
@@ -116,15 +133,19 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        LinearLayout container;
         TextView nickname;
         TextView readyState;
         TextView role;
+        TextView voteState;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            container = (LinearLayout) itemView.findViewById(R.id.container);
             nickname = (TextView) itemView.findViewById(R.id.nickname);
             readyState = (TextView) itemView.findViewById(R.id.ready_state);
             role = (TextView) itemView.findViewById(R.id.role);
+            voteState = (TextView) itemView.findViewById(R.id.vote_state);
         }
     }
 }

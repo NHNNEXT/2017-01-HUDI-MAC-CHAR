@@ -15,12 +15,20 @@ public class User implements Serializable {
     private Role role;
     private Status status;
     private boolean isReady = false;
+    private boolean isVoted = false;
     private long enteredRoomId;
     private long LOBBY_ID = 0;
 
     public User(String nickname) {
-       this.nickname = nickname;
+        //temporary constructer for Player.class
+        this.nickname = nickname;
     }
+
+    public User(String nickname, Status status) {
+        this.nickname = nickname;
+        this.status = status;
+    }
+
     public User(String email, String password) {
         this.email = email;
         this.password = password;
@@ -68,5 +76,17 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public void setRole(Role role) {this.role = role;}
+
+
+    public void setRoleTo(String roleName) {
+        if (roleName.equals("Mafia")) {
+            role = Role.MAFIA;
+        } else if (roleName.equals("Citizen")) {
+            role = Role.CITIZEN;
+        } else if (roleName.equals("Doctor")) {
+            role = Role.DOCTER;
+        } else if (roleName.equals("Police")) {
+            role = Role.POLICE;
+        }
+    }
 }

@@ -73,6 +73,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     Intent intent;
     String roomId;
     String userName;
+    String gameState;
     User user;
     ArrayList<User> users;
     PlayerAdapter playerAdapter;
@@ -80,12 +81,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     int gameTime = 0;
     boolean isGameStarted = false;
     MafiaRemoteService mafiaRemoteService;
+    GameManager gameManager;
 
-    //    enum GameState {
-//        WAITING, DAY, NIGHT, VOTE
-//    }
-//
-//    GameState gameState = GameState.WAITING;
     private StompClient mStompClient;
 
     @Override
@@ -113,6 +110,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         gson = new Gson();
         mafiaRemoteService = ServiceGenerator
                 .createService(MafiaRemoteService.class, getBaseContext());
+        gameManager = new GameManager();
+        gameState = "Waiting";
         ArrayList<User> users = new ArrayList<>();
 
         intent = getIntent();
@@ -122,7 +121,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
         enterRoom(roomId);
 
-        playerAdapter = new PlayerAdapter(getBaseContext(), users, R.layout.item_player, userName);
+        playerAdapter = new PlayerAdapter(getBaseContext(), users, R.layout.item_player, userName, gameState);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getBaseContext(), 4);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         playerListView.setLayoutManager(gridLayoutManager);
@@ -137,7 +136,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
             }
 
             @Override
-            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState
+                    previousState, SlidingUpPanelLayout.PanelState newState) {
 
             }
         });
@@ -158,7 +158,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         mStompClient.topic("/from/chat/" + roomId)
                 .subscribe(message -> runOnUiThread(() -> {
                     ChatLayout chatLayout = new ChatLayout(getBaseContext());
-                    MessageItem messageItem = gson.fromJson(message.getPayload(), MessageItem.class);
+                    MessageItem messageItem =
+                            gson.fromJson(message.getPayload(), MessageItem.class);
                     chatLayout.setName(messageItem.userName);
                     if (messageItem.userName.equals(userName)) {
                         chatLayout.setToMyMessage();
@@ -170,12 +171,13 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
         mStompClient.topic("/from/ready/" + roomId)
                 .subscribe(message -> runOnUiThread(() -> {
-                    ReadySignal readySignal = gson.fromJson(message.getPayload(), ReadySignal.class);
+                    ReadySignal readySignal =
+                            gson.fromJson(message.getPayload(), ReadySignal.class);
                     Logger.d(readySignal);
                     playerAdapter.ready(readySignal.getUserName());
                     if (readySignal.isStartTimer()) {
                         toolbar.setTitle("게임이 시작되었습니다.");
-                        startTimer(5);
+                        startTimer(5, GameManager.GameState.DAY);
                     }
                 }));
 
@@ -201,7 +203,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         mStompClient.topic("/from/gameStart/" + roomId + "/" + userName)
                 .subscribe(message -> runOnUiThread(() -> {
                     String role = gson.fromJson(message.getPayload(), String.class);
-                    setMyRole(role);
+                    user.setRoleTo(role);
                     Logger.d(role);
                 }));
 
@@ -220,11 +222,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void killPlayer(String votedNickname) {
+        Logger.d("killed " + votedNickname);
     }
-
-    private void setMyRole(String role) {
-    }
-
 
     private void send(String message) {
         mStompClient.send("/to/chat/" + roomId,
@@ -236,7 +235,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                 gson.toJson(new VoteMessage(userName, theVoted))).subscribe();
     }
 
-    private void startTimer(int time) {
+    private void startTimer(int time, GameManager.GameState gameState) {
 
         gameTime = time;
         TimerTask timerTask = new TimerTask() {
@@ -255,6 +254,9 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                         }
                         timer.setText(clockText);
                         if (gameTime == 0) {
+                            //TODO : change game state
+                            startTimer(120, gameState);
+                            //gameManager.changeState(gameState);
                             this.cancel();
                         }
                     });
@@ -278,7 +280,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(Call<ResponseItem> call, Response<ResponseItem> response) {
                 if (response.isSuccessful()) {
                     Logger.d(response.body());
-                    mStompClient.send("/to/access/" + roomId, gson.toJson(new ClientAccess(userName, "enter"))).subscribe();
+                    mStompClient.send("/to/access/" + roomId,
+                            gson.toJson(new ClientAccess(userName, "enter"))).subscribe();
                 }
             }
 
@@ -291,7 +294,9 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void leaveRoom() {
-        mStompClient.send("/to/access/" + roomId, gson.toJson(new ClientAccess(userName, "exit"))).subscribe();
+        mStompClient.send("/to/access/" + roomId,
+                gson.toJson(new ClientAccess(userName, "exit"))
+        ).subscribe();
         Call<ResponseItem> call = mafiaRemoteService.leaveRoom();
         call.enqueue(new Callback<ResponseItem>() {
             @Override
@@ -320,8 +325,10 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
             send(message);
 
         } else if (view.getId() == R.id.ready_button) {
-            mStompClient.send("/to/ready/" + roomId, gson.toJson(new ReadySignal(userName))).subscribe();
-            mStompClient.send("/to/gameStart/" + roomId + userName, gson.toJson(new GameStart())).subscribe();
+            mStompClient.send("/to/ready/" + roomId, gson.toJson(new ReadySignal(userName)))
+                    .subscribe();
+            mStompClient.send("/to/gameStart/" + roomId + userName, gson.toJson(new GameStart()))
+                    .subscribe();
         }
     }
 
