@@ -37,10 +37,7 @@ export default class dayTime {
         }
 
         Array.from(document.getElementsByClassName("dead")).forEach(slot => {
-            console.log("SLOT ID: ", slot.getAttribute("data-id"));
-            console.log("USER NAME: ", this.userName);
             if (slot.getAttribute("data-id") === this.userName) {
-                console.log("IS SAME.");
                 this.voted.getElementsByClassName("player_status")[0].textContent = "";
                 this.voted = null;
             }
