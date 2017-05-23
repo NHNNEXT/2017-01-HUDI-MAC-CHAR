@@ -17,15 +17,15 @@ public class Lobby implements Iterable {
     private final AtomicLong roomIdentifier = new AtomicLong();
 
 
-    public Lobby(){
+    public Lobby() {
         //Test data(1 room, 5 users)
-//    	Room testRoom = getRoom(createRoom("test"));
-//    	testRoom.enter(new User(100, "a@a.com", "testUser1"));
-//    	testRoom.enter(new User(100, "b@b.com", "testUser2"));
-//    	testRoom.enter(new User(100, "c@c.com", "testUser3"));
-//    	testRoom.getUsers().forEach(user -> user.ready());
+//        Room testRoom = getRoom(createRoom("test"));
+//        testRoom.enter(new User(100, "a@a.com", "testUser1"));
+//        testRoom.enter(new User(100, "b@b.com", "testUser2"));
+//        testRoom.enter(new User(100, "c@c.com", "testUser3"));
+//        testRoom.getUsers().forEach(user -> user.ready());
     }
-    
+
     public Collection<Room> rooms() {
         return rooms.values();
     }

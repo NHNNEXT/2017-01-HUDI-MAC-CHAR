@@ -27,9 +27,7 @@ export default class nightTime {
 
     nightTimeVote({target}) {
         if (target.tagName === "DIV" && this.role === "Mafia") {
-            if (this.voted !== null) {
-                this.voted.getElementsByClassName("player_status")[0].textContent = "";
-            }
+            this.clearBoard();
             target.parentElement.getElementsByClassName("player_status")[0].textContent = "VOTED";
             this.voted = target.parentElement;
         }
@@ -40,11 +38,18 @@ export default class nightTime {
     }
 
     sendNightTimeVoteResult() {
-        let victim = this.voted.getElementsByClassName("player_name")[0].textContent;
+        let victim = this.voted === null ? "undefined" : this.voted.getElementsByClassName("player_name")[0].textContent;
         this.voteSocket.sendVoteResult(this.userName, victim);
         this.slot_box.removeEventListener("click", this.nightTimeVote.bind(this));
         if (!this.voteSocket.gameIsFinished()) {
+            this.clearBoard();
             this.dayTime.start();
+        }
+    }
+
+    clearBoard() {
+        if (this.voted !== null) {
+            this.voted.getElementsByClassName("player_status")[0].textContent = "";
         }
     }
 }

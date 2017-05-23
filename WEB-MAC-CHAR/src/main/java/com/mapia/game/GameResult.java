@@ -34,6 +34,7 @@ public class GameResult {
         switch (type) {
             case MAFIA_WIN:
                 this.msg = MAFIA_WIN_MESSAGE;
+                break;
             case CITIZEN_WIN:
                 this.msg = CITIZEN_WIN_MESSAGE;
         }

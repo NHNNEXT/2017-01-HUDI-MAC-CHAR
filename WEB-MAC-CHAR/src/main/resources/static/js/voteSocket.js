@@ -1,3 +1,5 @@
+import {printMessage} from "./room_util";
+
 export default class voteSocket {
     connect(stompClient, vote_url, destinationUrl) {
 
@@ -11,8 +13,9 @@ export default class voteSocket {
             this.isFinished = finished;
             if (!finished) {
                 this.killVictim(msg);
+            } else {
+            	printMessage(msg); // 승패에 따른 경기 종료 메세지.
             }
-            //textArea += msg;// 승패에 따른 경기 종료 메세지.
         });
     }
 

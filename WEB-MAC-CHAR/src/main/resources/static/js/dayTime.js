@@ -9,7 +9,7 @@ export default class dayTime {
 
         this.voted = null;
         this.DAY_TIME = 5;
-        this.dayTime = this; // to bind this to nightTime
+        this.dayTime = this; // to bind this to dayTime
     }
 
     setNight(nightTime) {
@@ -23,9 +23,7 @@ export default class dayTime {
 
     dayTimeVote({target}) {
         if (target.tagName === "DIV") {
-            if (this.voted !== null) {
-                this.voted.getElementsByClassName("player_status")[0].textContent = "";
-            }
+            this.clearBoard();
             target.parentElement.getElementsByClassName("player_status")[0].textContent = "VOTED";
             this.voted = target.parentElement;
         }
@@ -39,8 +37,16 @@ export default class dayTime {
         let victim = this.voted === null ? "undefined" : this.voted.getElementsByClassName("player_name")[0].textContent;
         this.voteSocket.sendVoteResult(this.userName, victim);
         this.slot_box.removeEventListener("click", this.dayTimeVote.bind(this));
-        if (!this.voteSocket.gameIsFinished()) {
+        if (!this.voteSocket.gameIsFinished()) { // 이 시점에 아직 voteSocket.sendVoteResult 가 처리되지 않아서 무조건 false가 나옵니다.
+            console.log(this.voteSocket.gameIsFinished());
+            this.clearBoard();
             this.nightTime.start();
+        }
+    }
+
+    clearBoard() {
+        if (this.voted !== null) {
+            this.voted.getElementsByClassName("player_status")[0].textContent = "";
         }
     }
 }

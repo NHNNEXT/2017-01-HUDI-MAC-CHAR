@@ -51,6 +51,10 @@ public class GamePlayers {
         }
         return null;
     }
+    
+    public void removeDeadPlayer(Player player) {
+        this.players.remove(player);
+    }
 
     public GameResultType judgementPlayersCount() {
         int mafiaCount = (int) this.players.stream().filter(player -> player.isMafia()).count();
