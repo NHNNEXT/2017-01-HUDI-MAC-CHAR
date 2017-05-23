@@ -1,4 +1,5 @@
 import timeCalculator from "./timeCalculator";
+import {printMessage} from "./room_util";
 
 export default class dayTime {
     constructor(voteSocket) {
@@ -17,6 +18,9 @@ export default class dayTime {
     }
 
     start() {
+        document.querySelector('body').classList.remove('main');
+        document.querySelector('body').classList.add('dayTime');
+        printMessage("아침이 되었습니다 마피아로 의심되는 사람에게 투표해주세요");
         this.slot_box.addEventListener("click", this.dayTimeVote.bind(this));
         this.dayTimerStart();
     }
@@ -24,9 +28,20 @@ export default class dayTime {
     dayTimeVote({target}) {
         if (target.tagName === "DIV") {
             this.clearBoard();
+            if (this.voted !== null) {
+                this.voted.getElementsByClassName("player_status")[0].textContent = "";
+            }
+
             target.parentElement.getElementsByClassName("player_status")[0].textContent = "VOTED";
             this.voted = target.parentElement;
         }
+
+        Array.from(document.getElementsByClassName("dead")).forEach(slot => {
+            if (slot.getAttribute("data-id") === this.userName) {
+                this.voted.getElementsByClassName("player_status")[0].textContent = "";
+                this.voted = null;
+            }
+        });
     }
 
     dayTimerStart() {

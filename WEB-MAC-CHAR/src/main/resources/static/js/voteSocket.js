@@ -16,6 +16,7 @@ export default class voteSocket {
             } else {
             	printMessage(msg); // 승패에 따른 경기 종료 메세지.
             }
+            // textArea += msg;// 승패에 따른 경기 종료 메세지.
         });
     }
 
