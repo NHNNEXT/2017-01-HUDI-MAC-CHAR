@@ -23,14 +23,18 @@ public class GameManager {
         return this.players.findRoleName(userNickName);
     }
 
+    public GameResult returnVoteResult(VoteMessage voteMessage) {
+        if (!voteManager.handleVote(voteMessage)) {
+            return GameResult.VotingStatus();
+        }
+        return voteManager.returnGameResult();
+    }
+
     public List<Player> getPlayers() {
         return this.players.getPlayers();
     }
 
-    public String returnVoteResult(VoteMessage voteMessage) {
-        if (!voteManager.handleVote(voteMessage)) {
-            return "투표가 진행중입니다";
-        }
-        return voteManager.returnResult();
+    public GamePlayers getGamePlayers() {
+        return this.players;
     }
 }

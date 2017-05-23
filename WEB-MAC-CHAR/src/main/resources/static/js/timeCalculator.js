@@ -14,7 +14,6 @@ export default class timeCalculator {
     timer() {
         document.querySelector('.timer').innerText = this.timeFormat(this.leftTime--);
         if (this.leftTime < 0) {
-            console.log('STOP!?');
             clearInterval(this.runningTimer);
             this.nextAction();
         }

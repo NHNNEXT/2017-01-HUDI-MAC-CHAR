@@ -3,10 +3,14 @@ package com.mapia.game;
 import com.mapia.domain.Player;
 import com.mapia.domain.User;
 import com.mapia.domain.role.Role;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 public class GamePlayers {
+    private static final Logger log = LoggerFactory.getLogger(GamePlayers.class);
+
     private List<Player> players;
 
     public GamePlayers(Set<User> users) {
@@ -46,5 +50,17 @@ public class GamePlayers {
             }
         }
         return null;
+    }
+
+    public GameResultType judgementPlayersCount() {
+        int mafiaCount = (int) this.players.stream().filter(player -> player.isMafia()).count();
+        int citizenCount = (this.players.size() - mafiaCount);
+        log.debug("judgementPlayersCount:: MafiaCount: {}, CitizenCount: {}", mafiaCount, citizenCount);
+        if (mafiaCount == 0) {
+            return GameResultType.CITIZEN_WIN;
+        } else if (citizenCount <= mafiaCount) {
+            return GameResultType.MAFIA_WIN;
+        }
+        return GameResultType.KEEP_GOING;
     }
 }

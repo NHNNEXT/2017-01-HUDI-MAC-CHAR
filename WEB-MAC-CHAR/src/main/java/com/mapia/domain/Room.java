@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import com.mapia.game.GameResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -115,7 +116,7 @@ public class Room {
         return this.gameManager.findRoleNameByUserNickName(userNickName);
     }
 
-    public String returnVoteResult(VoteMessage voteMessage) {
+    public GameResult returnVoteResult(VoteMessage voteMessage) {
         return this.gameManager.returnVoteResult(voteMessage);
     }
 }

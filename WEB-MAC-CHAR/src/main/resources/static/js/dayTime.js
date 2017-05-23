@@ -6,15 +6,19 @@ export default class dayTime {
         this.userName = document.getElementById("userName").textContent;
         this.slot_box = document.getElementsByClassName("slot_box")[0];
         this.voteSocket = voteSocket;
-        
+
         this.voted = null;
         this.DAY_TIME = 5;
         this.dayTime = this; // to bind this to nightTime
     }
 
-    init() {
+    setNight(nightTime) {
+        this.nightTime = nightTime;
+    }
+
+    start() {
         this.slot_box.addEventListener("click", this.dayTimeVote.bind(this));
-        this.dayTimerStart();	
+        this.dayTimerStart();
     }
 
     dayTimeVote({target}) {
@@ -33,7 +37,10 @@ export default class dayTime {
 
     sendDayTimeVoteResult() {
         let victim = this.voted === null ? "undefined" : this.voted.getElementsByClassName("player_name")[0].textContent;
-    	this.voteSocket.sendVoteResult(this.userName, victim);
+        this.voteSocket.sendVoteResult(this.userName, victim);
         this.slot_box.removeEventListener("click", this.dayTimeVote.bind(this));
+        if (!this.voteSocket.gameIsFinished()) {
+            this.nightTime.start();
+        }
     }
 }

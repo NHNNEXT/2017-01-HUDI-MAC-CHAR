@@ -45,6 +45,6 @@ public class Player {
     }
 
 	public boolean isMafia() {
-		return role.isMafia();
+		return this.role.isMafia();
 	}
 }

@@ -1,4 +1,4 @@
-import {sendGameStart} from './gameStartSocket';
+import {sendGameStart} from "./gameStartSocket";
 import timeCalculator from "./timeCalculator";
 
 export default class readySocket {
