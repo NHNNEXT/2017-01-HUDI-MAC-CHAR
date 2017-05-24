@@ -64,7 +64,7 @@ public class MessageHandler {
     @MessageMapping("/vote/{roomId}")
     @SendTo("/from/vote/{roomId}")
     public GameResult broadcasting(VoteMessage voteMessage, @DestinationVariable long roomId) throws Exception {
-        log.debug("voteMessage arrived: /vote/{}, voteMessage: {}", roomId, voteMessage);
+    	log.debug("voteMessage arrived: /vote/{}, voteMessage: {}", roomId, voteMessage);
         Room gameRoom = lobby.getRoom(roomId);
         return gameRoom.returnVoteResult(voteMessage);
     }

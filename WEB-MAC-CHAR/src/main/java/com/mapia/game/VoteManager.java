@@ -24,6 +24,11 @@ public class VoteManager {
         log.debug("handleVote: {}", voteMessage);
         Player playerVoting = this.players.getPlayer(voteMessage.getUserName());
         Player playerVoted = this.players.getPlayer(voteMessage.getTheVoted());
+        
+        if (playerVoting == null || playerVoted == null) {
+        	return false;
+        }
+        
         voteStatus.put(playerVoting, playerVoted);
         //TODO Below code is TEST CODE, DELETE or COMMENT this code before commit.
 //        if (this.players.getPlayer("testUser1") != null) {
@@ -42,7 +47,8 @@ public class VoteManager {
 //            this.voteStatus.put(this.players.getPlayer("testUser5"), this.players.getPlayer("testUser5"));
 //        }
         // test room 에 미리 들어가 있던 세명의 testUser 는 각각 자신을 vote 한다.
-
+        
+        log.debug("VOTESTATUS.SIZE: {}       PLAYERS: {}", voteStatus.size(), this.players.countOfPlayers());
         if (voteStatus.size() == this.players.countOfPlayers()) {
             return true;
         }
@@ -91,13 +97,13 @@ public class VoteManager {
     private Map<Player, Integer> countVoteOfMafia() {
         Map<Player, Integer> countStatusOfMafia = new HashMap<>();
         voteStatus.keySet().stream()
-            .filter(player -> player.isMafia())
+//            .filter(player -> player.isMafia())
             .forEach(player -> countStatusOfMafia.put(player, 0));
-        voteStatus.values().stream()
+        voteStatus.keySet().stream()
             .filter(player -> player.isMafia())
             .forEach(player -> {
                 if (player != null) { //기권표를 걸러낸다.
-                    countStatusOfMafia.put(player, countStatusOfMafia.get(player) + 1);
+                    countStatusOfMafia.put(voteStatus.get(player), countStatusOfMafia.get(voteStatus.get(player)) + 1);
                 }
             });
         log.debug("countVoteOfMafia:countStatusOfMafia: {}", countStatusOfMafia);
@@ -106,14 +112,14 @@ public class VoteManager {
 
     private Map<Player, Integer> countVoteOfDoctor() {
         Map<Player, Integer> countStatusOfDoctor = new HashMap<>();
-        voteStatus.values().stream()
-            .filter(player -> player.isDoctor())
+        voteStatus.keySet().stream()
+//            .filter(player -> player.isDoctor())
             .forEach(player -> countStatusOfDoctor.put(player, 0));
-        voteStatus.values().stream()
+        voteStatus.keySet().stream()
             .filter(player -> player.isDoctor())
             .forEach(player -> {
                 if (player != null) { //기권표를 걸러낸다.
-                    countStatusOfDoctor.put(player, countStatusOfDoctor.get(player) + 1);
+                    countStatusOfDoctor.put(voteStatus.get(player), countStatusOfDoctor.get(voteStatus.get(player)) + 1);
                 }
             });
         log.debug("countVoteOfDoctor:countStatusOfDoctor: {}", countStatusOfDoctor);
@@ -134,6 +140,7 @@ public class VoteManager {
         if (selectedPlayer != null) {
             selectedPlayer.kill();
             this.players.removeDeadPlayer(selectedPlayer); //투표의 결과로 사망시 players에서 제외
+            voteStatus.clear();
             return selectedPlayer.getUser().getNickname();
         }
         voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화

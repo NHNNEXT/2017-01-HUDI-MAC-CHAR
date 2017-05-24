@@ -11,6 +11,7 @@ export default class nightTime {
         this.voted = null;
         this.NIGHT_TIME = 10;
         this.nightTime = this;
+        this.voteFunction = this.nightTimeVote.bind(this);
     }
 
     setDay(dayTime) {
@@ -25,12 +26,12 @@ export default class nightTime {
         document.querySelector('body').classList.remove('dayTime');
         document.querySelector('body').classList.add('main');
         printMessage("밤이 되었습니다 각자 역할에 맞게 투표해주세요");
-        this.slot_box.addEventListener("click", this.nightTimeVote.bind(this));
+        this.slot_box.addEventListener("click", this.voteFunction);
         this.nightTimerStart();
     }
 
     nightTimeVote({target}) {
-        if (target.tagName === "DIV" && this.role === "Mafia") {
+        if (target.tagName === "DIV" && ((this.role === "Mafia") || (this.role === "Doctor"))) {
             this.clearBoard();
             target.parentElement.getElementsByClassName("player_status")[0].textContent = "VOTED";
             this.voted = target.parentElement;
@@ -45,7 +46,7 @@ export default class nightTime {
         let victim = this.voted === null ? "undefined" : this.voted.getElementsByClassName("player_name")[0].textContent;
         console.log("sendNightTimeVoteResult::this.voted:victim ", victim);
         this.voteSocket.sendVoteResult(this.userName, victim, "night");
-        this.slot_box.removeEventListener("click", this.nightTimeVote.bind(this));
+        this.slot_box.addEventListener("click", this.voteFunction);
         printMessage("경기 결과를 처리 중입니다");
         this.voted = null;
         setTimeout(() => {

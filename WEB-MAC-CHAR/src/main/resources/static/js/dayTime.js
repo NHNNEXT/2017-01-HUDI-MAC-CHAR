@@ -11,6 +11,7 @@ export default class dayTime {
         this.voted = null;
         this.DAY_TIME = 10;
         this.dayTime = this;
+        this.voteFunction = this.dayTimeVote.bind(this);
     }
 
     setNight(nightTime) {
@@ -21,7 +22,7 @@ export default class dayTime {
         document.querySelector('body').classList.remove('main');
         document.querySelector('body').classList.add('dayTime');
         printMessage("아침이 되었습니다 마피아로 의심되는 사람에게 투표해주세요");
-        this.slot_box.addEventListener("click", this.dayTimeVote.bind(this));
+        this.slot_box.addEventListener("click", this.voteFunction);
         this.dayTimerStart();
     }
 
@@ -52,7 +53,7 @@ export default class dayTime {
         let victim = this.voted === null ? "undefined" : this.voted.getElementsByClassName("player_name")[0].textContent;
         console.log("sendDayTimeVoteResult::this.voted:victim ", victim);
         this.voteSocket.sendVoteResult(this.userName, victim, "day");
-        this.slot_box.removeEventListener("click", this.dayTimeVote.bind(this));
+        this.slot_box.removeEventListener("click", this.voteFunction);
         printMessage("결과를 처리 중입니다");
         this.voted = null;
         setTimeout(() => {
@@ -62,6 +63,7 @@ export default class dayTime {
                 this.nightTime.start();
             }
         }, 5000);
+
     }
 
     clearBoard() {
