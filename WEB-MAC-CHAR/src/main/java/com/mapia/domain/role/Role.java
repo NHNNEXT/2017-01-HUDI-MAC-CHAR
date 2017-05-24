@@ -25,4 +25,8 @@ public abstract class Role {
 	public boolean isMafia() {
 		return roleName == RoleName.Mafia;
 	}
+
+    public boolean isDoctor() {
+        return roleName == RoleName.Doctor;
+    }
 }

@@ -7,10 +7,19 @@ public class GameResult {
     private static final String MAFIA_WIN_MESSAGE = "마피아가 승리하였습니다.";
     private static final String CITIZEN_WIN_MESSAGE = "시민이 승리하였습니다.";
 
-    private boolean isFinished;
     private String msg;
+    private boolean isFinished;
+    private boolean completeVote;
 
     public GameResult() {
+    }
+
+    public boolean isCompleteVote() {
+        return completeVote;
+    }
+
+    public void setCompleteVote(boolean completeVote) {
+        this.completeVote = completeVote;
     }
 
     public boolean isFinished() {
@@ -31,6 +40,7 @@ public class GameResult {
 
     public GameResult(GameResultType type) {
         this.isFinished = true;
+        this.completeVote = true;
         switch (type) {
             case MAFIA_WIN:
                 this.msg = MAFIA_WIN_MESSAGE;
@@ -40,13 +50,26 @@ public class GameResult {
         }
     }
 
-    public GameResult(String killedUser) {
+    public GameResult(String killedUser, boolean completeVote) {
         this.isFinished = false;
+        this.completeVote = completeVote;
         this.msg = killedUser;
     }
 
-    public static GameResult VotingStatus() {
-        return new GameResult("투표가 진행중입니다 :)");
+    public static GameResult votingStatus() {
+        return new GameResult("투표가 진행중입니다", false);
+    }
+
+    public static GameResult returnMafiaWin() {
+        return new GameResult(GameResultType.MAFIA_WIN);
+    }
+
+    public static GameResult returnCitizenWin() {
+        return new GameResult(GameResultType.CITIZEN_WIN);
+    }
+
+    public static GameResult returnSeletedUser(String killedUserNickName) {
+        return new GameResult(killedUserNickName, true);
     }
 
     @Override

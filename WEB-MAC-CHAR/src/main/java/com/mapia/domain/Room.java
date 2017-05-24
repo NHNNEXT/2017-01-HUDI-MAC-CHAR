@@ -117,6 +117,7 @@ public class Room {
     }
 
     public GameResult returnVoteResult(VoteMessage voteMessage) {
+        log.debug("returnVoteResult: {}", voteMessage);
         return this.gameManager.returnVoteResult(voteMessage);
     }
 }

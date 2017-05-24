@@ -9,8 +9,8 @@ export default class dayTime {
         this.voteSocket = voteSocket;
 
         this.voted = null;
-        this.DAY_TIME = 5;
-        this.dayTime = this; // to bind this to dayTime
+        this.DAY_TIME = 10;
+        this.dayTime = this;
     }
 
     setNight(nightTime) {
@@ -50,13 +50,18 @@ export default class dayTime {
 
     sendDayTimeVoteResult() {
         let victim = this.voted === null ? "undefined" : this.voted.getElementsByClassName("player_name")[0].textContent;
-        this.voteSocket.sendVoteResult(this.userName, victim);
+        console.log("sendDayTimeVoteResult::this.voted:victim ", victim);
+        this.voteSocket.sendVoteResult(this.userName, victim, "day");
         this.slot_box.removeEventListener("click", this.dayTimeVote.bind(this));
-        if (!this.voteSocket.gameIsFinished()) { // 이 시점에 아직 voteSocket.sendVoteResult 가 처리되지 않아서 무조건 false가 나옵니다.
-            console.log(this.voteSocket.gameIsFinished());
-            this.clearBoard();
-            this.nightTime.start();
-        }
+        printMessage("결과를 처리 중입니다");
+        this.voted = null;
+        setTimeout(() => {
+            if (!this.voteSocket.gameIsFinished()) {
+                console.log(this.voteSocket.gameIsFinished());
+                this.clearBoard();
+                this.nightTime.start();
+            }
+        }, 5000);
     }
 
     clearBoard() {

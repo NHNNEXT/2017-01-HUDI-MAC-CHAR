@@ -5,16 +5,7 @@ export function syncScroll() {
 }
 
 export function printMessage(message) {
+    textArea.value += `[[[  ${message}  ]]]
+`;
     syncScroll();
-    let msg = '\n';
-    const howRepeat = 40 - message.length;
-    for (let i = 0; i < howRepeat; i++) {
-        msg += '=';
-    }
-    msg += message;
-    for (let i = 0; i < howRepeat; i++) {
-        msg += '=';
-    }
-    message + '\n';
-    textArea.value += msg;
 }
