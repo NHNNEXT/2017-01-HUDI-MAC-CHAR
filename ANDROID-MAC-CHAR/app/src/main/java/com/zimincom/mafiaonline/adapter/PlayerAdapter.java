@@ -29,7 +29,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     String userName;
     String gameState;
     Handler handler;
-    int selectedPotiton = 0;
 
     public PlayerAdapter(Context context, ArrayList<User> users, int messageLayout, String userName,
                          String gameState, Handler handler) {
@@ -64,7 +63,11 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
                    holder.container.setSelected(true);
                }
            });
+        } else if (gameState == "day") {
+            holder.readyState.setVisibility(View.GONE);
+
         } else {
+
             holder.itemView.setOnClickListener(view -> {
                 if (selectedUser.getNickName().equals(userName)) {
                     if (!selectedUser.isReady()) {
@@ -127,6 +130,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         }
     }
 
+    public void setState(String gameState) {
+        this.gameState = gameState;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return users.size();
@@ -139,7 +146,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         TextView nickname;
         TextView readyState;
         TextView role;
-        TextView voteState;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -147,7 +153,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
             nickname = (TextView) itemView.findViewById(R.id.nickname);
             readyState = (TextView) itemView.findViewById(R.id.ready_state);
             role = (TextView) itemView.findViewById(R.id.role);
-            voteState = (TextView) itemView.findViewById(R.id.vote_state);
+
         }
     }
 }

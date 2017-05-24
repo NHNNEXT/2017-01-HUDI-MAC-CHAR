@@ -46,11 +46,6 @@
             android:textSize="10dp"
             android:textColor="@color/colorMainText"
             android:text="\?"/>
-        <TextView
-            android:id="@+id/vote_state"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="none"/>
 
     </LinearLayout>
 
