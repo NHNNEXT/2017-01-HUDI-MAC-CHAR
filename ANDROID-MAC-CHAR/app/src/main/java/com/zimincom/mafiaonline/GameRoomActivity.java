@@ -71,6 +71,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     SlidingUpPanelLayout slidingLayout;
     @BindView(R.id.player_list)
     RecyclerView playerListView;
+    @BindView(R.id.role_name);
+    TextView roleName;
 
     Intent intent;
     String roomId;
@@ -114,9 +116,9 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                 .createService(MafiaRemoteService.class, getBaseContext());
 
         gConfigs = new ArrayList<GameConfig>();
-        gConfigs.add(new GameConfig(5, GameConfig.GameState.WAITING));
-        gConfigs.add(new GameConfig(6, GameConfig.GameState.DAY));
-        gConfigs.add(new GameConfig(7, GameConfig.GameState.NIGHT));
+        gConfigs.add(new GameConfig(10, GameConfig.GameState.WAITING));
+        gConfigs.add(new GameConfig(5, GameConfig.GameState.DAY));
+        gConfigs.add(new GameConfig(10, GameConfig.GameState.NIGHT));
 
         ArrayList<User> users = new ArrayList<>();
 
@@ -213,6 +215,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                     Logger.d(role);
                     user.setRoleTo(role);
                     Toast.makeText(getBaseContext(),"당신의 직업은 " + role + "입니다", Toast.LENGTH_LONG).show();
+                    roleName.setText("나의 직업: " + role);
                     //게임 타이머 시작
                     gameHandler.sendEmptyMessage(GameTimerTask.PHASE_CHANGE);
                     //게임상태를 낮으로. String 이 아니라 다른것이 필요 .

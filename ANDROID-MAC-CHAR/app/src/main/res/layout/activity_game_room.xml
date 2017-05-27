@@ -54,6 +54,12 @@
             android:onClick="setTimer"
             android:text="00:00"
             android:textColor="#ffffff" />
+        <TextView
+            android:id="@+id/role_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/timer_view"
+            android:layout_alignBaseline="@+id/timer_view"/>
 
     </RelativeLayout>
 
