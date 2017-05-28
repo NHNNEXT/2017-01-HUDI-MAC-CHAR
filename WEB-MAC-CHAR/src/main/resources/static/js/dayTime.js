@@ -9,7 +9,7 @@ export default class dayTime {
         this.voteSocket = voteSocket;
 
         this.voted = null;
-        this.DAY_TIME = 10;
+        this.DAY_TIME = 60;
         this.dayTime = this;
         this.voteFunction = this.dayTimeVote.bind(this);
     }
