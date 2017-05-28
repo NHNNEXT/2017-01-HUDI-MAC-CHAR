@@ -15,7 +15,9 @@ export default class voteSocket {
                 console.log(`투표가 완료되었습니다.`);
                 if (!finished) {
                     this.killVictim(msg);
-                    printMessage(`${msg}가 죽었습니다.`);
+                    if (msg !== "") {
+                        printMessage(`${msg}가 죽었습니다.`);
+                    }
                 } else {
                     printMessage(msg);
                 }

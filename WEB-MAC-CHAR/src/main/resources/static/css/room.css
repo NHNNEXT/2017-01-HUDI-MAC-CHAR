@@ -208,19 +208,21 @@ footer {
 }
 
 .player_mission_title {
-  padding: 12px;
+  margin: auto;
+  padding: 5px;
   background-color: #FFF;
   color: #C80006;
-  font-size: 24px;
+  font-size: 15px;
   text-align: center;
   font-weight: bolder;
 }
 
 .player_mission_description {
   margin: auto;
-  padding: 12px;
+  padding: 5px;
   width: 240px;
-  font-size: 18px;
+  font-size: 11px;
+  font-weight: bold;
   line-height: 24px;
 }
 
@@ -234,4 +236,9 @@ footer {
 
 .dead {
   background-color: rgba(100, 100, 100, .7);
+}
+
+.empty_slot img {
+  content: url("../img/white.jpg");
+  height: 118.75px;
 }
