@@ -57,12 +57,12 @@ export default class nightTime {
         	this.voteSocket.sendVoteResult(this.userName, "undefined", "night");
         }
         this.slot_box.removeEventListener("click", this.voteFunction);
+        this.clearBoard();
         printMessage("경기 결과를 처리 중입니다");
         this.voted = null;
         setTimeout(() => {
             if (!this.voteSocket.gameIsFinished()) {
                 console.log(this.voteSocket.gameIsFinished());
-                this.clearBoard();
                 this.dayTime.start();
             }
         }, 5000);
