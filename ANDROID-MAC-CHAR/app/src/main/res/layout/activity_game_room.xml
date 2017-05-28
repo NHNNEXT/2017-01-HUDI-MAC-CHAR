@@ -30,6 +30,7 @@
         </android.support.v7.widget.Toolbar>
 
         <ScrollView
+            android:id="@+id/message_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/toolBar">
@@ -44,6 +45,21 @@
 
             </LinearLayout>
         </ScrollView>
+
+        <TextView
+            android:id="@+id/timer_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/message_scroll"
+            android:onClick="setTimer"
+            android:text="00:00"
+            android:textColor="#ffffff" />
+        <TextView
+            android:id="@+id/role_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/timer_view"
+            android:layout_alignBaseline="@+id/timer_view"/>
 
     </RelativeLayout>
 
@@ -70,22 +86,15 @@
             android:id="@+id/send_button"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/ready_button"
+            android:layout_toLeftOf="@+id/slide"
             android:text="@string/send" />
 
         <Button
-            android:id="@+id/ready_button"
+            android:id="@+id/slide"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="레디" />
-
-        <TextView
-            android:id="@+id/timer_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textColor="#ffffff" />
+            android:text="+" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/player_list"

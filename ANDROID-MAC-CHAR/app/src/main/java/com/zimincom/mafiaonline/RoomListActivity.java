@@ -126,6 +126,7 @@ public class RoomListActivity extends Activity implements View.OnClickListener {
                                 Logger.d("방 만들기 성공");
 
                                 Intent intent = new Intent(context, GameRoomActivity.class);
+                                intent.putExtra("user", user);
                                 intent.putExtra("roomId", response.body().getRoomId());
                                 intent.putExtra("userName", user.getNickName());
 

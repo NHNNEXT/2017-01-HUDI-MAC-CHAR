@@ -2,10 +2,12 @@ package com.zimincom.mafiaonline.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
@@ -20,16 +22,22 @@ import java.util.ArrayList;
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
 
+    public static final int READY_MESSAGE = 202;
     Context context;
     ArrayList<User> users;
     int playerLayout;
     String userName;
+    String gameState;
+    Handler handler;
 
-    public PlayerAdapter(Context context, ArrayList<User> users, int messageLayout, String userName) {
+    public PlayerAdapter(Context context, ArrayList<User> users, int messageLayout, String userName,
+                         String gameState, Handler handler) {
         this.context = context;
         this.users = users;
         this.playerLayout = messageLayout;
         this.userName = userName;
+        this.gameState = gameState;
+        this.handler = handler;
     }
 
     @Override
@@ -43,25 +51,39 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
         int readyColor = context.getResources().getColor(R.color.colorPrimary);
         User selectedUser = users.get(position);
-
         holder.nickname.setText(users.get(position).getNickName());
-        if (users.get(position).isReady()) {
+        if (selectedUser.isReady())
             holder.readyState.setTextColor(readyColor);
-        }
+        // use handler
 
-        holder.itemView.setOnClickListener(view -> {
-            if (selectedUser.getNickName().equals(userName)) {
-                if (!selectedUser.isReady()) {
-                    holder.readyState.setTextColor(readyColor);
-                    selectedUser.setStatus(User.Status.READY);
-                    Logger.d("im ready");
-                } else {
-                    holder.readyState.setTextColor(Color.WHITE);
-                    selectedUser.setStatus(User.Status.NOT_READY);
-                    Logger.d("ready canceled");
+        if (gameState != null && gameState.equals("Vote")) {
+           holder.container.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   holder.container.setSelected(true);
+               }
+           });
+        } else if (gameState == "day") {
+            holder.readyState.setVisibility(View.GONE);
+
+        } else {
+
+            holder.itemView.setOnClickListener(view -> {
+                if (selectedUser.getNickName().equals(userName)) {
+                    if (!selectedUser.isReady()) {
+                        holder.readyState.setTextColor(readyColor);
+                        selectedUser.setStatus(User.Status.READY);
+                        handler.sendEmptyMessage(READY_MESSAGE);
+                        Logger.d("im ready");
+                    } else {
+                        holder.readyState.setTextColor(Color.WHITE);
+                        selectedUser.setStatus(User.Status.NOT_READY);
+                        handler.sendEmptyMessage(READY_MESSAGE);
+                        Logger.d("ready canceled");
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public void addItems(ArrayList<User> users) {
@@ -71,7 +93,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     }
 
     public void addItemByNickName(String nickName) {
-        User user = new User(nickName);
+        User user = new User(nickName, User.Status.NOT_READY);
         users.add(user);
         notifyDataSetChanged();
     }
@@ -108,6 +130,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         }
     }
 
+    public void setState(String gameState) {
+        this.gameState = gameState;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return users.size();
@@ -116,15 +142,18 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        LinearLayout container;
         TextView nickname;
         TextView readyState;
         TextView role;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            container = (LinearLayout) itemView.findViewById(R.id.container);
             nickname = (TextView) itemView.findViewById(R.id.nickname);
             readyState = (TextView) itemView.findViewById(R.id.ready_state);
             role = (TextView) itemView.findViewById(R.id.role);
+
         }
     }
 }
