@@ -115,6 +115,10 @@ public class Room {
     public String getUserRoleNameInGame(String userNickName) {
         return this.gameManager.findRoleNameByUserNickName(userNickName);
     }
+    
+    public GameManager getGameManger() {
+        return this.gameManager;
+    }
 
     public GameResult returnVoteResult(VoteMessage voteMessage) {
         log.debug("returnVoteResult: {}", voteMessage);

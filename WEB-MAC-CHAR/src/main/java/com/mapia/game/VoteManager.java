@@ -25,7 +25,7 @@ public class VoteManager {
         Player playerVoting = this.players.getPlayer(voteMessage.getUserName());
         Player playerVoted = this.players.getPlayer(voteMessage.getTheVoted());
         
-        if (playerVoting == null || playerVoted == null) {
+        if (playerVoting == null) {
         	return false;
         }
         
@@ -97,7 +97,6 @@ public class VoteManager {
     private Map<Player, Integer> countVoteOfMafia() {
         Map<Player, Integer> countStatusOfMafia = new HashMap<>();
         voteStatus.keySet().stream()
-//            .filter(player -> player.isMafia())
             .forEach(player -> countStatusOfMafia.put(player, 0));
         voteStatus.keySet().stream()
             .filter(player -> player.isMafia())
@@ -113,7 +112,6 @@ public class VoteManager {
     private Map<Player, Integer> countVoteOfDoctor() {
         Map<Player, Integer> countStatusOfDoctor = new HashMap<>();
         voteStatus.keySet().stream()
-//            .filter(player -> player.isDoctor())
             .forEach(player -> countStatusOfDoctor.put(player, 0));
         voteStatus.keySet().stream()
             .filter(player -> player.isDoctor())
@@ -134,6 +132,8 @@ public class VoteManager {
             if (entry.getValue() > base) {
                 selectedPlayer = entry.getKey();
                 base = entry.getValue();
+            } else if (base == entry.getValue()) {
+                selectedPlayer = null;
             }
         }
         log.debug("determineResultOfDay:resultSelectedPlayer: {}", selectedPlayer);
@@ -155,6 +155,8 @@ public class VoteManager {
             if (entry.getValue() > base) {
                 mafiaSelectPlayer = entry.getKey();
                 base = entry.getValue();
+            } else if (base == entry.getValue()) {
+                mafiaSelectPlayer = null;
             }
         }
         base = 0;
@@ -176,6 +178,10 @@ public class VoteManager {
                 return mafiaSelectPlayer.getUser().getNickname();
             }
             return "";
+        } else if (mafiaSelectPlayer != null) {
+            mafiaSelectPlayer.kill();
+            this.players.removeDeadPlayer(mafiaSelectPlayer);
+            return mafiaSelectPlayer.getUser().getNickname();
         }
         return "";
     }
