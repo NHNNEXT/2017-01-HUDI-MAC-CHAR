@@ -5,7 +5,7 @@ export default class readySocket {
     constructor(gameStartSocket) {
         this.userName = document.getElementById("userName").textContent;
         this.readyBtn = document.getElementById("readyBtn");
-        this.TIME_OUT = 1;
+        this.TIME_OUT = 5;
 
         this.leftTime;
         this.calcLeftTime;
