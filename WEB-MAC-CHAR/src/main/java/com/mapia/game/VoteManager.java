@@ -24,11 +24,11 @@ public class VoteManager {
         log.debug("handleVote: {}", voteMessage);
         Player playerVoting = this.players.getPlayer(voteMessage.getUserName());
         Player playerVoted = this.players.getPlayer(voteMessage.getTheVoted());
-        
+
         if (playerVoting == null) {
-        	return false;
+            return false;
         }
-        
+
         voteStatus.put(playerVoting, playerVoted);
         //TODO Below code is TEST CODE, DELETE or COMMENT this code before commit.
 //        if (this.players.getPlayer("testUser1") != null) {
@@ -50,6 +50,7 @@ public class VoteManager {
         
         log.debug("VOTESTATUS.SIZE: {}       PLAYERS: {}", voteStatus.size(), this.players.countOfPlayers());
         if (voteStatus.size() >= this.players.countOfPlayers()) {
+            log.debug("handleVote::voteStatus: {}", voteStatus.toString());
             return true;
         }
         return false;
@@ -74,7 +75,7 @@ public class VoteManager {
                 log.debug("시민이 승리하였습니다.");
                 return GameResult.returnCitizenWin();
             case KEEP_GOING:
-                log.debug("selectedUser: {}", selectedUserNickName);
+                log.debug("KEEP_GOING::selectedUser: {}", selectedUserNickName);
                 return GameResult.returnSeletedUser(selectedUserNickName);
             default:
                 throw new RuntimeException("Unexpected Error!");
@@ -100,8 +101,9 @@ public class VoteManager {
         voteStatus.keySet().stream()
             .filter(player -> player.isMafia())
             .forEach(player -> {
+                Player mafiaPlayer = voteStatus.get(player);
                 if (player != null) { //기권표를 걸러낸다.
-                    countStatusOfMafia.put(voteStatus.get(player), countStatusOfMafia.get(voteStatus.get(player)) + 1);
+                    countStatusOfMafia.put(mafiaPlayer, countStatusOfMafia.get(mafiaPlayer) + 1);
                 }
             });
         log.debug("countVoteOfMafia:countStatusOfMafia: {}", countStatusOfMafia);
@@ -115,8 +117,9 @@ public class VoteManager {
         voteStatus.keySet().stream()
             .filter(player -> player.isDoctor())
             .forEach(player -> {
+                Player doctorPlayer = voteStatus.get(player);
                 if (player != null) { //기권표를 걸러낸다.
-                    countStatusOfDoctor.put(voteStatus.get(player), countStatusOfDoctor.get(voteStatus.get(player)) + 1);
+                    countStatusOfDoctor.put(doctorPlayer, countStatusOfDoctor.get(doctorPlayer) + 1);
                 }
             });
         log.debug("countVoteOfDoctor:countStatusOfDoctor: {}", countStatusOfDoctor);
@@ -140,10 +143,13 @@ public class VoteManager {
         if (selectedPlayer != null) {
             selectedPlayer.kill();
             this.players.removeDeadPlayer(selectedPlayer); //투표의 결과로 사망시 players에서 제외
+            log.debug("determineResultOfDay:selectPlayer: {}, \n1. {}가 플레이어에서 제외되었습니다.", selectedPlayer, selectedPlayer);
             voteStatus.clear();
+            log.debug("투표 현황을 초기화합니다. determineResultOfDay::voteStatus: {}", voteStatus);
             return selectedPlayer.getUser().getNickname();
         }
         voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+        log.debug("투표 현황을 초기화합니다. determineResultOfDay::voteStatus: {}", voteStatus);
         return "";
     }
 

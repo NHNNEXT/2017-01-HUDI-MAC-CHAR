@@ -34,12 +34,4 @@ public class GameManager {
         }
         return voteManager.returnGameResult(voteMessage.getStage());
     }
-
-    public List<Player> getPlayers() {
-        return this.players.getPlayers();
-    }
-
-    public GamePlayers getGamePlayers() {
-        return this.players;
-    }
 }
