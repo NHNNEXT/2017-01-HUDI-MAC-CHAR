@@ -9,7 +9,6 @@ export default class gameStartSocket {
     }
 
     connect(stompClient, gameStart_url, destinationUrl) {
-        console.log("DESTINATION URL: " + destinationUrl);
         this.stompClient = stompClient;
         this.destinationUrl = destinationUrl;
         stompClient.subscribe(gameStart_url, gameStart => {
@@ -29,7 +28,6 @@ export default class gameStartSocket {
     }
 
     showMission(role) {
-        console.log("MY ROLE: ", role);
         let mission;
         let skill;
         switch(role) {
@@ -62,6 +60,5 @@ export function sendGameStart() {
     let msg = {
         "userName": this.userName,
     };
-    console.log(msg);
     this.stompClient.send(this.destinationUrl, JSON.stringify(msg));
 }

@@ -62,8 +62,6 @@ let signup = (function () {
     }
 
     function onSuccess(data, status) {
-        console.log(data);
-
         if (data.status === "Ok") {
             location.href = loginPage;
         }

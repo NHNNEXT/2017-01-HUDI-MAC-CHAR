@@ -1,8 +1,5 @@
 package com.mapia.game;
 
-/**
- * Created by Jbee on 2017. 5. 22..
- */
 public class GameResult {
     private static final String MAFIA_WIN_MESSAGE = "마피아가 승리하였습니다.";
     private static final String CITIZEN_WIN_MESSAGE = "시민이 승리하였습니다.";
@@ -68,7 +65,7 @@ public class GameResult {
         return new GameResult(GameResultType.CITIZEN_WIN);
     }
 
-    public static GameResult returnSeletedUser(String killedUserNickName) {
+    public static GameResult returnSelectedUser(String killedUserNickName) {
         return new GameResult(killedUserNickName, true);
     }
 

@@ -5,7 +5,7 @@ export function syncScroll() {
 }
 
 export function printMessage(message) {
-    textArea.value += `[[[  ${message}  ]]]
+    textArea.value += `[ [ [    ${message}    ] ] ]
 `;
     syncScroll();
 }

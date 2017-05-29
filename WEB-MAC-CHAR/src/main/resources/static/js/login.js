@@ -12,9 +12,6 @@ let login = (function () {
             "password": passwordInput.value
         });
 
-        console.log("url : " + url);
-        console.log("jsonString : " + jsonString);
-
         $.ajax({
             type: "post",
             url: url,
@@ -26,8 +23,6 @@ let login = (function () {
     }
 
     function onSuccess(data, status) {
-        console.log(data);
-
         if (data.status === "Ok") {
             location.href = roomPage;
         }

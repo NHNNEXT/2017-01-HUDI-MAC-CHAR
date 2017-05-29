@@ -8,9 +8,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * Created by Jbee on 2017. 4. 5..
- */
 @Component
 public class Lobby implements Iterable {
     private volatile Map<Long, Room> rooms = new ConcurrentHashMap<>();

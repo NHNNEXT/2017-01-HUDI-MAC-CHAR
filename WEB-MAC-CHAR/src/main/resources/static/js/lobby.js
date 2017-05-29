@@ -36,7 +36,6 @@ function init() {
 
     function offModal() {
         let modals = document.querySelectorAll(".my_modal");
-        console.log(modals);
         for (modal of modals) {
             modal.style.display = "none";
         }

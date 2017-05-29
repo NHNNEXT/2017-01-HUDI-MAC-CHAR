@@ -27,7 +27,7 @@ public abstract class AssignRoleManager {
 
         roles.add(new Police());
         roles.add(new Doctor());
-        log.debug("ROLES: {}", roles);
+        log.debug("Setting Game ROLES: {}", roles);
         return roles;
     }
 
