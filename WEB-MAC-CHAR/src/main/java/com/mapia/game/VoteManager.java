@@ -25,35 +25,34 @@ public class VoteManager {
         Player playerVoting = this.players.getPlayer(voteMessage.getUserName());
         Player playerVoted = this.players.getPlayer(voteMessage.getTheVoted());
         
-        if (playerVoting == null) {
+        if (playerVoting == null || playerVoted == null) {
         	return false;
         }
         
         voteStatus.put(playerVoting, playerVoted);
-        //TODO Below code is TEST CODE, DELETE or COMMENT this code before commit.
+//        TODO Below code is TEST CODE, DELETE or COMMENT this code before commit.
 //        if (this.players.getPlayer("testUser1") != null) {
 //            this.voteStatus.put(this.players.getPlayer("testUser1"), this.players.getPlayer("testUser1"));
 //        }
-//        if (this.players.getPlayer("testUser2") != null) {
-//            this.voteStatus.put(this.players.getPlayer("testUser2"), this.players.getPlayer("testUser2"));
+//        if (this.players.getSelectedPlayer("testUser2") != null) {
+//            this.voteStatus.put(this.players.getSelectedPlayer("testUser2"), this.players.getSelectedPlayer("testUser2"));
 //        }
-//        if (this.players.getPlayer("testUser3") != null) {
-//            this.voteStatus.put(this.players.getPlayer("testUser3"), this.players.getPlayer("testUser3"));
+//        if (this.players.getSelectedPlayer("testUser3") != null) {
+//            this.voteStatus.put(this.players.getSelectedPlayer("testUser3"), this.players.getSelectedPlayer("testUser3"));
 //        }
-//        if (this.players.getPlayer("testUser4") != null) {
-//            this.voteStatus.put(this.players.getPlayer("testUser4"), this.players.getPlayer("testUser4"));
+//        if (this.players.getSelectedPlayer("testUser4") != null) {
+//            this.voteStatus.put(this.players.getSelectedPlayer("testUser4"), this.players.getSelectedPlayer("testUser4"));
 //        }
-//        if (this.players.getPlayer("testUser5") != null) {
-//            this.voteStatus.put(this.players.getPlayer("testUser5"), this.players.getPlayer("testUser5"));
+//        if (this.players.getSelectedPlayer("testUser5") != null) {
+//            this.voteStatus.put(this.players.getSelectedPlayer("testUser5"), this.players.getSelectedPlayer("testUser5"));
 //        }
         // test room 에 미리 들어가 있던 세명의 testUser 는 각각 자신을 vote 한다.
         
         log.debug("VOTESTATUS.SIZE: {}       PLAYERS: {}", voteStatus.size(), this.players.countOfPlayers());
-        if (voteStatus.size() >= this.players.countOfPlayers()) {
+        if (voteStatus.size() == this.players.countOfPlayers()) {
             return true;
         }
         return false;
-//        return true;
     }
 
     public GameResult returnGameResult(String stage) {
@@ -96,8 +95,7 @@ public class VoteManager {
 
     private Map<Player, Integer> countVoteOfMafia() {
         Map<Player, Integer> countStatusOfMafia = new HashMap<>();
-        voteStatus.keySet().stream()
-            .forEach(player -> countStatusOfMafia.put(player, 0));
+        voteStatus.keySet().stream().forEach(player -> countStatusOfMafia.put(player, 0));
         voteStatus.keySet().stream()
             .filter(player -> player.isMafia())
             .forEach(player -> {
@@ -111,8 +109,7 @@ public class VoteManager {
 
     private Map<Player, Integer> countVoteOfDoctor() {
         Map<Player, Integer> countStatusOfDoctor = new HashMap<>();
-        voteStatus.keySet().stream()
-            .forEach(player -> countStatusOfDoctor.put(player, 0));
+        voteStatus.keySet().stream().forEach(player -> countStatusOfDoctor.put(player, 0));
         voteStatus.keySet().stream()
             .filter(player -> player.isDoctor())
             .forEach(player -> {
@@ -127,16 +124,9 @@ public class VoteManager {
     private String determineResultOfDay(Map<Player, Integer> countStatus) {
         Player selectedPlayer = null;
         int base = 0;
-        for (Map.Entry<Player, Integer> entry : countStatus.entrySet()) {
-            //TODO 동률일 때 로직 추가
-            if (entry.getValue() > base) {
-                selectedPlayer = entry.getKey();
-                base = entry.getValue();
-            } else if (base == entry.getValue()) {
-                selectedPlayer = null;
-            }
-        }
+        selectedPlayer = getSelectedPlayer(countStatus, selectedPlayer, base);
         log.debug("determineResultOfDay:resultSelectedPlayer: {}", selectedPlayer);
+        log.debug("\tday 로직을 수행합니다.");
         if (selectedPlayer != null) {
             selectedPlayer.kill();
             this.players.removeDeadPlayer(selectedPlayer); //투표의 결과로 사망시 players에서 제외
@@ -147,18 +137,12 @@ public class VoteManager {
         return "";
     }
 
-    private String determineResultOfNight(Map<Player, Integer> countStatusOfMafia, Map<Player, Integer> countStatusOfDoctor) {
+    private String determineResultOfNight(Map<Player, Integer> countStatusOfMafia,
+                                          Map<Player, Integer> countStatusOfDoctor) {
         Player mafiaSelectPlayer = null;
         Player doctorSelectPlayer = null;
         int base = 0;
-        for (Map.Entry<Player, Integer> entry : countStatusOfMafia.entrySet()) {
-            if (entry.getValue() > base) {
-                mafiaSelectPlayer = entry.getKey();
-                base = entry.getValue();
-            } else if (base == entry.getValue()) {
-                mafiaSelectPlayer = null;
-            }
-        }
+        mafiaSelectPlayer = getSelectedPlayer(countStatusOfMafia, mafiaSelectPlayer, base);
         base = 0;
         for (Map.Entry<Player, Integer> entry : countStatusOfDoctor.entrySet()) {
             if (entry.getValue() > base) {
@@ -168,21 +152,50 @@ public class VoteManager {
         }
         log.debug("determineResultOfNight:mafiaSelectPlayer: {}", mafiaSelectPlayer);
         log.debug("determineResultOfNight:doctorSelectPlayer: {}", doctorSelectPlayer);
-
+        log.debug("\tnight 로직을 수행합니다.");
         if (mafiaSelectPlayer != null && doctorSelectPlayer != null) {
             mafiaSelectPlayer.kill();
             doctorSelectPlayer.safe();
 
             if (!mafiaSelectPlayer.isAlive()) {
                 this.players.removeDeadPlayer(mafiaSelectPlayer); //투표의 결과로 사망시 players에서 제외
+                log.debug("determineResultOfNight:mafiaSelectPlayer: {}, \n1. {}가 플레이어에서 제외되었습니다.", mafiaSelectPlayer, mafiaSelectPlayer);
+                voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+                log.debug("투표 현황을 초기화합니다. determineResultOfNight::voteStatus: {}", voteStatus);
                 return mafiaSelectPlayer.getUser().getNickname();
             }
+            log.debug("determineResultOfNight:아무도 죽지 않았습니다. \n2. mafia가 죽였지만 doctor가 다시 살렸습니다.");
+            voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+            log.debug("투표 현황을 초기화합니다. determineResultOfNight::voteStatus: {}", voteStatus);
             return "";
-        } else if (mafiaSelectPlayer != null) {
+        } else if (mafiaSelectPlayer != null) {//doctorSelectPlayer == null
             mafiaSelectPlayer.kill();
             this.players.removeDeadPlayer(mafiaSelectPlayer);
+            log.debug("determineResultOfNight:mafiaSelectPlayer: {}, {}가 플레이어에서 제외되었습니다.\n3. doctor는 아무도 선택하지 않았고 mafia가 선택한 사람이 죽었습니다.", mafiaSelectPlayer, mafiaSelectPlayer);
+            voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+            log.debug("투표 현황을 초기화합니다. determineResultOfNight::voteStatus: {}", voteStatus);
             return mafiaSelectPlayer.getUser().getNickname();
+        } else if (doctorSelectPlayer != null) {//mafiaSelectPlayer == null
+            doctorSelectPlayer.safe();
+            log.debug("determineResultOfNight:아무도 죽지 않았습니다. \n4.mafia가 아무도 죽이지 않았고 doctor가 {}를 다시 살렸습니다.", doctorSelectPlayer);
+            voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+            log.debug("투표 현황을 초기화합니다. determineResultOfNight::voteStatus: {}", voteStatus);
+            return "";
         }
+        voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+        log.debug("투표 현황을 초기화합니다. determineResultOfNight::voteStatus: {}", voteStatus);
         return "";
+    }
+
+    private Player getSelectedPlayer(Map<Player, Integer> countStatusOfMafia, Player mafiaSelectPlayer, int base) {
+        for (Map.Entry<Player, Integer> entry : countStatusOfMafia.entrySet()) {
+            if (entry.getValue() > base) {
+                mafiaSelectPlayer = entry.getKey();
+                base = entry.getValue();
+            } else if (base == entry.getValue()) {
+                mafiaSelectPlayer = null;
+            }
+        }
+        return mafiaSelectPlayer;
     }
 }
