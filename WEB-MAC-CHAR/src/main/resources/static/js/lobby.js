@@ -24,24 +24,24 @@ function init() {
         dimmer.style.display = "block";
         document.querySelector("#update_nickname_form").style.display = "block";
     });
-    
+
     document.querySelector("#update_done").addEventListener("click", e => {
-	e.preventDefault();
-	const newNickname = document.querySelector('#update_nickname').value;
-	const url = "api/user";
-	const data = {
-		nickname: newNickname
-	} 
-	$.ajax({
-	    type: "put",
-	    dataType: "json",
-	    url: url,
-	    data: data
-	}).done((data, status) => {
-	    location.reload()
-	}).fail((jQueryXhr, status) => {
-	    console.log("failed to update");	    
-	});
+        e.preventDefault();
+        const newNickname = document.querySelector('#update_nickname').value;
+        const url = "api/user";
+        const data = {
+            nickname: newNickname
+        }
+        $.ajax({
+            type: "put",
+            dataType: "json",
+            url: url,
+            data: data
+        }).done((data, status) => {
+            location.reload()
+        }).fail((jQueryXhr, status) => {
+            console.log("failed to update");
+        });
     });
 
     dimmer.addEventListener("click", function () {
