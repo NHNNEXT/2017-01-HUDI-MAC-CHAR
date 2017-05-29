@@ -107,6 +107,21 @@
       <button type="submit" class="btn btn-default" id="make_done">방만들기</button>
     </form>
   </div>
+
+  <div class="my_modal" id="update_nickname_form">
+    <h3 class="modal_title">개인정보 수정</h3>
+    <form action="/user" id="userUpdate" method="post">
+      <input type="hidden" name="_method" value="put" />
+      <div class="form-group">
+        <label>변경할 닉네임</label>
+        {{#user}}
+            <input type="text" class="form-control" id="update_nickname" name="nickname" placeholder={{nickname}} autofocus>
+        {{/user}}
+      </div>
+      <button type="submit" class="btn btn-default" id="update_done">변경</button>
+    </form>
+  </div>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="/js/lobby.js"></script>
   <script src="/js/back_block.js"></script>
