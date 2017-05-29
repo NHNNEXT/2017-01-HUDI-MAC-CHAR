@@ -45,6 +45,7 @@ export default class accessSocket {
                     this.emptySlot.querySelector(".player_status").classList.remove(this.PLAYER_NOT_READY);
                 }
                 this.emptySlot.setAttribute("data-id", user.nickname);
+                this.emptySlot.querySelector("img").setAttribute("class", "picture" + (user.id)%9);
                 this.emptySlot.classList.remove("empty_slot");
             }
             syncScroll();
