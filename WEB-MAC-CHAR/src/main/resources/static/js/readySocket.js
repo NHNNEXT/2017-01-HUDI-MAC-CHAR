@@ -51,6 +51,7 @@ export default class readySocket {
 
     checkTimerStart(isStartTimerTrue, cb = () => console.log('undefined')) {
         if (isStartTimerTrue) {
+            this.readyBtn.style.display = "none";
             this.timeCalculator.startTimer(this.TIME_OUT, cb);
         }
         return;

@@ -62,7 +62,6 @@ export function sendGameStart() {
     let msg = {
         "userName": this.userName,
     };
-    this.readyBtn.style.display = "none";
     console.log(msg);
     this.stompClient.send(this.destinationUrl, JSON.stringify(msg));
 }
