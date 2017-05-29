@@ -25,26 +25,26 @@ public class VoteManager {
         Player playerVoting = this.players.getPlayer(voteMessage.getUserName());
         Player playerVoted = this.players.getPlayer(voteMessage.getTheVoted());
         
-        if (playerVoting == null || playerVoted == null) {
+        if (playerVoting == null) {
         	return false;
         }
         
         voteStatus.put(playerVoting, playerVoted);
-//        TODO Below code is TEST CODE, DELETE or COMMENT this code before commit.
+        //TODO Below code is TEST CODE, DELETE or COMMENT this code before commit.
 //        if (this.players.getPlayer("testUser1") != null) {
 //            this.voteStatus.put(this.players.getPlayer("testUser1"), this.players.getPlayer("testUser1"));
 //        }
-//        if (this.players.getSelectedPlayer("testUser2") != null) {
-//            this.voteStatus.put(this.players.getSelectedPlayer("testUser2"), this.players.getSelectedPlayer("testUser2"));
+//        if (this.players.getPlayer("testUser2") != null) {
+//            this.voteStatus.put(this.players.getPlayer("testUser2"), this.players.getPlayer("testUser2"));
 //        }
-//        if (this.players.getSelectedPlayer("testUser3") != null) {
-//            this.voteStatus.put(this.players.getSelectedPlayer("testUser3"), this.players.getSelectedPlayer("testUser3"));
+//        if (this.players.getPlayer("testUser3") != null) {
+//            this.voteStatus.put(this.players.getPlayer("testUser3"), this.players.getPlayer("testUser3"));
 //        }
-//        if (this.players.getSelectedPlayer("testUser4") != null) {
-//            this.voteStatus.put(this.players.getSelectedPlayer("testUser4"), this.players.getSelectedPlayer("testUser4"));
+//        if (this.players.getPlayer("testUser4") != null) {
+//            this.voteStatus.put(this.players.getPlayer("testUser4"), this.players.getPlayer("testUser4"));
 //        }
-//        if (this.players.getSelectedPlayer("testUser5") != null) {
-//            this.voteStatus.put(this.players.getSelectedPlayer("testUser5"), this.players.getSelectedPlayer("testUser5"));
+//        if (this.players.getPlayer("testUser5") != null) {
+//            this.voteStatus.put(this.players.getPlayer("testUser5"), this.players.getPlayer("testUser5"));
 //        }
         // test room 에 미리 들어가 있던 세명의 testUser 는 각각 자신을 vote 한다.
         
@@ -95,7 +95,8 @@ public class VoteManager {
 
     private Map<Player, Integer> countVoteOfMafia() {
         Map<Player, Integer> countStatusOfMafia = new HashMap<>();
-        voteStatus.keySet().stream().forEach(player -> countStatusOfMafia.put(player, 0));
+        voteStatus.keySet().stream()
+            .forEach(player -> countStatusOfMafia.put(player, 0));
         voteStatus.keySet().stream()
             .filter(player -> player.isMafia())
             .forEach(player -> {
@@ -109,7 +110,8 @@ public class VoteManager {
 
     private Map<Player, Integer> countVoteOfDoctor() {
         Map<Player, Integer> countStatusOfDoctor = new HashMap<>();
-        voteStatus.keySet().stream().forEach(player -> countStatusOfDoctor.put(player, 0));
+        voteStatus.keySet().stream()
+            .forEach(player -> countStatusOfDoctor.put(player, 0));
         voteStatus.keySet().stream()
             .filter(player -> player.isDoctor())
             .forEach(player -> {
@@ -124,7 +126,15 @@ public class VoteManager {
     private String determineResultOfDay(Map<Player, Integer> countStatus) {
         Player selectedPlayer = null;
         int base = 0;
-        selectedPlayer = getSelectedPlayer(countStatus, selectedPlayer, base);
+        for (Map.Entry<Player, Integer> entry : countStatus.entrySet()) {
+            //TODO 동률일 때 로직 추가
+            if (entry.getValue() > base) {
+                selectedPlayer = entry.getKey();
+                base = entry.getValue();
+            } else if (base == entry.getValue()) {
+                selectedPlayer = null;
+            }
+        }
         log.debug("determineResultOfDay:resultSelectedPlayer: {}", selectedPlayer);
         log.debug("\tday 로직을 수행합니다.");
         if (selectedPlayer != null) {
@@ -142,7 +152,14 @@ public class VoteManager {
         Player mafiaSelectPlayer = null;
         Player doctorSelectPlayer = null;
         int base = 0;
-        mafiaSelectPlayer = getSelectedPlayer(countStatusOfMafia, mafiaSelectPlayer, base);
+        for (Map.Entry<Player, Integer> entry : countStatusOfMafia.entrySet()) {
+            if (entry.getValue() > base) {
+                mafiaSelectPlayer = entry.getKey();
+                base = entry.getValue();
+            } else if (base == entry.getValue()) {
+                mafiaSelectPlayer = null;
+            }
+        }
         base = 0;
         for (Map.Entry<Player, Integer> entry : countStatusOfDoctor.entrySet()) {
             if (entry.getValue() > base) {
@@ -185,17 +202,5 @@ public class VoteManager {
         voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
         log.debug("투표 현황을 초기화합니다. determineResultOfNight::voteStatus: {}", voteStatus);
         return "";
-    }
-
-    private Player getSelectedPlayer(Map<Player, Integer> countStatusOfMafia, Player mafiaSelectPlayer, int base) {
-        for (Map.Entry<Player, Integer> entry : countStatusOfMafia.entrySet()) {
-            if (entry.getValue() > base) {
-                mafiaSelectPlayer = entry.getKey();
-                base = entry.getValue();
-            } else if (base == entry.getValue()) {
-                mafiaSelectPlayer = null;
-            }
-        }
-        return mafiaSelectPlayer;
     }
 }
