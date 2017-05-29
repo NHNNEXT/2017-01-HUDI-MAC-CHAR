@@ -24,11 +24,11 @@ public class VoteManager {
         log.debug("handleVote: {}", voteMessage);
         Player playerVoting = this.players.getPlayer(voteMessage.getUserName());
         Player playerVoted = this.players.getPlayer(voteMessage.getTheVoted());
-        
+
         if (playerVoting == null) {
-        	return false;
+            return false;
         }
-        
+
         voteStatus.put(playerVoting, playerVoted);
         //TODO Below code is TEST CODE, DELETE or COMMENT this code before commit.
 //        if (this.players.getPlayer("testUser1") != null) {
@@ -50,10 +50,10 @@ public class VoteManager {
         
         log.debug("VOTESTATUS.SIZE: {}       PLAYERS: {}", voteStatus.size(), this.players.countOfPlayers());
         if (voteStatus.size() >= this.players.countOfPlayers()) {
+            log.debug("handleVote::voteStatus: {}", voteStatus.toString());
             return true;
         }
         return false;
-//        return true;
     }
 
     public GameResult returnGameResult(String stage) {
@@ -75,7 +75,7 @@ public class VoteManager {
                 log.debug("시민이 승리하였습니다.");
                 return GameResult.returnCitizenWin();
             case KEEP_GOING:
-                log.debug("selectedUser: {}", selectedUserNickName);
+                log.debug("KEEP_GOING::selectedUser: {}", selectedUserNickName);
                 return GameResult.returnSeletedUser(selectedUserNickName);
             default:
                 throw new RuntimeException("Unexpected Error!");
@@ -101,8 +101,9 @@ public class VoteManager {
         voteStatus.keySet().stream()
             .filter(player -> player.isMafia())
             .forEach(player -> {
+                Player mafiaPlayer = voteStatus.get(player);
                 if (player != null) { //기권표를 걸러낸다.
-                    countStatusOfMafia.put(voteStatus.get(player), countStatusOfMafia.get(voteStatus.get(player)) + 1);
+                    countStatusOfMafia.put(mafiaPlayer, countStatusOfMafia.get(mafiaPlayer) + 1);
                 }
             });
         log.debug("countVoteOfMafia:countStatusOfMafia: {}", countStatusOfMafia);
@@ -116,8 +117,9 @@ public class VoteManager {
         voteStatus.keySet().stream()
             .filter(player -> player.isDoctor())
             .forEach(player -> {
+                Player doctorPlayer = voteStatus.get(player);
                 if (player != null) { //기권표를 걸러낸다.
-                    countStatusOfDoctor.put(voteStatus.get(player), countStatusOfDoctor.get(voteStatus.get(player)) + 1);
+                    countStatusOfDoctor.put(doctorPlayer, countStatusOfDoctor.get(doctorPlayer) + 1);
                 }
             });
         log.debug("countVoteOfDoctor:countStatusOfDoctor: {}", countStatusOfDoctor);
@@ -137,17 +139,22 @@ public class VoteManager {
             }
         }
         log.debug("determineResultOfDay:resultSelectedPlayer: {}", selectedPlayer);
+        log.debug("\tday 로직을 수행합니다.");
         if (selectedPlayer != null) {
             selectedPlayer.kill();
             this.players.removeDeadPlayer(selectedPlayer); //투표의 결과로 사망시 players에서 제외
+            log.debug("determineResultOfDay:selectPlayer: {}, \n1. {}가 플레이어에서 제외되었습니다.", selectedPlayer, selectedPlayer);
             voteStatus.clear();
+            log.debug("투표 현황을 초기화합니다. determineResultOfDay::voteStatus: {}", voteStatus);
             return selectedPlayer.getUser().getNickname();
         }
         voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+        log.debug("투표 현황을 초기화합니다. determineResultOfDay::voteStatus: {}", voteStatus);
         return "";
     }
 
-    private String determineResultOfNight(Map<Player, Integer> countStatusOfMafia, Map<Player, Integer> countStatusOfDoctor) {
+    private String determineResultOfNight(Map<Player, Integer> countStatusOfMafia,
+                                          Map<Player, Integer> countStatusOfDoctor) {
         Player mafiaSelectPlayer = null;
         Player doctorSelectPlayer = null;
         int base = 0;
@@ -168,21 +175,38 @@ public class VoteManager {
         }
         log.debug("determineResultOfNight:mafiaSelectPlayer: {}", mafiaSelectPlayer);
         log.debug("determineResultOfNight:doctorSelectPlayer: {}", doctorSelectPlayer);
-
+        log.debug("\tnight 로직을 수행합니다.");
         if (mafiaSelectPlayer != null && doctorSelectPlayer != null) {
             mafiaSelectPlayer.kill();
             doctorSelectPlayer.safe();
 
             if (!mafiaSelectPlayer.isAlive()) {
                 this.players.removeDeadPlayer(mafiaSelectPlayer); //투표의 결과로 사망시 players에서 제외
+                log.debug("determineResultOfNight:mafiaSelectPlayer: {}, \n1. {}가 플레이어에서 제외되었습니다.", mafiaSelectPlayer, mafiaSelectPlayer);
+                voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+                log.debug("투표 현황을 초기화합니다. determineResultOfNight::voteStatus: {}", voteStatus);
                 return mafiaSelectPlayer.getUser().getNickname();
             }
+            log.debug("determineResultOfNight:아무도 죽지 않았습니다. \n2. mafia가 죽였지만 doctor가 다시 살렸습니다.");
+            voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+            log.debug("투표 현황을 초기화합니다. determineResultOfNight::voteStatus: {}", voteStatus);
             return "";
-        } else if (mafiaSelectPlayer != null) {
+        } else if (mafiaSelectPlayer != null) {//doctorSelectPlayer == null
             mafiaSelectPlayer.kill();
             this.players.removeDeadPlayer(mafiaSelectPlayer);
+            log.debug("determineResultOfNight:mafiaSelectPlayer: {}, {}가 플레이어에서 제외되었습니다.\n3. doctor는 아무도 선택하지 않았고 mafia가 선택한 사람이 죽었습니다.", mafiaSelectPlayer, mafiaSelectPlayer);
+            voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+            log.debug("투표 현황을 초기화합니다. determineResultOfNight::voteStatus: {}", voteStatus);
             return mafiaSelectPlayer.getUser().getNickname();
+        } else if (doctorSelectPlayer != null) {//mafiaSelectPlayer == null
+            doctorSelectPlayer.safe();
+            log.debug("determineResultOfNight:아무도 죽지 않았습니다. \n4.mafia가 아무도 죽이지 않았고 doctor가 {}를 다시 살렸습니다.", doctorSelectPlayer);
+            voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+            log.debug("투표 현황을 초기화합니다. determineResultOfNight::voteStatus: {}", voteStatus);
+            return "";
         }
+        voteStatus.clear(); //투표가 종료된 뒤 voteStatus 초기화
+        log.debug("투표 현황을 초기화합니다. determineResultOfNight::voteStatus: {}", voteStatus);
         return "";
     }
 }
