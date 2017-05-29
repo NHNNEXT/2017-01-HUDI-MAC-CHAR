@@ -49,7 +49,7 @@ public class VoteManager {
         // test room 에 미리 들어가 있던 세명의 testUser 는 각각 자신을 vote 한다.
         
         log.debug("VOTESTATUS.SIZE: {}       PLAYERS: {}", voteStatus.size(), this.players.countOfPlayers());
-        if (voteStatus.size() == this.players.countOfPlayers()) {
+        if (voteStatus.size() >= this.players.countOfPlayers()) {
             return true;
         }
         return false;
