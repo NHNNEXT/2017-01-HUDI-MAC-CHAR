@@ -69,21 +69,21 @@ public class ApiUserController {
         session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
         return "logged out";
     }
-    
+
     @PutMapping("/user")
     public UpdateUserResult update(HttpSession session, String nickname) {
-    	logger.debug("update nickname to {}", nickname);
-    	if (!HttpSessionUtils.isLoginUser(session)) {
+        logger.debug("update nickname to {}", nickname);
+        if (!HttpSessionUtils.isLoginUser(session)) {
             return UpdateUserResult.invalidAccess();
         }
-    	if (userRepository.findUserByNickname(nickname) != null) {
+        if (userRepository.findUserByNickname(nickname) != null) {
             return UpdateUserResult.nicknameExist();
         }
-    	
-    	User sessionedUser = (User) session.getAttribute(HttpSessionUtils.USER_SESSION_KEY);
-    	userRepository.updateUserNicknameByNickname(sessionedUser.getNickname(), nickname);
-    	User user = userRepository.findUserByNickname(nickname);
+
+        User sessionedUser = (User) session.getAttribute(HttpSessionUtils.USER_SESSION_KEY);
+        userRepository.updateUserNicknameByNickname(sessionedUser.getNickname(), nickname);
+        User user = userRepository.findUserByNickname(nickname);
         session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
-    	return UpdateUserResult.ok(user);
+        return UpdateUserResult.ok(user);
     }
 }
