@@ -65,4 +65,9 @@ public class UserRepository {
 
         return resultUser.size() > 0 ? resultUser.get(0) : null;
     }
+    
+    public int updateUserNicknameByNickname(String oldNickname, String newNickname) {
+    	String query = "UPDATE USER SET nickname = ? WHERE nickname = ?";
+    	return jdbcTemplate.update(query, newNickname, oldNickname);
+    }
 }

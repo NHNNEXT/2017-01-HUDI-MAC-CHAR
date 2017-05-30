@@ -242,3 +242,48 @@ footer {
   content: url("../img/white.jpg");
   height: 118.75px;
 }
+
+img.picture0 {
+  content: url("../img/person_black_man_glass.png");
+  height: 118.75px;
+}
+
+img.picture1 {
+  content: url("../img/person_black_man.png");
+  height: 118.75px;
+}
+
+img.picture2 {
+  content: url("../img/person_east_girl.png");
+  height: 118.75px;
+}
+
+img.picture3 {
+  content: url("../img/person_east_man_glass.png");
+  height: 118.75px;
+}
+
+img.picture4 {
+  content: url("../img/person_east_man_glass2.png");
+  height: 118.75px;
+}
+
+img.picture5 {
+  content: url("../img/person_east_man.png");
+  height: 118.75px;
+}
+
+img.picture6 {
+  content: url("../img/person_white_girl_glass.png");
+  height: 118.75px;
+}
+
+img.picture7 {
+  content: url("../img/person_white_girl.png");
+  height: 118.75px;
+}
+
+img.picture8 {
+  content: url("../img/person_white_man.png");
+  height: 118.75px;
+}

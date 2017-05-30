@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,9 @@ import com.mapia.dao.UserRepository;
 import com.mapia.domain.User;
 import com.mapia.domain.User.Status;
 import com.mapia.result.LoginResult;
+import com.mapia.result.RoomResult;
 import com.mapia.result.SignUpResult;
+import com.mapia.result.UpdateUserResult;
 import com.mapia.utils.HttpSessionUtils;
 
 @RestController
@@ -65,5 +68,22 @@ public class ApiUserController {
     public String logout(HttpSession session) {
         session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
         return "logged out";
+    }
+
+    @PutMapping("/user")
+    public UpdateUserResult update(HttpSession session, String nickname) {
+        logger.debug("update nickname to {}", nickname);
+        if (!HttpSessionUtils.isLoginUser(session)) {
+            return UpdateUserResult.invalidAccess();
+        }
+        if (userRepository.findUserByNickname(nickname) != null) {
+            return UpdateUserResult.nicknameExist();
+        }
+
+        User sessionedUser = (User) session.getAttribute(HttpSessionUtils.USER_SESSION_KEY);
+        userRepository.updateUserNicknameByNickname(sessionedUser.getNickname(), nickname);
+        User user = userRepository.findUserByNickname(nickname);
+        session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
+        return UpdateUserResult.ok(user);
     }
 }

@@ -6,6 +6,10 @@ body {
   background-size: cover;
 }
 
+label {
+  margin: 8px;
+}
+
 .container {
   margin-left: 5%;
   margin-right: 20%;
@@ -65,7 +69,7 @@ body {
   text-align: center;
 }
 
-#make_room_form {
+#make_room_form, #update_nickname_form{
   top: 25%;
   left: 20%;
   margin: 6%;
@@ -88,4 +92,9 @@ body {
   height: 100%;
   display: none;
   z-index: 9999; /* may not be necessary */
+}
+
+.modal_title {
+  font-size: 23px;
+  margin: 20px;
 }
