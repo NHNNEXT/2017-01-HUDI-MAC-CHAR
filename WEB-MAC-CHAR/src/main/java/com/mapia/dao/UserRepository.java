@@ -67,7 +67,7 @@ public class UserRepository {
     }
     
     public int updateUserNicknameByNickname(String oldNickname, String newNickname) {
-    	String query = "UPDATE USER SET nickname = ? WHERE nickname = ?";
+    	String query = "UPDATE User SET nickname = ? WHERE nickname = ?";
     	return jdbcTemplate.update(query, newNickname, oldNickname);
     }
 }

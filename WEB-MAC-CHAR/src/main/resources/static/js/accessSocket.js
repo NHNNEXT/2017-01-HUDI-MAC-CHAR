@@ -55,6 +55,7 @@ export default class accessSocket {
             let userSlot = document.querySelector(`[data-id=${access.userName}]`);
             userSlot.querySelector(".player_name").textContent = "";
             userSlot.querySelector(".player_status").classList.add(this.PLAYER_NOT_READY);
+            userSlot.querySelector("img").className = "";
             userSlot.removeAttribute("data-id");
             userSlot.classList.add("empty_slot");
             syncScroll();
