@@ -100,9 +100,9 @@ public class VoteManager {
         voteStatus.keySet().stream()
             .filter(player -> player.isMafia())
             .forEach(player -> {
-                Player mafiaPlayer = voteStatus.get(player);
-                if (player != null) { //기권표를 걸러낸다.
-                    countStatusOfMafia.put(mafiaPlayer, countStatusOfMafia.get(mafiaPlayer) + 1);
+                Player selectedPlayerByMafia = voteStatus.get(player);
+                if (selectedPlayerByMafia != null) { //기권표를 걸러낸다.
+                    countStatusOfMafia.put(selectedPlayerByMafia, countStatusOfMafia.get(selectedPlayerByMafia) + 1);
                 }
             });
         log.debug("countVoteOfMafia:countStatusOfMafia: {}", countStatusOfMafia);
@@ -116,9 +116,9 @@ public class VoteManager {
         voteStatus.keySet().stream()
             .filter(player -> player.isDoctor())
             .forEach(player -> {
-                Player doctorPlayer = voteStatus.get(player);
-                if (player != null) { //기권표를 걸러낸다.
-                    countStatusOfDoctor.put(doctorPlayer, countStatusOfDoctor.get(doctorPlayer) + 1);
+                Player selectedPlayerByDoctor = voteStatus.get(player);
+                if (selectedPlayerByDoctor != null) { //기권표를 걸러낸다.
+                    countStatusOfDoctor.put(selectedPlayerByDoctor, countStatusOfDoctor.get(selectedPlayerByDoctor) + 1);
                 }
             });
         log.debug("countVoteOfDoctor:countStatusOfDoctor: {}", countStatusOfDoctor);
