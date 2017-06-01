@@ -2,6 +2,7 @@ package com.zimincom.mafiaonline;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,6 +20,8 @@ import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
 import com.zimincom.mafiaonline.remote.ServiceGenerator;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     Button signInButton;
 
+    MediaPlayer bgm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +54,28 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.login);
         signInButton = (Button) findViewById(R.id.signin);
 
+        bgm = MediaPlayer.create(getBaseContext(), R.raw.opening);
+
+        try {
+            playBgm();
+        } catch (IOException ie) {
+            Logger.e("bgm error");
+        }
+
         startMainAnimation();
         setButtons();
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        bgm.stop();
+    }
+
+    void playBgm() throws IOException{
+        bgm.setLooping(true);
+        bgm.start();
     }
 
 

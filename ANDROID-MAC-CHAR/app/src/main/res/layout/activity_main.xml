@@ -37,7 +37,6 @@
         android:inputType="textEmailAddress"
         android:padding="20dp"
         android:visibility="gone"
-        android:text="wlals822@naver.com"
         android:textColorHint="@color/colorMainText"
         android:textColor="@color/colorMainText"
         android:backgroundTint="@color/colorMainText"

@@ -25,6 +25,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     public static final int READY_MESSAGE = 202;
     Context context;
     ArrayList<User> users;
+    User lastVotedUser;
     int playerLayout;
     String userName;
     String gameState;
@@ -54,17 +55,28 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         holder.nickname.setText(users.get(position).getNickName());
         if (selectedUser.isReady())
             holder.readyState.setTextColor(readyColor);
-        // use handler
 
-        if (gameState != null && gameState.equals("Vote")) {
-           holder.container.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   holder.container.setSelected(true);
-               }
-           });
-        } else if (gameState == "day") {
+        if (selectedUser.getVoted()) {
+            holder.container.setSelected(true);
+            Logger.d("user seleted");
+        } else {
+            holder.container.setSelected(false);
+        }
+
+        // if day -> 타이머가 종료될때 서버에 메시지를 보낸다 .
+         if (gameState != null && gameState.equals("day")) {
             holder.readyState.setVisibility(View.GONE);
+            holder.container.setOnClickListener(view -> {
+                if (lastVotedUser == null) {
+                    lastVotedUser = users.get(position);
+                }
+                Logger.d("last votedUser: %s", lastVotedUser.getNickName());
+                lastVotedUser.setVoted(false);
+                //set new voted User;
+                lastVotedUser = users.get(position);
+                users.get(position).setVoted(true);
+                notifyDataSetChanged();
+            });
 
         } else {
 
@@ -134,11 +146,18 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         this.gameState = gameState;
         notifyDataSetChanged();
     }
+
     @Override
     public int getItemCount() {
         return users.size();
     }
 
+    public String getVotedUserName() {
+         if (lastVotedUser == null) {
+             return "";
+         }
+        return lastVotedUser.getNickName();
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 

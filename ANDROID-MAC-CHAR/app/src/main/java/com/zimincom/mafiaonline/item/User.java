@@ -1,5 +1,7 @@
 package com.zimincom.mafiaonline.item;
 
+import com.orhanobut.logger.Logger;
+
 import java.io.Serializable;
 
 /**
@@ -12,7 +14,7 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String nickname;
-    private Role role;
+    private Role role = Role.CITIZEN;
     private Status status;
     private boolean isReady = false;
     private boolean isVoted = false;
@@ -58,8 +60,36 @@ public class User implements Serializable {
                 '}';
     }
 
+    public boolean getVoted() {
+        return isVoted;
+    }
+
+    public Role getRole() {
+        return this.role;
+    }
+
     public enum Role {
-        MAFIA, CITIZEN, DOCTER, POLICE
+        MAFIA, CITIZEN, DOCTER, POLICE;
+
+        @Override
+        public String toString() {
+            switch (this) {
+                case MAFIA:
+                    return "mafia";
+                case CITIZEN:
+                    return "citizen";
+                case DOCTER:
+                    return "docter";
+                case POLICE:
+                    return "police";
+
+            }
+            return super.toString();
+        }
+    }
+
+    public void setVoted(boolean voted) {
+        this.isVoted = voted;
     }
 
     public enum Status {
@@ -76,8 +106,6 @@ public class User implements Serializable {
         this.status = status;
     }
 
-
-
     public void setRoleTo(String roleName) {
         if (roleName.equals("Mafia")) {
             role = Role.MAFIA;
@@ -87,6 +115,8 @@ public class User implements Serializable {
             role = Role.DOCTER;
         } else if (roleName.equals("Police")) {
             role = Role.POLICE;
+        } else {
+            Logger.d("user role: %s", role.toString());
         }
     }
 }

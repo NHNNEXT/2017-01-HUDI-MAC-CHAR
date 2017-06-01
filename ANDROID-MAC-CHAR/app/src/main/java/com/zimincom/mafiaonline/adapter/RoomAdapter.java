@@ -74,6 +74,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
             roomId = (TextView) itemView.findViewById(R.id.room_id);
             roomTitle = (TextView) itemView.findViewById(R.id.room_title);
             playerCount = (TextView) itemView.findViewById(R.id.current_player);
+
         }
     }
 }

@@ -7,12 +7,14 @@ package com.zimincom.mafiaonline.item;
 public class VoteMessage {
     String userName;
     String theVoted;
+    String stage;
 
     public VoteMessage() {}
 
-    public VoteMessage(String userName, String theVoted) {
+    public VoteMessage(String userName, String theVoted, String stage) {
         this.userName = userName;
         this.theVoted = theVoted;
+        this.stage = stage;
     }
 
     public String getUserName() {
@@ -23,6 +25,9 @@ public class VoteMessage {
         this.userName = userName;
     }
 
+    public void setStage(String stage) {
+        this.stage = stage;
+    }
     public String getTheVoted() {
         return theVoted;
     }

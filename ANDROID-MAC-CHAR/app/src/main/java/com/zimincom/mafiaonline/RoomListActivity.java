@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
@@ -38,6 +39,7 @@ public class RoomListActivity extends Activity implements View.OnClickListener {
     Button logout;
     ArrayList<Room> rooms = new ArrayList<>();
     RecyclerView roomListView;
+    TextView nickNameText;
     User user;
     MafiaRemoteService mafiaRemoteService;
 
@@ -51,16 +53,18 @@ public class RoomListActivity extends Activity implements View.OnClickListener {
 
         roomCreate = (Button) findViewById(R.id.create_room);
         logout = (Button) findViewById(R.id.logout);
+        nickNameText = (TextView) findViewById(R.id.userName);
 
         roomCreate.setOnClickListener(this);
         logout.setOnClickListener(this);
+        nickNameText.setText(user.getNickName());
 
         roomListView = (RecyclerView) findViewById(R.id.room_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        RoomAdapter roomAdapter = new RoomAdapter(context, rooms, user, R.layout.item_room);
         roomListView.setLayoutManager(layoutManager);
         roomListView.setItemAnimator(new DefaultItemAnimator());
-        RoomAdapter roomAdapter = new RoomAdapter(context, rooms, user, R.layout.item_room);
         roomListView.setAdapter(roomAdapter);
 
     }

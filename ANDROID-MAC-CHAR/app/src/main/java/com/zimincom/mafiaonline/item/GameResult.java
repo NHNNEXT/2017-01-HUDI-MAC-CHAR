@@ -17,6 +17,9 @@ public class GameResult {
         return msg;
     }
 
+    public boolean isFinished() {
+        return isFinished;
+    }
     @Override
     public String toString() {
         return "GameResult{" +
