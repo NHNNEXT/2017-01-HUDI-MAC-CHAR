@@ -1,4 +1,4 @@
-package com.zimincom.mafiaonline;
+package com.zimincom.mafiaonline.layout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,6 +11,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.zimincom.mafiaonline.R;
 
 
 /**

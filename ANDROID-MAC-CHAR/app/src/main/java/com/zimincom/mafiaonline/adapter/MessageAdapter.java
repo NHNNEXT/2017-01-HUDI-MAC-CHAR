@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zimincom.mafiaonline.ChatLayout;
+import com.zimincom.mafiaonline.layout.ChatLayout;
 import com.zimincom.mafiaonline.item.MessageItem;
 
 import java.util.ArrayList;

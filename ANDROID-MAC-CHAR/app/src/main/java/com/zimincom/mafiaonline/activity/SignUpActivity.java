@@ -1,4 +1,4 @@
-package com.zimincom.mafiaonline;
+package com.zimincom.mafiaonline.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
+import com.zimincom.mafiaonline.R;
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
@@ -34,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin);
+        setContentView(R.layout.activity_signup);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         nickNameInput = (EditText) findViewById(R.id.nickname_input);

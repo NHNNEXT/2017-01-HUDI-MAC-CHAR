@@ -1,4 +1,4 @@
-package com.zimincom.mafiaonline;
+package com.zimincom.mafiaonline.tasks;
 
 import android.os.Handler;
 import android.os.Message;

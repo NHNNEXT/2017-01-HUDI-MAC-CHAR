@@ -1,4 +1,4 @@
-package com.zimincom.mafiaonline;
+package com.zimincom.mafiaonline.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
+import com.zimincom.mafiaonline.R;
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signin);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 

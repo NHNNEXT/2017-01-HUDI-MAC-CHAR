@@ -18,6 +18,7 @@ public class User implements Serializable {
     private Status status;
     private boolean isReady = false;
     private boolean isVoted = false;
+    private boolean killed = false;
     private long enteredRoomId;
     private long LOBBY_ID = 0;
 
@@ -66,6 +67,14 @@ public class User implements Serializable {
 
     public Role getRole() {
         return this.role;
+    }
+
+    public boolean isKilled() {
+        return killed;
+    }
+
+    public void setKilled(boolean killed) {
+        this.killed = killed;
     }
 
     public enum Role {

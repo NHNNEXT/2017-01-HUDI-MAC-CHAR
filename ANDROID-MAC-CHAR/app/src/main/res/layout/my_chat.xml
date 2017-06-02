@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zimincom.mafiaonline.ChatLayout
+<com.zimincom.mafiaonline.layout.ChatLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/my_chat_item"
     android:orientation="vertical"
@@ -7,4 +7,4 @@
     android:layout_height="wrap_content"
     android:layout_gravity="end">
 
-</com.zimincom.mafiaonline.ChatLayout>
+</com.zimincom.mafiaonline.layout.ChatLayout>

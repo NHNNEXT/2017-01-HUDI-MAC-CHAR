@@ -1,4 +1,4 @@
-package com.zimincom.mafiaonline;
+package com.zimincom.mafiaonline.activity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -23,6 +23,9 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.zimincom.mafiaonline.layout.ChatLayout;
+import com.zimincom.mafiaonline.tasks.GameTimerTask;
+import com.zimincom.mafiaonline.R;
 import com.zimincom.mafiaonline.adapter.MessageAdapter;
 import com.zimincom.mafiaonline.adapter.PlayerAdapter;
 import com.zimincom.mafiaonline.item.ClientAccess;
@@ -259,7 +262,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(getBaseContext(), "게임이 끝났습니다", Toast.LENGTH_SHORT).show();
                         return;//how to end game and prepare next game?
                     }
-                    playerAdapter.removeItemByNickName(gameResult.getMsg());
+                    playerAdapter.killByNickName(gameResult.getMsg());
                 }));
 
         mStompClient.topic("/from/invest/" + roomId + "/" + userName)

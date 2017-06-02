@@ -2,6 +2,7 @@ package com.zimincom.mafiaonline.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -56,6 +57,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         if (selectedUser.isReady())
             holder.readyState.setTextColor(readyColor);
 
+        if (selectedUser.isKilled()) {
+            Drawable overlay = context.getDrawable(R.drawable.bullet_hole);
+            holder.container.getOverlay().add(overlay);
+        }
         if (selectedUser.getVoted()) {
             holder.container.setSelected(true);
             Logger.d("user seleted");
@@ -157,6 +162,18 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
              return "";
          }
         return lastVotedUser.getNickName();
+    }
+
+    public void killByNickName(String nickName) {
+        int targetPosition = 0;
+        for (User user : users) {
+            if (user.getNickName().equals(nickName)) {
+                users.get(targetPosition).setKilled(true);
+                notifyItemChanged(targetPosition);
+                break;
+            }
+            targetPosition++;
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

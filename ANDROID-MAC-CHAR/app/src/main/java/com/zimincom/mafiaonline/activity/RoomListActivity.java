@@ -1,4 +1,4 @@
-package com.zimincom.mafiaonline;
+package com.zimincom.mafiaonline.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
+import com.zimincom.mafiaonline.R;
+import com.zimincom.mafiaonline.tasks.RoomUpdateTask;
 import com.zimincom.mafiaonline.adapter.RoomAdapter;
 import com.zimincom.mafiaonline.item.ResponseItem;
 import com.zimincom.mafiaonline.item.Room;
@@ -26,6 +30,7 @@ import com.zimincom.mafiaonline.remote.MafiaRemoteService;
 import com.zimincom.mafiaonline.remote.ServiceGenerator;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +47,8 @@ public class RoomListActivity extends Activity implements View.OnClickListener {
     TextView nickNameText;
     User user;
     MafiaRemoteService mafiaRemoteService;
+    RoomUpdateTask roomUpdateTask;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,10 @@ public class RoomListActivity extends Activity implements View.OnClickListener {
         roomListView.setItemAnimator(new DefaultItemAnimator());
         roomListView.setAdapter(roomAdapter);
 
+        roomUpdateTask = new RoomUpdateTask(handler);
+
+        timer = new Timer();
+        timer.schedule(roomUpdateTask, 0, 500);
     }
 
     public void getRoomList() {
@@ -151,6 +162,14 @@ public class RoomListActivity extends Activity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         getRoomList();
+        roomUpdateTask.run();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        roomUpdateTask.cancel();
     }
 
     @Override
@@ -161,4 +180,13 @@ public class RoomListActivity extends Activity implements View.OnClickListener {
             logoutUser();
         }
     }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == RoomUpdateTask.ROOM_LIST_UPDATE) {
+                getRoomList();
+            }
+        }
+    };
 }
