@@ -42,6 +42,10 @@ export default class dayTime {
                 this.voted.getElementsByClassName("player_status")[0].textContent = "";
                 this.voted = null;
             }
+            if (slot.getElementsByClassName("player_status")[0].textContent !== "") { //죽은 player에 투표한 경우
+                slot.getElementsByClassName("player_status")[0].textContent = "";
+                this.voted = null;
+            }
         });
     }
 
