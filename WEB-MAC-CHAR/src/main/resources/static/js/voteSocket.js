@@ -9,7 +9,7 @@ export default class voteSocket {
         this.isFinished = false;
 
         this.stompClient.subscribe(vote_url, gameResult => {
-            let {msg, finished, completeVote} = JSON.parse(gameResult.body);
+            let {msg, finished, completeVote, roleString} = JSON.parse(gameResult.body);
             this.isFinished = finished;
             if (completeVote) {//모든 클라이언트가 투표를 했는지 검사하는 flag
                 if (!finished) {//승패 여부를 판단하는 flag
@@ -22,6 +22,10 @@ export default class voteSocket {
                     }
                 } else {
                     printMessage(msg);
+                    for (let line of roleString.split("&")) {
+                        let [name, role] = line.split(":");
+                        printMessage(`${name} 님은 ${role} 였습니다.`);
+                    }
                     // "마피아가 승리하였습니다." or "시민이 승리하였습니다."
                 }
             }

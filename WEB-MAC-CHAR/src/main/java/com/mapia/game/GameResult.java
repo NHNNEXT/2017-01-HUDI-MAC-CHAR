@@ -7,6 +7,7 @@ public class GameResult {
     private String msg;
     private boolean isFinished;
     private boolean completeVote;
+    private String roleString;
 
     public GameResult() {
     }
@@ -33,6 +34,14 @@ public class GameResult {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getRoleString() {
+        return roleString;
+    }
+
+    public void setRoleString(String roleString) {
+        this.roleString = roleString;
     }
 
     public GameResult(GameResultType type) {

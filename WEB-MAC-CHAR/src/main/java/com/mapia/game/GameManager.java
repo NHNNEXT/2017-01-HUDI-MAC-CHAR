@@ -12,10 +12,12 @@ public class GameManager {
 
     private GamePlayers players;
     private VoteManager voteManager;
+    private String roleString;
 
     public GameManager(Set<User> users) {
         this.players = new GamePlayers(users);
         RoleManager.assignRoleToPlayers(this.players);
+        this.roleString = players.getRoleString();
         this.voteManager = new VoteManager(players);
     }
 
@@ -28,6 +30,10 @@ public class GameManager {
         if (!voteManager.handleVote(voteMessage)) {
             return GameResult.votingStatus();
         }
-        return voteManager.returnGameResult(voteMessage.getStage());
+        GameResult gr = voteManager.returnGameResult(voteMessage.getStage());
+        if (gr.isFinished()) {
+            gr.setRoleString(roleString);
+        }
+        return gr;
     }
 }

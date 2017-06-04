@@ -161,8 +161,6 @@ public class VoteManager {
             if (entry.getValue() > base) {
                 mafiaSelectPlayer = entry.getKey();
                 base = entry.getValue();
-            } else if (base == entry.getValue()) {
-                mafiaSelectPlayer = null;
             }
         }
         base = 0;
