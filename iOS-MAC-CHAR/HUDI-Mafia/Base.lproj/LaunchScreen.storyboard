@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Btl-fG-Ayg">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="P8J-6X-NMW">
+            <objects>
+                <viewController id="Btl-fG-Ayg" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aZD-Tp-lPd"/>
+                        <viewControllerLayoutGuide type="bottom" id="WEX-YA-LYf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="55K-X7-Vx3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blood_image1" translatesAutoresizingMaskIntoConstraints="NO" id="sp5-HK-0ZJ">
+                                <rect key="frame" x="226" y="371" width="149" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="7EG-K0-z3Z"/>
+                                    <constraint firstAttribute="width" constant="149" id="JUa-7S-8SO"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_title" translatesAutoresizingMaskIntoConstraints="NO" id="vrW-IE-WXJ">
+                                <rect key="frame" x="97" y="243" width="180" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="5N5-GQ-91D"/>
+                                    <constraint firstAttribute="width" constant="180" id="HBA-E5-DiV"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_icon" translatesAutoresizingMaskIntoConstraints="NO" id="sxf-gS-Yoc">
+                                <rect key="frame" x="97" y="126" width="180" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="UuN-Ng-ylO"/>
+                                    <constraint firstAttribute="width" constant="180" id="fVN-bk-bNz"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blood_image1" translatesAutoresizingMaskIntoConstraints="NO" id="mIE-nn-OBv">
+                                <rect key="frame" x="16" y="485" width="149" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="Dgo-oe-Y8g"/>
+                                    <constraint firstAttribute="width" constant="149" id="HYL-yC-24T"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blood_image1" translatesAutoresizingMaskIntoConstraints="NO" id="OaT-pt-jhy">
+                                <rect key="frame" x="16" y="0.0" width="92" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="b27-Wa-ZLn"/>
+                                    <constraint firstAttribute="width" constant="92" id="cyA-6c-yYw"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mac_Char_Next" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79j-YQ-1X3">
+                                <rect key="frame" x="215" y="639" width="160" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="4rP-Tj-Doh"/>
+                                    <constraint firstAttribute="width" constant="160" id="g10-gZ-HFt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="vrW-IE-WXJ" firstAttribute="top" secondItem="sxf-gS-Yoc" secondAttribute="bottom" constant="-63" id="4D4-hA-CtY"/>
+                            <constraint firstItem="sp5-HK-0ZJ" firstAttribute="leading" secondItem="mIE-nn-OBv" secondAttribute="trailing" constant="61" id="4T9-47-AAY"/>
+                            <constraint firstItem="OaT-pt-jhy" firstAttribute="top" secondItem="aZD-Tp-lPd" secondAttribute="bottom" constant="-20" id="7Jn-Xd-5Rr"/>
+                            <constraint firstItem="mIE-nn-OBv" firstAttribute="top" secondItem="vrW-IE-WXJ" secondAttribute="bottom" constant="62" id="8vU-SP-LB0"/>
+                            <constraint firstItem="sp5-HK-0ZJ" firstAttribute="leading" secondItem="mIE-nn-OBv" secondAttribute="trailing" constant="61" id="DbV-xS-7sd"/>
+                            <constraint firstItem="79j-YQ-1X3" firstAttribute="top" secondItem="vrW-IE-WXJ" secondAttribute="bottom" constant="216" id="G5E-M9-IdO"/>
+                            <constraint firstItem="79j-YQ-1X3" firstAttribute="trailing" secondItem="55K-X7-Vx3" secondAttribute="trailingMargin" constant="16" id="IhO-Ha-j8q"/>
+                            <constraint firstItem="WEX-YA-LYf" firstAttribute="top" secondItem="79j-YQ-1X3" secondAttribute="bottom" constant="8" id="R5x-1b-IwF"/>
+                            <constraint firstItem="sxf-gS-Yoc" firstAttribute="leading" secondItem="55K-X7-Vx3" secondAttribute="leadingMargin" constant="81" id="UHS-1k-bgq"/>
+                            <constraint firstItem="WEX-YA-LYf" firstAttribute="top" secondItem="mIE-nn-OBv" secondAttribute="bottom" constant="54" id="c59-Dy-3Xu"/>
+                            <constraint firstItem="mIE-nn-OBv" firstAttribute="leading" secondItem="55K-X7-Vx3" secondAttribute="leadingMargin" id="fUb-fN-Ptq"/>
+                            <constraint firstItem="sxf-gS-Yoc" firstAttribute="top" secondItem="aZD-Tp-lPd" secondAttribute="bottom" constant="106" id="jCT-ZN-cLz"/>
+                            <constraint firstAttribute="trailing" secondItem="OaT-pt-jhy" secondAttribute="trailing" constant="267" id="jcm-vK-JVW"/>
+                            <constraint firstItem="vrW-IE-WXJ" firstAttribute="top" secondItem="OaT-pt-jhy" secondAttribute="bottom" constant="143" id="jua-dD-hxG"/>
+                            <constraint firstAttribute="trailing" secondItem="sp5-HK-0ZJ" secondAttribute="trailing" id="kKx-UC-zsN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sxf-gS-Yoc" secondAttribute="trailing" constant="82" id="klG-K6-oVg"/>
+                            <constraint firstItem="sp5-HK-0ZJ" firstAttribute="top" secondItem="sxf-gS-Yoc" secondAttribute="bottom" constant="65" id="mcB-ph-gfZ"/>
+                            <constraint firstItem="OaT-pt-jhy" firstAttribute="leading" secondItem="55K-X7-Vx3" secondAttribute="leading" constant="16" id="nf8-9l-KI5"/>
+                            <constraint firstItem="79j-YQ-1X3" firstAttribute="trailing" secondItem="55K-X7-Vx3" secondAttribute="trailingMargin" constant="16" id="oce-j8-uH0"/>
+                            <constraint firstItem="sxf-gS-Yoc" firstAttribute="centerX" secondItem="55K-X7-Vx3" secondAttribute="centerX" id="u7h-9E-HQU"/>
+                            <constraint firstItem="vrW-IE-WXJ" firstAttribute="centerX" secondItem="55K-X7-Vx3" secondAttribute="centerX" id="uyp-qB-9Mj"/>
+                            <constraint firstItem="sp5-HK-0ZJ" firstAttribute="top" secondItem="vrW-IE-WXJ" secondAttribute="bottom" constant="-52" id="w3N-vR-3Ib"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jT3-dM-Wx9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-70" y="266"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="blood_image1" width="800" height="800"/>
+        <image name="login_title" width="328" height="105"/>
+        <image name="main_icon" width="300" height="306"/>
+    </resources>
+</document>

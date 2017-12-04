@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "74E77F5C9EC7448D7D4D0527A48520B445F782BA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "74E77F5C9EC7448D7D4D0527A48520B445F782BA" : 9223372036854775807,
+    "78EAE0FEA483B61C07933D56330E57CF1F45EF85" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "AF863FAC-AB63-4462-BA07-375A997BA4A6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "74E77F5C9EC7448D7D4D0527A48520B445F782BA" : "HUDI-Mafia\/",
+    "78EAE0FEA483B61C07933D56330E57CF1F45EF85" : "..\/..\/..\/Applications\/HumanDesignProject\/2017-01-HUDI-MAC-CHAR"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "HUDI-Mafia",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "HUDI-Mafia.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Yongjai\/temporaryRepository.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "74E77F5C9EC7448D7D4D0527A48520B445F782BA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Yongjai\/2017-01-HUDI-MAC-CHAR.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "78EAE0FEA483B61C07933D56330E57CF1F45EF85"
+    }
+  ]
+}

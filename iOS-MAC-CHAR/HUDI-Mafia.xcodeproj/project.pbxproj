@@ -1,0 +1,654 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		174798A71FAB3A5300EFF50E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 174798A31FAB3A5200EFF50E /* LoginViewController.m */; };
+		174798A81FAB3A5300EFF50E /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 174798A61FAB3A5300EFF50E /* SignupViewController.m */; };
+		6120306F5BC4D9B4B6C6D548 /* libPods-HUDI-Mafia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE888AAF9A9640BF811D3375 /* libPods-HUDI-Mafia.a */; };
+		7C881DBC1EB601D60055395E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C881DBB1EB601D60055395E /* Assets.xcassets */; };
+		7CA4EAE01E9E0DE800342F93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4EADF1E9E0DE800342F93 /* main.m */; };
+		7CA4EAE31E9E0DE800342F93 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4EAE21E9E0DE800342F93 /* AppDelegate.m */; };
+		7CA4EAE61E9E0DE800342F93 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4EAE51E9E0DE800342F93 /* ViewController.m */; };
+		7CA4EAE91E9E0DE800342F93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CA4EAE71E9E0DE800342F93 /* Main.storyboard */; };
+		7CA4EAEE1E9E0DE800342F93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CA4EAEC1E9E0DE800342F93 /* LaunchScreen.storyboard */; };
+		7CA4EAF91E9E0DE900342F93 /* HUDI_MafiaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4EAF81E9E0DE900342F93 /* HUDI_MafiaTests.m */; };
+		7CA4EB041E9E0DE900342F93 /* HUDI_MafiaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4EB031E9E0DE900342F93 /* HUDI_MafiaUITests.m */; };
+		7CA4EB571EA07FCF00342F93 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4EB561EA07FCF00342F93 /* ChatViewController.m */; };
+		7CA4EB5A1EA0827300342F93 /* LobbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4EB591EA0827300342F93 /* LobbyViewController.m */; };
+		7CA4EB5D1EA082B800342F93 /* RoomListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4EB5C1EA082B800342F93 /* RoomListTableViewCell.m */; };
+		7CA4EBB21EA67A7300342F93 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4EBB11EA67A7300342F93 /* ChatTableViewCell.m */; };
+		7CB07E911ECB15F20047B69F /* UserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB07E901ECB15F20047B69F /* UserCollectionViewCell.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7CA4EAF51E9E0DE800342F93 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7CA4EAD31E9E0DE800342F93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7CA4EADA1E9E0DE800342F93;
+			remoteInfo = "HUDI-Mafia";
+		};
+		7CA4EB001E9E0DE900342F93 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7CA4EAD31E9E0DE800342F93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7CA4EADA1E9E0DE800342F93;
+			remoteInfo = "HUDI-Mafia";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		174798A31FAB3A5200EFF50E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		174798A41FAB3A5200EFF50E /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		174798A51FAB3A5300EFF50E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		174798A61FAB3A5300EFF50E /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
+		35C972D4523A0CE736F5F1C7 /* Pods-HUDI-Mafia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HUDI-Mafia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HUDI-Mafia/Pods-HUDI-Mafia.debug.xcconfig"; sourceTree = "<group>"; };
+		615EDEF31000ADF14FF13273 /* Pods-HUDI-Mafia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HUDI-Mafia.release.xcconfig"; path = "Pods/Target Support Files/Pods-HUDI-Mafia/Pods-HUDI-Mafia.release.xcconfig"; sourceTree = "<group>"; };
+		7C881DBB1EB601D60055395E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7CA4EADB1E9E0DE800342F93 /* HUDI-Mafia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HUDI-Mafia.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CA4EADF1E9E0DE800342F93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7CA4EAE11E9E0DE800342F93 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7CA4EAE21E9E0DE800342F93 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7CA4EAE41E9E0DE800342F93 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		7CA4EAE51E9E0DE800342F93 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		7CA4EAE81E9E0DE800342F93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7CA4EAED1E9E0DE800342F93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7CA4EAEF1E9E0DE800342F93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CA4EAF41E9E0DE800342F93 /* HUDI-MafiaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HUDI-MafiaTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CA4EAF81E9E0DE900342F93 /* HUDI_MafiaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HUDI_MafiaTests.m; sourceTree = "<group>"; };
+		7CA4EAFA1E9E0DE900342F93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CA4EAFF1E9E0DE900342F93 /* HUDI-MafiaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HUDI-MafiaUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CA4EB031E9E0DE900342F93 /* HUDI_MafiaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HUDI_MafiaUITests.m; sourceTree = "<group>"; };
+		7CA4EB051E9E0DE900342F93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CA4EB551EA07FCF00342F93 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		7CA4EB561EA07FCF00342F93 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		7CA4EB581EA0827300342F93 /* LobbyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyViewController.h; sourceTree = "<group>"; };
+		7CA4EB591EA0827300342F93 /* LobbyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LobbyViewController.m; sourceTree = "<group>"; };
+		7CA4EB5B1EA082B800342F93 /* RoomListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomListTableViewCell.h; sourceTree = "<group>"; };
+		7CA4EB5C1EA082B800342F93 /* RoomListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomListTableViewCell.m; sourceTree = "<group>"; };
+		7CA4EBB01EA67A7300342F93 /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
+		7CA4EBB11EA67A7300342F93 /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
+		7CB07E8F1ECB15F20047B69F /* UserCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCollectionViewCell.h; sourceTree = "<group>"; };
+		7CB07E901ECB15F20047B69F /* UserCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCollectionViewCell.m; sourceTree = "<group>"; };
+		AE888AAF9A9640BF811D3375 /* libPods-HUDI-Mafia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HUDI-Mafia.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7CA4EAD81E9E0DE800342F93 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6120306F5BC4D9B4B6C6D548 /* libPods-HUDI-Mafia.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CA4EAF11E9E0DE800342F93 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CA4EAFC1E9E0DE900342F93 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2700C61D4A135EC52B73E3AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AE888AAF9A9640BF811D3375 /* libPods-HUDI-Mafia.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		59F5CF0A65282C737B5631AC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				35C972D4523A0CE736F5F1C7 /* Pods-HUDI-Mafia.debug.xcconfig */,
+				615EDEF31000ADF14FF13273 /* Pods-HUDI-Mafia.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7CA4EAD21E9E0DE800342F93 = {
+			isa = PBXGroup;
+			children = (
+				7CA4EADD1E9E0DE800342F93 /* HUDI-Mafia */,
+				7CA4EAF71E9E0DE800342F93 /* HUDI-MafiaTests */,
+				7CA4EB021E9E0DE900342F93 /* HUDI-MafiaUITests */,
+				7CA4EADC1E9E0DE800342F93 /* Products */,
+				59F5CF0A65282C737B5631AC /* Pods */,
+				2700C61D4A135EC52B73E3AE /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7CA4EADC1E9E0DE800342F93 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7CA4EADB1E9E0DE800342F93 /* HUDI-Mafia.app */,
+				7CA4EAF41E9E0DE800342F93 /* HUDI-MafiaTests.xctest */,
+				7CA4EAFF1E9E0DE900342F93 /* HUDI-MafiaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7CA4EADD1E9E0DE800342F93 /* HUDI-Mafia */ = {
+			isa = PBXGroup;
+			children = (
+				174798A51FAB3A5300EFF50E /* LoginViewController.h */,
+				174798A31FAB3A5200EFF50E /* LoginViewController.m */,
+				174798A41FAB3A5200EFF50E /* SignupViewController.h */,
+				174798A61FAB3A5300EFF50E /* SignupViewController.m */,
+				7CA4EB581EA0827300342F93 /* LobbyViewController.h */,
+				7CA4EB591EA0827300342F93 /* LobbyViewController.m */,
+				7CA4EB5B1EA082B800342F93 /* RoomListTableViewCell.h */,
+				7CA4EB5C1EA082B800342F93 /* RoomListTableViewCell.m */,
+				7CA4EB551EA07FCF00342F93 /* ChatViewController.h */,
+				7CA4EB561EA07FCF00342F93 /* ChatViewController.m */,
+				7CA4EBB01EA67A7300342F93 /* ChatTableViewCell.h */,
+				7CA4EBB11EA67A7300342F93 /* ChatTableViewCell.m */,
+				7CB07E8F1ECB15F20047B69F /* UserCollectionViewCell.h */,
+				7CB07E901ECB15F20047B69F /* UserCollectionViewCell.m */,
+				7CA4EAE71E9E0DE800342F93 /* Main.storyboard */,
+				7C881DBB1EB601D60055395E /* Assets.xcassets */,
+				7CA4EAEC1E9E0DE800342F93 /* LaunchScreen.storyboard */,
+				7CA4EAEF1E9E0DE800342F93 /* Info.plist */,
+				7CA4EADE1E9E0DE800342F93 /* Supporting Files */,
+			);
+			path = "HUDI-Mafia";
+			sourceTree = "<group>";
+		};
+		7CA4EADE1E9E0DE800342F93 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7CA4EAE11E9E0DE800342F93 /* AppDelegate.h */,
+				7CA4EAE21E9E0DE800342F93 /* AppDelegate.m */,
+				7CA4EAE41E9E0DE800342F93 /* ViewController.h */,
+				7CA4EAE51E9E0DE800342F93 /* ViewController.m */,
+				7CA4EADF1E9E0DE800342F93 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7CA4EAF71E9E0DE800342F93 /* HUDI-MafiaTests */ = {
+			isa = PBXGroup;
+			children = (
+				7CA4EAF81E9E0DE900342F93 /* HUDI_MafiaTests.m */,
+				7CA4EAFA1E9E0DE900342F93 /* Info.plist */,
+			);
+			path = "HUDI-MafiaTests";
+			sourceTree = "<group>";
+		};
+		7CA4EB021E9E0DE900342F93 /* HUDI-MafiaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				7CA4EB031E9E0DE900342F93 /* HUDI_MafiaUITests.m */,
+				7CA4EB051E9E0DE900342F93 /* Info.plist */,
+			);
+			path = "HUDI-MafiaUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7CA4EADA1E9E0DE800342F93 /* HUDI-Mafia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CA4EB081E9E0DE900342F93 /* Build configuration list for PBXNativeTarget "HUDI-Mafia" */;
+			buildPhases = (
+				E4190CEC998AA574D038DB4A /* [CP] Check Pods Manifest.lock */,
+				7CA4EAD71E9E0DE800342F93 /* Sources */,
+				7CA4EAD81E9E0DE800342F93 /* Frameworks */,
+				7CA4EAD91E9E0DE800342F93 /* Resources */,
+				959B9E896EBCA4A5FEAB91B0 /* [CP] Embed Pods Frameworks */,
+				2E5A4D300026E29AD37AC4C7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HUDI-Mafia";
+			productName = "HUDI-Mafia";
+			productReference = 7CA4EADB1E9E0DE800342F93 /* HUDI-Mafia.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7CA4EAF31E9E0DE800342F93 /* HUDI-MafiaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CA4EB0B1E9E0DE900342F93 /* Build configuration list for PBXNativeTarget "HUDI-MafiaTests" */;
+			buildPhases = (
+				7CA4EAF01E9E0DE800342F93 /* Sources */,
+				7CA4EAF11E9E0DE800342F93 /* Frameworks */,
+				7CA4EAF21E9E0DE800342F93 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7CA4EAF61E9E0DE800342F93 /* PBXTargetDependency */,
+			);
+			name = "HUDI-MafiaTests";
+			productName = "HUDI-MafiaTests";
+			productReference = 7CA4EAF41E9E0DE800342F93 /* HUDI-MafiaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7CA4EAFE1E9E0DE900342F93 /* HUDI-MafiaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CA4EB0E1E9E0DE900342F93 /* Build configuration list for PBXNativeTarget "HUDI-MafiaUITests" */;
+			buildPhases = (
+				7CA4EAFB1E9E0DE900342F93 /* Sources */,
+				7CA4EAFC1E9E0DE900342F93 /* Frameworks */,
+				7CA4EAFD1E9E0DE900342F93 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7CA4EB011E9E0DE900342F93 /* PBXTargetDependency */,
+			);
+			name = "HUDI-MafiaUITests";
+			productName = "HUDI-MafiaUITests";
+			productReference = 7CA4EAFF1E9E0DE900342F93 /* HUDI-MafiaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7CA4EAD31E9E0DE800342F93 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = YongJai;
+				TargetAttributes = {
+					7CA4EADA1E9E0DE800342F93 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					7CA4EAF31E9E0DE800342F93 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 7CA4EADA1E9E0DE800342F93;
+					};
+					7CA4EAFE1E9E0DE900342F93 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 7CA4EADA1E9E0DE800342F93;
+					};
+				};
+			};
+			buildConfigurationList = 7CA4EAD61E9E0DE800342F93 /* Build configuration list for PBXProject "HUDI-Mafia" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7CA4EAD21E9E0DE800342F93;
+			productRefGroup = 7CA4EADC1E9E0DE800342F93 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7CA4EADA1E9E0DE800342F93 /* HUDI-Mafia */,
+				7CA4EAF31E9E0DE800342F93 /* HUDI-MafiaTests */,
+				7CA4EAFE1E9E0DE900342F93 /* HUDI-MafiaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7CA4EAD91E9E0DE800342F93 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CA4EAEE1E9E0DE800342F93 /* LaunchScreen.storyboard in Resources */,
+				7C881DBC1EB601D60055395E /* Assets.xcassets in Resources */,
+				7CA4EAE91E9E0DE800342F93 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CA4EAF21E9E0DE800342F93 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CA4EAFD1E9E0DE900342F93 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2E5A4D300026E29AD37AC4C7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HUDI-Mafia/Pods-HUDI-Mafia-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		959B9E896EBCA4A5FEAB91B0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HUDI-Mafia/Pods-HUDI-Mafia-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E4190CEC998AA574D038DB4A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7CA4EAD71E9E0DE800342F93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CA4EBB21EA67A7300342F93 /* ChatTableViewCell.m in Sources */,
+				7CA4EAE61E9E0DE800342F93 /* ViewController.m in Sources */,
+				7CA4EAE31E9E0DE800342F93 /* AppDelegate.m in Sources */,
+				7CA4EAE01E9E0DE800342F93 /* main.m in Sources */,
+				174798A81FAB3A5300EFF50E /* SignupViewController.m in Sources */,
+				7CA4EB5A1EA0827300342F93 /* LobbyViewController.m in Sources */,
+				174798A71FAB3A5300EFF50E /* LoginViewController.m in Sources */,
+				7CA4EB571EA07FCF00342F93 /* ChatViewController.m in Sources */,
+				7CA4EB5D1EA082B800342F93 /* RoomListTableViewCell.m in Sources */,
+				7CB07E911ECB15F20047B69F /* UserCollectionViewCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CA4EAF01E9E0DE800342F93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CA4EAF91E9E0DE900342F93 /* HUDI_MafiaTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CA4EAFB1E9E0DE900342F93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CA4EB041E9E0DE900342F93 /* HUDI_MafiaUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7CA4EAF61E9E0DE800342F93 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7CA4EADA1E9E0DE800342F93 /* HUDI-Mafia */;
+			targetProxy = 7CA4EAF51E9E0DE800342F93 /* PBXContainerItemProxy */;
+		};
+		7CA4EB011E9E0DE900342F93 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7CA4EADA1E9E0DE800342F93 /* HUDI-Mafia */;
+			targetProxy = 7CA4EB001E9E0DE900342F93 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7CA4EAE71E9E0DE800342F93 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7CA4EAE81E9E0DE800342F93 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7CA4EAEC1E9E0DE800342F93 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7CA4EAED1E9E0DE800342F93 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7CA4EB061E9E0DE900342F93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7CA4EB071E9E0DE900342F93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7CA4EB091E9E0DE900342F93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35C972D4523A0CE736F5F1C7 /* Pods-HUDI-Mafia.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = "HUDI-Mafia/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.nhnnext.HUDI-Mafia";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7CA4EB0A1E9E0DE900342F93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 615EDEF31000ADF14FF13273 /* Pods-HUDI-Mafia.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = "HUDI-Mafia/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.nhnnext.HUDI-Mafia";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		7CA4EB0C1E9E0DE900342F93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "HUDI-MafiaTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.nhnnext.HUDI-MafiaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HUDI-Mafia.app/HUDI-Mafia";
+			};
+			name = Debug;
+		};
+		7CA4EB0D1E9E0DE900342F93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "HUDI-MafiaTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.nhnnext.HUDI-MafiaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HUDI-Mafia.app/HUDI-Mafia";
+			};
+			name = Release;
+		};
+		7CA4EB0F1E9E0DE900342F93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "HUDI-MafiaUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.nhnnext.HUDI-MafiaUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "HUDI-Mafia";
+			};
+			name = Debug;
+		};
+		7CA4EB101E9E0DE900342F93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "HUDI-MafiaUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.nhnnext.HUDI-MafiaUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "HUDI-Mafia";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7CA4EAD61E9E0DE800342F93 /* Build configuration list for PBXProject "HUDI-Mafia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CA4EB061E9E0DE900342F93 /* Debug */,
+				7CA4EB071E9E0DE900342F93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CA4EB081E9E0DE900342F93 /* Build configuration list for PBXNativeTarget "HUDI-Mafia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CA4EB091E9E0DE900342F93 /* Debug */,
+				7CA4EB0A1E9E0DE900342F93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CA4EB0B1E9E0DE900342F93 /* Build configuration list for PBXNativeTarget "HUDI-MafiaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CA4EB0C1E9E0DE900342F93 /* Debug */,
+				7CA4EB0D1E9E0DE900342F93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CA4EB0E1E9E0DE900342F93 /* Build configuration list for PBXNativeTarget "HUDI-MafiaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CA4EB0F1E9E0DE900342F93 /* Debug */,
+				7CA4EB101E9E0DE900342F93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7CA4EAD31E9E0DE800342F93 /* Project object */;
+}

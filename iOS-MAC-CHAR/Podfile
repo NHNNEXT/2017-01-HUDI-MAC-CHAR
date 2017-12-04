@@ -1,4 +1,7 @@
-target 'Mafia’ do
+target ‘HUDI-Mafia’ do
 pod 'WebsocketStompKit', :git => 'https://github.com/rguldener/WebsocketStompKit.git'
 pod 'SocketRocket’, :git => ‘https://github.com/facebook/SocketRocket.git'
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+pod 'AFNetworking', '~> 3.0'
 end
