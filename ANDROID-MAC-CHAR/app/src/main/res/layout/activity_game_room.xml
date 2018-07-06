@@ -15,9 +15,11 @@
     sothree:umanoShadowHeight="4dp">
 
     <RelativeLayout
+        android:id="@+id/room_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_night"
+        android:background="@drawable/background_noon"
+
         tools:context="com.zimincom.mafiaonline.activity.GameRoomActivity">
 
 
@@ -28,23 +30,6 @@
             android:background="?attr/colorPrimary">
 
         </android.support.v7.widget.Toolbar>
-
-        <!--<ScrollView-->
-            <!--android:id="@+id/message_scroll"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_below="@id/toolBar">-->
-
-            <!--<LinearLayout-->
-                <!--android:id="@+id/messages_container"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="bottom"-->
-                <!--android:layout_margin="30dp"-->
-                <!--android:orientation="vertical">-->
-
-            <!--</LinearLayout>-->
-        <!--</ScrollView>-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/messages_container"
@@ -58,9 +43,14 @@
             android:id="@+id/timer_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/message_scroll"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@+id/messages_container"
+            android:layout_margin="10dp"
+            android:padding="10dp"
             android:onClick="setTimer"
+            android:background="@drawable/round_timer_background"
             android:text="00:00"
+            android:textSize="20dp"
             android:textColor="#ffffff" />
 
 

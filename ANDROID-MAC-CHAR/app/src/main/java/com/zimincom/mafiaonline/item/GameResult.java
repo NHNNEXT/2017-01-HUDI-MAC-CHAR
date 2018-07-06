@@ -12,6 +12,7 @@ public class GameResult {
     private String msg;
     private boolean isFinished;
     private boolean completeVote;
+    private String roleString;
 
     public String getMsg() {
         return msg;
@@ -27,5 +28,9 @@ public class GameResult {
                 ", isFinished=" + isFinished +
                 ", completeVote=" + completeVote +
                 '}';
+    }
+
+    public String getRoleMsg() {
+        return roleString;
     }
 }

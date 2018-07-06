@@ -41,7 +41,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (messages.get(position).userName.equals(userName)) {
             holder.chatLayout.setToMyMessage();
-            holder.chatLayout.setGravity(Gravity.END);
+            holder.chatLayout.setGravity(Gravity.RIGHT);
         }
         holder.chatLayout.setName(messages.get(position).userName);
         holder.chatLayout.setMessage(messages.get(position).content);

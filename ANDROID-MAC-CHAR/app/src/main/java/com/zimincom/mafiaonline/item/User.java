@@ -14,7 +14,7 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String nickname;
-    private Role role = Role.CITIZEN;
+    private Role role;
     private Status status;
     private boolean isReady = false;
     private boolean isVoted = false;

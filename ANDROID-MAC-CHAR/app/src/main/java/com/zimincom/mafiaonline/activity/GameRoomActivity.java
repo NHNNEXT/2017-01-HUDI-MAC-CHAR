@@ -17,14 +17,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-import com.zimincom.mafiaonline.layout.ChatLayout;
-import com.zimincom.mafiaonline.tasks.GameTimerTask;
 import com.zimincom.mafiaonline.R;
 import com.zimincom.mafiaonline.adapter.MessageAdapter;
 import com.zimincom.mafiaonline.adapter.PlayerAdapter;
@@ -40,6 +39,7 @@ import com.zimincom.mafiaonline.item.User;
 import com.zimincom.mafiaonline.item.VoteMessage;
 import com.zimincom.mafiaonline.remote.MafiaRemoteService;
 import com.zimincom.mafiaonline.remote.ServiceGenerator;
+import com.zimincom.mafiaonline.tasks.GameTimerTask;
 
 import org.java_websocket.WebSocket;
 
@@ -63,24 +63,16 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     final public String socketLink = MafiaRemoteService.SOCKET_URL;
     Gson gson;
 
-    @BindView(R.id.toolBar)
-    Toolbar toolbar;
-    @BindView(R.id.send_button)
-    Button sendButton;
-    @BindView(R.id.slide)
-    Button slideButton;
-    @BindView(R.id.message_input)
-    EditText messageInput;
-    @BindView(R.id.timer_view)
-    TextView timer;
-    @BindView(R.id.messages_container)
-    RecyclerView messageContainer;
-    @BindView(R.id.sliding_layout)
-    SlidingUpPanelLayout slidingLayout;
-    @BindView(R.id.player_list)
-    RecyclerView playerListView;
-    @BindView(R.id.info_message)
-    TextView infoText;
+    @BindView(R.id.toolBar) Toolbar toolbar;
+    @BindView(R.id.send_button) Button sendButton;
+    @BindView(R.id.slide) Button slideButton;
+    @BindView(R.id.message_input) EditText messageInput;
+    @BindView(R.id.timer_view) TextView timer;
+    @BindView(R.id.messages_container) RecyclerView messageContainer;
+    @BindView(R.id.sliding_layout) SlidingUpPanelLayout slidingLayout;
+    @BindView(R.id.player_list) RecyclerView playerListView;
+    @BindView(R.id.info_message) TextView infoText;
+    @BindView(R.id.room_content) RelativeLayout roomContent;
 
     Intent intent;
     String roomId;
@@ -88,16 +80,19 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     String gameState;
     GameConfig.GameState stage;
     User user;
+    boolean isGameStarted = false;
+
     ArrayList<User> users;
     ArrayList<MessageItem> messages;
-    PlayerAdapter playerAdapter;
-    MessageAdapter messageAdapter;
     ArrayList<GameConfig> gConfigs;
 
-    int gameTime = 0;
-    boolean isGameStarted = false;
+    PlayerAdapter playerAdapter;
+    MessageAdapter messageAdapter;
+
     MafiaRemoteService mafiaRemoteService;
     MediaPlayer bgm;
+    GameTimerTask gameTimerTask;
+    Timer mTimer;
 
     private StompClient mStompClient;
 
@@ -130,6 +125,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         bgm.setLooping(true);
         bgm.start();
 
+        mTimer = new Timer();
+
         gConfigs = new ArrayList<>();
         gConfigs.add(new GameConfig(5, GameConfig.GameState.WAITING, "시작 대기중입니다."));
         gConfigs.add(new GameConfig(60, GameConfig.GameState.DAY, "의심되는 플레이어를 선택하세요"));
@@ -147,20 +144,8 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
         enterRoom(roomId);
 
-        playerAdapter = new PlayerAdapter(getBaseContext(), users, R.layout.item_player, userName, " ", gameHandler);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getBaseContext(), 4);
-        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-        playerListView.setLayoutManager(gridLayoutManager);
-        playerListView.setItemAnimator(new DefaultItemAnimator());
-        playerListView.setAdapter(playerAdapter);
-
-
-        messageAdapter = new MessageAdapter(getBaseContext(), messages, R.layout.my_chat, userName);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
-        messageContainer.setLayoutManager(linearLayoutManager);
-        messageContainer.setItemAnimator(new DefaultItemAnimator());
-        messageContainer.setAdapter(messageAdapter);
-
+        initPlayerListView(users);
+        initMessageView();
 
         slidingLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
@@ -192,11 +177,31 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         leaveRoom();
     }
 
+    private void initPlayerListView(ArrayList<User> users) {
+        Logger.d("players init start");
+        playerAdapter = new PlayerAdapter(getBaseContext(), users, R.layout.item_player, userName, " ", gameHandler);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getBaseContext(), 4);
+        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        playerListView.setLayoutManager(gridLayoutManager);
+        playerListView.setItemAnimator(new DefaultItemAnimator());
+        playerListView.setAdapter(playerAdapter);
+        Logger.d("players init done");
+    }
+
+    private void initMessageView() {
+        Logger.d("message init start");
+        messageAdapter = new MessageAdapter(getBaseContext(), messages, R.layout.my_chat, userName);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager.setStackFromEnd(true);
+        messageContainer.setLayoutManager(linearLayoutManager);
+        messageContainer.setItemAnimator(new DefaultItemAnimator());
+        messageContainer.setAdapter(messageAdapter);
+        Logger.d("message init done");
+    }
+
     private void subscribeSockets() {
         mStompClient.topic("/from/chat/" + roomId)
                 .subscribe(message -> runOnUiThread(() -> {
-                    ChatLayout chatLayout = new ChatLayout(getBaseContext());
-                    //change to recycler
                     MessageItem messageItem =
                             gson.fromJson(message.getPayload(), MessageItem.class);
                     messageAdapter.addMessage(messageItem);
@@ -236,15 +241,17 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
         mStompClient.topic("/from/gameStart/" + roomId + "/" + userName)
                 .subscribe(message -> runOnUiThread(() -> {
+                    isGameStarted = true;
                     String role = message.getPayload().trim();
-                    Logger.d(role);
                     user.setRoleTo(role);
                     String roleMessage = "당신의 직업은 " + role + "입니다";
-                    infoText.setText(roleMessage);
+                    Toast.makeText(getBaseContext(), roleMessage, Toast.LENGTH_LONG).show();
                     //게임 타이머 시작
                     gameHandler.sendEmptyMessage(GameTimerTask.PHASE_CHANGE);
+                    playerAdapter.showMyRoleTo(role);
                     //게임상태를 낮으로. String 이 아니라 다른것이 필요 .
                     playerAdapter.setState("day");
+                    playerAdapter.notifyDataSetChanged();
 
                 }));
 
@@ -256,11 +263,17 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
         mStompClient.topic("/from/vote/" + roomId)
                 .subscribe(message -> runOnUiThread(() -> {
                     GameResult gameResult = gson.fromJson(message.getPayload(), GameResult.class);
-                 //  killPlayer(gameResult.getMsg());
-                    Logger.d("killedPlayer: %s", gameResult.getMsg());
-                    if (gameResult.isFinished()) {
-                        Toast.makeText(getBaseContext(), "게임이 끝났습니다", Toast.LENGTH_SHORT).show();
-                        return;//how to end game and prepare next game?
+                    if (gameResult.getMsg().equals("시민이 승리하였습니다.")) {
+                        Toast.makeText(getBaseContext(), "마지막 마피아가 죽었습니다! \n 시민이 승리하였습니다.", Toast.LENGTH_LONG).show();
+                        stopGame();
+                        isGameStarted = false;
+                        infoText.setText(gameResult.getRoleMsg());
+                    } else if (gameResult.getMsg().equals("마피아가 승리하였습니다")) {
+                        Toast.makeText(getBaseContext(), "시민의 힘이 부족합니다! 마피아가 승리하였습니다.", Toast.LENGTH_LONG).show();
+                        stopGame();
+                        infoText.setText(gameResult.getRoleMsg());
+                        isGameStarted = false;
+                        return;
                     }
                     playerAdapter.killByNickName(gameResult.getMsg());
                 }));
@@ -272,9 +285,10 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                 }));
     }
 
-//    private void killPlayer(String votedNickname) {
-//        Logger.d("killed " + votedNickname);
-//    }
+    private void stopGame() {
+        mTimer.cancel();
+    }
+
 
     private void send(String message) {
         mStompClient.send("/to/chat/" + roomId,
@@ -282,9 +296,7 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void startTimer(int time) {
-
         GameTimerTask gameTimerTask = new GameTimerTask(time, gameHandler);
-        Timer mTimer = new Timer();
         mTimer.schedule(gameTimerTask, 0, 1000);
     }
 
@@ -302,11 +314,18 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
                 if (!votedUser.equals("")) {
                     Logger.d("send vote info");
                     sendVoteInfo(votedUser);
-                } else if (user.getRole() == User.Role.POLICE) {
+                } else if (user.getRole() == User.Role.POLICE && stage == GameConfig.GameState.NIGHT) {
                     Logger.d("send investigation");
                     requestInvestigation(votedUser);
                 }
                 stage = gConfigs.get(phaseNum).getGameState();
+
+                if (stage == GameConfig.GameState.DAY) {
+                    roomContent.setBackgroundResource(R.drawable.background_noon);
+                } else if (stage == GameConfig.GameState.NIGHT) {
+                    roomContent.setBackgroundResource(R.drawable.background_night);
+                }
+
                 startTimer(gConfigs.get(phaseNum).getGameTime());
                 infoText.setText(gConfigs.get(phaseNum).getGameMessage());
                 phaseNum++;
@@ -427,10 +446,13 @@ public class GameRoomActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
         if (!isGameStarted) {
             leaveRoom();
+            super.onBackPressed();
         } else {
+            if (slidingLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED)
+                slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             Toast.makeText(getBaseContext(), "게임중에는 나갈 수 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }
